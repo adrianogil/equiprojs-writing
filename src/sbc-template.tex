@@ -77,12 +77,37 @@ Para o desenvolvimento de aplicações VR, o motor e editor gráfico \textit{Unity}
 % TODO: Proposta
 Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity}.
 
-% TODO: Estrutura do artigo
+% TOREPHRASE: Estrutura do artigo
 Na seção \ref{sec:relatedworks} analisamos alguns trabalhos que descrevem o compromisso de formato/qualidade para imagens 360 e que avaliam a qualidade de imagem 360 utilizando métricas objetivas. Os diferentes formatos e projeções utilizadas foram descritas na seção \ref{sec:imageprojection}. As métricas objetivas adotadas por este trabalho foram compiladas na seção \ref{sec:metrics}. Na seção \ref{sec:unitytool} é feita uma descrição detalhada da nossa implementação. Resultados são discutidos na seção \ref{sec:results}. Por fim, as conclusões e perspectivas de trabalhos futuros são mencionadas na seção \ref{sec:conclusion}.
 
 \section{Trabalhos Relacionados} \label{sec:relatedworks}
+
+% TODO: Criar Aplicações em VR é sobre como preencher o espaço em 3D. Exemplos.
+Aplicações VR diferenciam-se de outras aplicações pela preocupação em preencher o espaço tridimensional de forma a fornecer conteúdo para todos os pontos de vista possíveis.
+
+% TODO: métricas que avaliam qualidade de imagem
+% - Tipos de métricas
+% --- Métricas subjetivas
+% --- Métricas objetivas
+
+
+
+% TODO: Trabalhos que avaliam métricas em videos/imagens 360
+
+
 \section{Projeção de Imagens 360 como Mapeamento de UV}  \label{sec:imageprojection}
-\subsection{Mapeamento de Imagens Equiretangulares}
+
+Exibir imagens 360 significa preencher completamente o campo de visão do usuário, ou seja, prover conteúdo visual em 360 graus. Considerando o formato de imagem equiretangular, algumas possibilidades são listadas abaixo:
+
+\begin{enumerate}
+  \begin{item}Utilizar um \textit{Mesh} em formato de esfera para exibir a imagem equiretangular em seu interior\end{item}
+  \begin{item}Utilizar o \textit{skybox} para renderizar a imagem 360 como pano de fundo.\end{item}
+  \begin{item}Mapear a imagem 360 em posições de UV de um \textit{Mesh} em formato cúbico.\end{item}
+\end{enumerate}
+
+% Estrutura das subseções
+
+\subsection{Mapeamento de Imagens Equiretangulares em uma Esfera}
 
 A ilusão em um mundo virtual e consequente sensação de imersão requerem material visual disponível em todos os ângulos possíveis, uma vez que o gearVR possibilita completa liberdade de rotação, ou seja, 3 graus de liberdade (3DoF - \textit{3 Degrees of Freedom}). Tendo em vista que a proposta deste artigo contempla um jogo essencialmente 2D, tal como o \textit{Snake} original, tem-se o desafio de exibir conteúdo bidimensional em um cenário 3D de forma que tudo aconteça ao redor do usuário.
 
@@ -174,8 +199,22 @@ z_{i} = 2 * \sin(\alpha_{latitude}) * \cos(\alpha_{longitude})
 \label{equation10}
 \end{equation}
 
-\subsection{Visualização de um Cubemap}
+\subsection{Visualização em um Skybox}
+
+% Definir Skybox
+
+
+% Como mapear a direção de visualização para posições de UV
+
+
+% Mapeamento de uma esfera contínua
+
+
 \subsection{Mapeamento Cubemap a partir de Imagens Equiretangulares}
+
+
+Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um Skybox.
+
 
 \section{Métricas de Qualidades de Imagens 360}  \label{sec:metrics}
 
@@ -188,7 +227,6 @@ z_{i} = 2 * \sin(\alpha_{latitude}) * \cos(\alpha_{longitude})
 Nossa implementação proposta envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela Unity.
 
 
-
 \section{Resultados}  \label{sec:results}
 
 
@@ -199,112 +237,6 @@ Nossa implementação proposta envolve uma camada de configuração em C\# na Unity 
 % TODO: Comentar resultados obtidos com as métricas
 
 % TODO: Qual o valor de uma ferramenta de qualidade de imagens para o editor da Unity 
-
-% \section{General Information}
-
-% All full papers and posters (short papers) submitted to some SBC conference,
-% including any supporting documents, should be written in English or in
-% Portuguese. The format paper should be A4 with single column, 3.5 cm for upper
-% margin, 2.5 cm for bottom margin and 3.0 cm for lateral margins, without
-% headers or footers. The main font must be Times, 12 point nominal size, with 6
-% points of space before each paragraph. Page numbers must be suppressed.
-
-% Full papers must respect the page limits defined by the conference.
-% Conferences that publish just abstracts ask for \textbf{one}-page texts.
-
-% \section{First Page} \label{sec:firstpage}
-
-% The first page must display the paper title, the name and address of the
-% authors, the abstract in English and ``resumo'' in Portuguese (``resumos'' are
-% required only for papers written in Portuguese). The title must be centered
-% over the whole page, in 16 point boldface font and with 12 points of space
-% before itself. Author names must be centered in 12 point font, bold, all of
-% them disposed in the same line, separated by commas and with 12 points of
-% space after the title. Addresses must be centered in 12 point font, also with
-% 12 points of space after the authors' names. E-mail addresses should be
-% written using font Courier New, 10 point nominal size, with 6 points of space
-% before and 6 points of space after.
-
-% The abstract and ``resumo'' (if is the case) must be in 12 point Times font,
-% indented 0.8cm on both sides. The word \textbf{Abstract} and \textbf{Resumo},
-% should be written in boldface and must precede the text.
-
-% \section{CD-ROMs and Printed Proceedings}
-
-% In some conferences, the papers are published on CD-ROM while only the
-% abstract is published in the printed Proceedings. In this case, authors are
-% invited to prepare two final versions of the paper. One, complete, to be
-% published on the CD and the other, containing only the first page, with
-% abstract and ``resumo'' (for papers in Portuguese).
-
-% \section{Sections and Paragraphs}
-
-% Section titles must be in boldface, 13pt, flush left. There should be an extra
-% 12 pt of space before each title. Section numbering is optional. The first
-% paragraph of each section should not be indented, while the first lines of
-% subsequent paragraphs should be indented by 1.27 cm.
-
-% \subsection{Subsections}
-
-% The subsection titles must be in boldface, 12pt, flush left.
-
-% \section{Figures and Captions}\label{sec:figs}
-
-
-% Figure and table captions should be centered if less than one line
-% (Figure~\ref{fig:exampleFig1}), otherwise justified and indented by 0.8cm on
-% both margins, as shown in Figure~\ref{fig:exampleFig2}. The caption font must
-% be Helvetica, 10 point, boldface, with 6 points of space before and after each
-% caption.
-
-% \begin{figure}[ht]
-% \centering
-% \includegraphics[width=.5\textwidth]{fig1.jpg}
-% \caption{A typical figure}
-% \label{fig:exampleFig1}
-% \end{figure}
-
-% \begin{figure}[ht]
-% \centering
-% \includegraphics[width=.3\textwidth]{fig2.jpg}
-% \caption{This figure is an example of a figure caption taking more than one
-%   line and justified considering margins mentioned in Section~\ref{sec:figs}.}
-% \label{fig:exampleFig2}
-% \end{figure}
-
-% In tables, try to avoid the use of colored or shaded backgrounds, and avoid
-% thick, doubled, or unnecessary framing lines. When reporting empirical data,
-% do not use more decimal digits than warranted by their precision and
-% reproducibility. Table caption must be placed before the table (see Table 1)
-% and the font used must also be Helvetica, 10 point, boldface, with 6 points of
-% space before and after each caption.
-
-% \begin{table}[ht]
-% \centering
-% \caption{Variables to be considered on the evaluation of interaction
-%   techniques}
-% \label{tab:exTable1}
-% \includegraphics[width=.7\textwidth]{table.jpg}
-% \end{table}
-
-% \section{Images}
-
-% All images and illustrations should be in black-and-white, or gray tones,
-% excepting for the papers that will be electronically available (on CD-ROMs,
-% internet, etc.). The image resolution on paper should be about 600 dpi for
-% black-and-white images, and 150-300 dpi for grayscale images.  Do not include
-% images with excessive resolution, as they may take hours to print, without any
-% visible difference in the result. 
-
-% \section{References}
-
-% Bibliographic references must be unambiguous and uniform.  We recommend giving
-% the author names references in brackets, e.g. \cite{knuth:84},
-% \cite{boulic:91}, and \cite{smith:99}.
-
-% The references must be listed using 12 point font size, with 6 points of space
-% before each reference. The first line of each reference should not be
-% indented, while the subsequent should be indented by 0.5 cm.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
