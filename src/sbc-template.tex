@@ -46,10 +46,42 @@
 
 \section{Introdução}
 
-Imagens 360 trazem a ilusão de uma completa visão a partir de um único ponto. 
+% TOREVIEW: Contextualização - Imagens 360
+%   - O que são imagens 360
+%   --- Possibilidade de revisitar um momento do espaço tempo
+%   - Câmeras 360
+%   - Formatos
+%   - Como essas imagens são consumidas
+Imagens 360 são uma captura completa do entorno, trazendo a ilusão de uma completa visão a partir de um único ponto. Câmeras 360 possuem a funcionalidade de registrar. Atualmente, existem diversos formatos possíveis para imagens 360, sendo um dos mais adotados, o formato equiretangular. Capturas 360 são geralmente compartilhadas em mídias sociais, onde através de movimentos gestuais é possível navegar na imagem. Aplicações de Realidade Virtual trazem a possibilidade de uma visão mais imersiva de imagens 360, permitindo ao usuário a sensação de estar dentro da imagem.
 
-\section{Trabalhos Relacionados}
-\section{Projeção de Imagens 360 como Mapeamento de UV}
+% TOREVIEW: Realidade Virtual e displays
+Recentemente, dispositivos de realidade virtual (VR, sigla inglês para \textit{Virtual Reality}) se tornaram acessíveis para uma grande parte da população. Neste tipo de aparelho, um mundo virtual é renderizado de maneira estéreo, ou seja, com uma visão para cada olho, passando assim a sensação de profundidade e maior presença em um ambiente virtual. A tecnologia por trás dos displays VR tem evoluido muito, porém esbarram na necessidade de oferecer uma grande densidade de pixels por grau de campo de visão. Segundo [?], o olho humano possui uma resolução estimada de 60 pixels por grau, ou seja, um aparelho modesto de 100 graus de campo de visão deveria prover uma resolução de 6K para fornecer uma ilusão espacial mais realista possível.
+
+% TODO: Visualizadores de imagens 360
+% - Aplicações de visualização simulação a visualização do conteúdo envelopado numa esfera
+% - Problemas
+% --- Tamanho do formato
+% --- Diferentes formatos possuem variados graus de distorção e resolução ao longo da direção visual
+Aplicações de visualização simulação a visualização do conteúdo envelopado numa esfera, ou seja, como se o conteúdo visual estivesse disposto ao redor do usuário, preenchendo completamente o seu campo visual, como no caso das aplicações \textit{VR}.
+
+
+% Qualidade de imagem 360
+% - Parâmetros de configuração
+% - Necessidade de uma ferramenta para comparar diferentes sets de configuração
+Ao escolher um formato e resolução para uma imagens 360, é necessário levar em conta qual dispositivo essa será exibida. Assim acaba sendo mandatório, um contínuo ciclo de ajuste e teste no dispositivo até que seja possível encontrar as configurações ideais. O que gera assim a necessidade de uma ferramenta que possa simular e comparar diferentes configurações de imagem e de dispositivo afim de permitir uma escolha mais bem informada.
+
+
+% TODO: Unity como ferramenta default para desenvolver VR apps
+Para o desenvolvimento de aplicações VR, o motor e editor gráfico \textit{Unity} situa-se como peça de extrema relevância dadas a sua facilidade de aprendizado e incomplexidade no processo de desenvolvimento, além da possibilidade de criação de jogos e aplicações para consoles, plataformas móveis e dispositivos de realidade virtual e aumentada.
+
+% TODO: Proposta
+Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity}.
+
+% TODO: Estrutura do artigo
+Na seção \ref{sec:relatedworks} analisamos alguns trabalhos que descrevem o compromisso de formato/qualidade para imagens 360 e que avaliam a qualidade de imagem 360 utilizando métricas objetivas. Os diferentes formatos e projeções utilizadas foram descritas na seção \ref{sec:imageprojection}. As métricas objetivas adotadas por este trabalho foram compiladas na seção \ref{sec:metrics}. Na seção \ref{sec:unitytool} é feita uma descrição detalhada da nossa implementação. Resultados são discutidos na seção \ref{sec:results}. Por fim, as conclusões e perspectivas de trabalhos futuros são mencionadas na seção \ref{sec:conclusion}.
+
+\section{Trabalhos Relacionados} \label{sec:relatedworks}
+\section{Projeção de Imagens 360 como Mapeamento de UV}  \label{sec:imageprojection}
 \subsection{Mapeamento de Imagens Equiretangulares}
 
 A ilusão em um mundo virtual e consequente sensação de imersão requerem material visual disponível em todos os ângulos possíveis, uma vez que o gearVR possibilita completa liberdade de rotação, ou seja, 3 graus de liberdade (3DoF - \textit{3 Degrees of Freedom}). Tendo em vista que a proposta deste artigo contempla um jogo essencialmente 2D, tal como o \textit{Snake} original, tem-se o desafio de exibir conteúdo bidimensional em um cenário 3D de forma que tudo aconteça ao redor do usuário.
@@ -62,12 +94,13 @@ Uma esfera invertida, ou seja, uma esfera que tenha apenas seu lado interno rend
 
 \begin{figure}[!tbp]
   \centering
-  \begin{minipage}[b]{0.35\textwidth}
+  \begin{minipage}[b]{0.39\textwidth}
     \includegraphics[width=\textwidth]{../images/tone_plane.png}
     \caption{Representação das UVs em uma imagem equiretangular.}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.45\textwidth}
+    \centering
     \includegraphics[width=0.6\textwidth]{../images/tone_sphere.png}
     \caption{Mapeamento de UV de uma imagem equiretangular para uma esfera.}
   \end{minipage}
@@ -141,11 +174,31 @@ z_{i} = 2 * \sin(\alpha_{latitude}) * \cos(\alpha_{longitude})
 \label{equation10}
 \end{equation}
 
-\subsection{Imagens Equiretangulares Projetada em um Cubemap}
-\section{Métricas de Qualidades de Imagens 360}
-\section{Implementação de Ferramenta no Editor Unity}
-\section{Resultados}
-\section{Conclusão}
+\subsection{Visualização de um Cubemap}
+\subsection{Mapeamento Cubemap a partir de Imagens Equiretangulares}
+
+\section{Métricas de Qualidades de Imagens 360}  \label{sec:metrics}
+
+% TODO: Listar métricas utilizadas no artigo
+
+% TODO: Subsection para cada métrica. Exemplificar com screenshots.
+
+\section{Implementação de Ferramenta no Editor Unity}  \label{sec:unitytool}
+
+Nossa implementação proposta envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela Unity.
+
+
+
+\section{Resultados}  \label{sec:results}
+
+
+\section{Conclusão}  \label{sec:conclusion}
+
+% TODO: Sintetizar o desenvolvimento da proposta
+
+% TODO: Comentar resultados obtidos com as métricas
+
+% TODO: Qual o valor de uma ferramenta de qualidade de imagens para o editor da Unity 
 
 % \section{General Information}
 
