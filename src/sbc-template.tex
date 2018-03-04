@@ -85,11 +85,12 @@ Na seção \ref{sec:relatedworks} analisamos alguns trabalhos que descrevem o comp
 % TODO: Criar Aplicações em VR é sobre como preencher o espaço em 3D. Exemplos.
 Aplicações VR diferenciam-se de outras aplicações pela preocupação em preencher o espaço tridimensional de forma a fornecer conteúdo para todos os pontos de vista possíveis.
 
+% TODO: Ferramentas Unity
+
 % TODO: métricas que avaliam qualidade de imagem
 % - Tipos de métricas
 % --- Métricas subjetivas
 % --- Métricas objetivas
-
 
 
 % TODO: Trabalhos que avaliam métricas em videos/imagens 360
@@ -101,13 +102,17 @@ Exibir imagens 360 significa preencher completamente o campo de visão do usuário
 
 \begin{enumerate}
   \begin{item}Utilizar um \textit{Mesh} em formato de esfera para exibir a imagem equiretangular em seu interior\end{item}
-  \begin{item}Utilizar o \textit{skybox} para renderizar a imagem 360 como pano de fundo.\end{item}
+  \begin{item}Utilizar o \textit{Skybox} para renderizar a imagem 360 como pano de fundo.\end{item}
   \begin{item}Mapear a imagem 360 em posições de UV de um \textit{Mesh} em formato cúbico.\end{item}
 \end{enumerate}
 
-% Estrutura das subseções
+Cada formato, possui suas vantagens e desvantagens em termos de resolução oferecida por direção angular e geração de distorção ao longo da visualização.
 
-\subsection{Mapeamento de Imagens Equiretangulares em uma Esfera}
+% Estrutura das subseções
+Nas subseções seguintes serão detalhados os cálculos necessários para a implementação do mapeamento equiretangular na esfera (subseção \ref{subsec:equimap}), visualização da imagem 360 em um skybox (subseção \ref{subsec:skyboxviz}) e mapeamento \textit{Cubemap} de uma image equiretangular (subseção \ref{subsec:equicubemap}).
+
+
+\subsection{Mapeamento de Imagens Equiretangulares em uma Esfera} \label{subsec:equimap}
 
 A ilusão em um mundo virtual e consequente sensação de imersão requerem material visual disponível em todos os ângulos possíveis, uma vez que o gearVR possibilita completa liberdade de rotação, ou seja, 3 graus de liberdade (3DoF - \textit{3 Degrees of Freedom}). Tendo em vista que a proposta deste artigo contempla um jogo essencialmente 2D, tal como o \textit{Snake} original, tem-se o desafio de exibir conteúdo bidimensional em um cenário 3D de forma que tudo aconteça ao redor do usuário.
 
@@ -199,21 +204,22 @@ z_{i} = 2 * \sin(\alpha_{latitude}) * \cos(\alpha_{longitude})
 \label{equation10}
 \end{equation}
 
-\subsection{Visualização em um Skybox}
+\subsection{Visualização em um Skybox} \label{subsec:skyboxviz}
 
 % Definir Skybox
-
+Um \textit{Skybox} define o conteúdo a ser renderizado no fundo de uma visualização gráfica de um ambiente virtual em 3D.
 
 % Como mapear a direção de visualização para posições de UV
-
+% TODO: Explicar o uso do termo fragmento
+No processo de rasterização do conteúdo de fundo, é necessário obter uma coordenada de UV para cada pixel (ou fragmento) exibido na tela.
 
 % Mapeamento de uma esfera contínua
+Assim, enquanto a abordagem discutida na subseção \ref{subsec:equimap} define uma projeção de coordenadas de UVs para posições no espaço 3D, a abordagem utilizando \textit{Skybox} segue um método inverso: a partir de posições normalizadas no espaço 3D busca encontrar coordenadas de UV equivalentes de maneira contínua em termos de possibilidade de direção de visualização.
+
+\subsection{Mapeamento Cubemap a partir de Imagens Equiretangulares} \label{subsec:equicubemap}
 
 
-\subsection{Mapeamento Cubemap a partir de Imagens Equiretangulares}
-
-
-Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um Skybox.
+Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um \textit{Skybox}.
 
 
 \section{Métricas de Qualidades de Imagens 360}  \label{sec:metrics}
@@ -224,7 +230,14 @@ Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de 
 
 \section{Implementação de Ferramenta no Editor Unity}  \label{sec:unitytool}
 
-Nossa implementação proposta envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela Unity.
+% implementação - Uso
+A ferramenta proposta permite definir configuração de screenshots de uma imagem 360 exibida no espaço 3D e variar configurações de imagem ou de projeto para traçar comparações de qualidade de imagem utilizando métricas objetivas definidas na seção \ref{sec:metrics}.
+
+% Implementação - visual alto nível
+A arquitetura da nossa implementação envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela Unity.
+
+
+
 
 
 \section{Resultados}  \label{sec:results}
