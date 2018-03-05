@@ -87,6 +87,9 @@ Aplicações VR diferenciam-se de outras aplicações pela preocupação em preencher 
 
 % TODO: Ferramentas Unity
 
+% TODO: Imagens 360
+O trabalho de \cite{dunn2017resolution} ressalta bem o quanto o formato de uma imagem 360 impactam em sua resolução e a uniformidade. Em imagens equiretangulares ocorre uma alta resolução nos pólos e uma alta uniformidade no meio horizontal. Enquanto em um \textit{cubemap} ocorre uma alta resolução nos cantos e bordas além de uma alta uniformidade nas diagonais de cada face. 
+
 % TODO: métricas que avaliam qualidade de imagem
 % - Tipos de métricas
 % --- Métricas subjetivas
@@ -211,7 +214,7 @@ Um \textit{Skybox} define o conteúdo a ser renderizado no fundo de uma visualiza
 
 % Como mapear a direção de visualização para posições de UV
 % TODO: Explicar o uso do termo fragmento
-No processo de rasterização do conteúdo de fundo, é necessário obter uma coordenada de UV para cada pixel (ou fragmento) exibido na tela.
+No processo de rasterização do conteúdo de fundo, é necessário obter uma coordenada de UV para cada pixel (ou fragmento) exibido na tela. Normalmente implementações de \textit{shaders} de \textit{Skybox} utilizam texturas 3D para armazenar as 6 faces de um cubo e as acessa por meio de uma chamada da função gráfica \textit{tex3D}.
 
 % Mapeamento de uma esfera contínua
 Assim, enquanto a abordagem discutida na subseção \ref{subsec:equimap} define uma projeção de coordenadas de UVs para posições no espaço 3D, a abordagem utilizando \textit{Skybox} segue um método inverso: a partir de posições normalizadas no espaço 3D busca encontrar coordenadas de UV equivalentes de maneira contínua em termos de possibilidade de direção de visualização.
@@ -255,3 +258,4 @@ A arquitetura da nossa implementação envolve uma camada de configuração em C\# n
 \bibliography{sbc-template}
 
 \end{document}
+–
