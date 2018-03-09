@@ -5,24 +5,24 @@
 \usepackage{graphicx,url}
 \usepackage{float}
 \usepackage[brazil]{babel}
-\usepackage[latin1]{inputenc} 
+\usepackage[latin1]{inputenc}
 \usepackage{tikz}
 \usetikzlibrary{shapes, arrows, shapes.geometric}
 
-     
+
 \sloppy
 
 \title{Ferramenta de Avaliação de Qualidade de Imagens 360 Integrada no Editor Unity}
 
-\author{Adriano M. Gil\inst{1} }
+\author{Adriano M. Gil\inst{1}, Eliamara Silva\inst{1}, Thiago S. Figueira\inst{1}}
 
 \address{Samsung Instituto de Desenvolvimento para a Informática da Amazônia
   (SIDIA)\\
   Manaus -- AM -- Brazil
-  \email{\{adriano.gil\}@samsung.com}
+  \email{\{adriano.gil,eliamara.s,t.figueira\}@samsung.com}
 }
 
-\begin{document} 
+\begin{document}
 
 \maketitle
 
@@ -33,8 +33,8 @@
   Portuguese (``resumo''). In both cases, abstracts should not have more than
   10 lines and must be in the first page of the paper.
 \end{abstract}
-     
-\begin{resumo} 
+
+\begin{resumo}
   Este meta-artigo descreve o estilo a ser usado na confecção de artigos e
   resumos de artigos para publicação nos anais das conferências organizadas
   pela SBC. É solicitada a escrita de resumo e abstract apenas para os artigos
@@ -72,7 +72,7 @@ Ao escolher um formato e resolução para uma imagens 360, é necessário levar em c
 
 
 % TODO: Unity como ferramenta default para desenvolver VR apps
-Para o desenvolvimento de aplicações VR, o motor e editor gráfico \textit{Unity} situa-se como peça de extrema relevância dadas a sua facilidade de aprendizado e incomplexidade no processo de desenvolvimento, além da possibilidade de criação de jogos e aplicações para consoles, plataformas móveis e dispositivos de realidade virtual e aumentada.
+A Unity é uma \textit{engine} de desenvolvimento de jogos para plataformas móveis, consoles, computadores, além de dispositivos de realidade virtual e aumentada. Atualmente, a Unity é utilizada por grupos de desenvolvedores independentes e grandes corporações, tais como Microsoft e Disney.
 
 % TODO: Proposta
 Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity}.
@@ -88,7 +88,10 @@ Aplicações VR diferenciam-se de outras aplicações pela preocupação em preencher 
 % TODO: Ferramentas Unity
 
 % TODO: Imagens 360
-O trabalho de \cite{dunn2017resolution} ressalta bem o quanto o formato de uma imagem 360 impactam em sua resolução e a uniformidade. Em imagens equiretangulares ocorre uma alta resolução nos pólos e uma alta uniformidade no meio horizontal. Enquanto em um \textit{cubemap} ocorre uma alta resolução nos cantos e bordas além de uma alta uniformidade nas diagonais de cada face. 
+Segundo o trabalho \cite{sacht2010face}, identificar rostos e linhas retas em uma imagem equirectangular requer utilizar as projeções de perspectiva e de Mercator. Ao projetar a imagem através de Mercator, as formas são preservadas e a identificação de rosto através de um detector de  faces básico é possível
+
+
+O trabalho de \cite{dunn2017resolution} ressalta bem o quanto o formato de uma imagem 360 impactam em sua resolução e a uniformidade. Em imagens equiretangulares ocorre uma alta resolução nos pólos e uma alta uniformidade no meio horizontal. Enquanto em um \textit{cubemap} ocorre uma alta resolução nos cantos e bordas além de uma alta uniformidade nas diagonais de cada face.
 
 % TODO: métricas que avaliam qualidade de imagem
 % - Tipos de métricas
@@ -240,11 +243,10 @@ A ferramenta proposta permite definir configuração de screenshots de uma imagem 
 A arquitetura da nossa implementação envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela Unity.
 
 
-
-
-
 \section{Resultados}  \label{sec:results}
 
+% Ferramenta implementada
+Utilizamos a \textit{Unity 2017.3.1f} para realizar a implementação da ferramenta proposta.
 
 \section{Conclusão}  \label{sec:conclusion}
 
@@ -252,7 +254,7 @@ A arquitetura da nossa implementação envolve uma camada de configuração em C\# n
 
 % TODO: Comentar resultados obtidos com as métricas
 
-% TODO: Qual o valor de uma ferramenta de qualidade de imagens para o editor da Unity 
+% TODO: Qual o valor de uma ferramenta de qualidade de imagens para o editor da Unity
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
