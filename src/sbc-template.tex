@@ -9,7 +9,6 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes, arrows, shapes.geometric}
 
-
 \sloppy
 
 \title{Ferramenta de Avaliação de Qualidade de Imagens 360 Integrada no Editor Unity}
@@ -65,11 +64,15 @@ Recentemente, dispositivos de realidade virtual (VR, sigla inglês para \textit{V
 Aplicações de visualização simulação a visualização do conteúdo envelopado numa esfera, ou seja, como se o conteúdo visual estivesse disposto ao redor do usuário, preenchendo completamente o seu campo visual, como no caso das aplicações \textit{VR}.
 
 
+Diversos fatores influenciam na qualidade de uma imagem, e a avaliação de pós-processamentos em tais imagens, é um fator primordial para que não reflita na experiência do usuário, principalmente em aplicações que utilizam dispositivos de Realidade Virtual.
+
+
 % Qualidade de imagem 360
 % - Parâmetros de configuração
 % - Necessidade de uma ferramenta para comparar diferentes sets de configuração
 Ao escolher um formato e resolução para uma imagens 360, é necessário levar em conta qual dispositivo essa será exibida. Assim acaba sendo mandatório, um contínuo ciclo de ajuste e teste no dispositivo até que seja possível encontrar as configurações ideais. O que gera assim a necessidade de uma ferramenta que possa simular e comparar diferentes configurações de imagem e de dispositivo afim de permitir uma escolha mais bem informada.
 
+Existem duas maneiras de avaliação da qualidade de imagem: Métricas Subjetivas e Métricas Objetivas. A primeira, é a realização de testes em que observadores avaliam uma sequência de imagens e a segunda, é uma avaliação automática por meio de algoritmos implementados com base em modelos matemáticos
 
 % TODO: Unity como ferramenta default para desenvolver VR apps
 A Unity é uma \textit{engine} de desenvolvimento de jogos para plataformas móveis, consoles, computadores, além de dispositivos de realidade virtual e aumentada. Atualmente, a Unity é utilizada por grupos de desenvolvedores independentes e grandes corporações, tais como Microsoft e Disney.
@@ -98,6 +101,11 @@ O trabalho de \cite{dunn2017resolution} ressalta bem o quanto o formato de uma i
 % - Tipos de métricas
 % --- Métricas subjetivas
 % --- Métricas objetivas
+A melhor metodologia para avaliar a qualidade de imagens é por meio de Avaliações Subjetivas. Em tais testes, observadores humanos são convidados a visualizar uma série de imagens e avalia-las. Uma referência comum utilizada para tais avaliações é o MOS (Mean Opinion Score), onde cada avaliador dar uma nota em uma escala de 1(péssimo) a 5 (excelente), que representa a percepção da qualidade de imagem esperada pelo usuário. O MOS é gerado pelo resultado da média do conjunto das avaliações subjetiva para cada amostra.
+
+ Existem diversas metodologias para avaliação subjetivas tai como: Single Stimulus Continuous Quality Scale (SSCQS), em que uma imagem referência é apresentada seguida de uma longa sequência de amostras a serem avaliadas ao longo do tempo. Outra metologia é Subjective Assessment of Multimedia Video Quality (SAMVIQ), que consiste em comparar uma imagem referência e uma imagem processada, para cada amostra de uma sequência. Afim de aumentar a eficiente deste último, foi proposto em \cite{zhang2017subjective} o Subjective Assessment of Multimedia Panoramic Video Quality (SAMPVIQ), que é uma melhoria com base em vídeos panorâmicos. Segundo \cite{zhang2017subjective}, SAMPVIQ apresentou uma eficiência superior aos anteriores por apresentar resultados mais compatíveis com métricas objetivas presentes na literatura.
+
+Embora os testes subjetivos sejam geralmente precisos se realizados corretamente, eles são inconvenientes, caros e demorados. Principalmente, quando aplicados em avaliação de imagens e vídeos para Realidade Virtual onde a experiência do usuário é mais imersiva. Assim, uma medida de desempenho objetiva que pudesse prever com precisão a percepção humana seria um valioso método complementar.
 
 
 % TODO: Trabalhos que avaliam métricas em videos/imagens 360
@@ -121,7 +129,7 @@ Nas subseções seguintes serão detalhados os cálculos necessários para a implemen
 
 \subsection{Mapeamento de Imagens Equiretangulares em uma Esfera} \label{subsec:equimap}
 
-O formata de imagem equiretangular é uma captura ou produção de imagem feita para ser exibida no interior de uma esfera. 
+O formata de imagem equiretangular é uma captura ou produção de imagem feita para ser exibida no interior de uma esfera.
 
 Uma esfera com suas normais invertidas é uma esfera que tenha apenas seu lado interno renderizado, possibilita preencher completamente todo o campo de visão possível, além de ser a solução padrão adotada na exibição de imagens equiretangulares em 360 graus. O mapeamento de UV da esfera é o padrão adotado para Softwares de modelagem na geração de uma esfera: geração de vertíces baseada em coordenadas de longitude/latitude.
 
@@ -220,7 +228,7 @@ Assim, enquanto a abordagem discutida na subseção \ref{subsec:equimap} define um
 
 \subsection{Mapeamento Cubemap a partir de Imagens Equiretangulares} \label{subsec:equicubemap}
 
-% Geração de um cubo. 
+% Geração de um cubo.
 
 
 % Calculo de UV
@@ -233,7 +241,7 @@ Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de 
 % Necessidade de subdivisão de mesh
 
 
-% Subdivisão de mesh, um trinagule em tres tringulos 
+% Subdivisão de mesh, um trinagule em tres tringulos
 
 
 % Subdivisão de mesh, um trinagule em quatro tringulos
@@ -241,9 +249,39 @@ Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de 
 
 \section{Métricas de Qualidades de Imagens 360}  \label{sec:metrics}
 
+%  Métricas objetivas
+O objetivo da avaliação objetiva é desenvolver uma medida quantitativa que pode prever a qualidade da imagem percebida. É difícil encontrar uma única medida de avaliação objetiva, fácil de calcular, que corresponda bem com a inspeção visual e seja adequado para uma variedade de exigências da aplicação. É necessário a avaliação da qualidade por meio de várias medidas objetivas.
+
+
 % TODO: Listar métricas utilizadas no artigo
 
 % TODO: Subsection para cada métrica. Exemplificar com screenshots.
+
+\subsection{PSNR}
+
+Peak Signal-to-noise ratio (PSNR) É a medida mais utilizada para avaliação de qualidade é calculada:
+
+\begin{equation}
+PSNR = 10*log_{10}{\frac{(2^n-1)^2}{MSE}}
+\end{equation}
+
+Aqui $n$ representa o bit depth de um pixel e o MSE, o mínimo erro quadrático (Mean Square Error), é calculado:
+
+\begin{equation}
+MSE=\frac{1}{MN}\sum_{m=0}^{M-1}{\sum_{n=0}^{N-1}{e(m,n)^2}}
+\end{equation}
+
+Onde, o $e$ indica o erro da diferença nos valores de pixels das duas imagens. $M$ e $N$ indicam a largura e altura das imagens, respectivamente, e $m$ e $n$ indicam a posição horizontal e vertical, respectivamente.
+
+\subsection{WS-PSNR}
+
+No PSNR todos os pixels têm pesos iguais. Entretanto, uma imagem no formato equiretangular existe uma alta redundância espacial nas áreas superiores e inferiores. Assim, Weighted Spherical PSNR (WS-PSNR), foi proposto para formatos equiretangular, onde pesos diferentes são atribuídos dependendo da latitude:
+
+\begin{equation}
+Weight=\frac{cos(j - (\frac{height}{2} - 0,5))*3,141592}{height}
+\end{equation}
+
+Onde, j indica a latitude na altura da imagem. Quando j está perto de (height / 2), o peso é próximo de 1. Por outro lado, o peso torna-se pequeno quando j está mais próximo das áreas polares.
 
 \section{Implementação de Ferramenta no Editor Unity}  \label{sec:unitytool}
 
@@ -262,10 +300,10 @@ Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a impl
 \section{Conclusão}  \label{sec:conclusion}
 
 % TODO: Sintetizar o desenvolvimento da proposta
-Neste artigo propomos o desenvolvimento de uma ferramenta para avaliação de qualidade de imagens 360 utilizando métricas objetivas. 
+Neste artigo propomos o desenvolvimento de uma ferramenta para avaliação de qualidade de imagens 360 utilizando métricas objetivas.
 
 % TODO: Qual o valor de uma ferramenta de qualidade de imagens para o editor da Unity
-Nossa implementação foi destinada para uso de dentro do editor \textit{Unity}, vista essa ser uma ferramenta bastante popularizada para o desenvolvimento de aplicações de realidade virtual. 
+Nossa implementação foi destinada para uso de dentro do editor \textit{Unity}, vista essa ser uma ferramenta bastante popularizada para o desenvolvimento de aplicações de realidade virtual.
 
 Utilizamos nossa ferramenta para comparar a qualidade de imagens 360 geradas por diferentes mapeamento de UV: latitudes e longitudes em uma esfera invertida, exibição em um Skybox e conversão para cubemap.
 
