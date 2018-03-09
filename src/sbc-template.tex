@@ -75,7 +75,7 @@ Ao escolher um formato e resolução para uma imagens 360, é necessário levar em c
 A Unity é uma \textit{engine} de desenvolvimento de jogos para plataformas móveis, consoles, computadores, além de dispositivos de realidade virtual e aumentada. Atualmente, a Unity é utilizada por grupos de desenvolvedores independentes e grandes corporações, tais como Microsoft e Disney.
 
 % TODO: Proposta
-Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity}.
+Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity} utilizando métricas objetivas.
 
 % TOREPHRASE: Estrutura do artigo
 Na seção \ref{sec:relatedworks} analisamos alguns trabalhos que descrevem o compromisso de formato/qualidade para imagens 360 e que avaliam a qualidade de imagem 360 utilizando métricas objetivas. Os diferentes formatos e projeções utilizadas foram descritas na seção \ref{sec:imageprojection}. As métricas objetivas adotadas por este trabalho foram compiladas na seção \ref{sec:metrics}. Na seção \ref{sec:unitytool} é feita uma descrição detalhada da nossa implementação. Resultados são discutidos na seção \ref{sec:results}. Por fim, as conclusões e perspectivas de trabalhos futuros são mencionadas na seção \ref{sec:conclusion}.
@@ -86,6 +86,7 @@ Na seção \ref{sec:relatedworks} analisamos alguns trabalhos que descrevem o comp
 Aplicações VR diferenciam-se de outras aplicações pela preocupação em preencher o espaço tridimensional de forma a fornecer conteúdo para todos os pontos de vista possíveis.
 
 % TODO: Ferramentas Unity
+
 
 % TODO: Imagens 360
 Segundo o trabalho \cite{sacht2010face}, identificar rostos e linhas retas em uma imagem equirectangular requer utilizar as projeções de perspectiva e de Mercator. Ao projetar a imagem através de Mercator, as formas são preservadas e a identificação de rosto através de um detector de  faces básico é possível
@@ -120,30 +121,25 @@ Nas subseções seguintes serão detalhados os cálculos necessários para a implemen
 
 \subsection{Mapeamento de Imagens Equiretangulares em uma Esfera} \label{subsec:equimap}
 
-A ilusão em um mundo virtual e consequente sensação de imersão requerem material visual disponível em todos os ângulos possíveis, uma vez que o gearVR possibilita completa liberdade de rotação, ou seja, 3 graus de liberdade (3DoF - \textit{3 Degrees of Freedom}). Tendo em vista que a proposta deste artigo contempla um jogo essencialmente 2D, tal como o \textit{Snake} original, tem-se o desafio de exibir conteúdo bidimensional em um cenário 3D de forma que tudo aconteça ao redor do usuário.
+O formata de imagem equiretangular é uma captura ou produção de imagem feita para ser exibida no interior de uma esfera. 
 
-Uma esfera invertida, ou seja, uma esfera que tenha apenas seu lado interno renderizado, possibilita preencher completamente todo o campo de visão possível, além de ser a solução padrão adotada na exibição de imagens equiretangulares em 360 graus. A geração procedural de uma esfera pode seguir uma das duas abordagens abaixo:
-\begin{enumerate}
-  \begin{item} uma icosfera, i.e. uma esfera cujos vértices são distribuídos uniformemente; \end{item}
-  \begin{item} geração de vertíces baseada em coordenadas de longitude/latitude. \end{item}
-\end{enumerate}
+Uma esfera com suas normais invertidas é uma esfera que tenha apenas seu lado interno renderizado, possibilita preencher completamente todo o campo de visão possível, além de ser a solução padrão adotada na exibição de imagens equiretangulares em 360 graus. O mapeamento de UV da esfera é o padrão adotado para Softwares de modelagem na geração de uma esfera: geração de vertíces baseada em coordenadas de longitude/latitude.
 
 \begin{figure}[!tbp]
   \centering
   \begin{minipage}[b]{0.39\textwidth}
     \includegraphics[width=\textwidth]{../images/tone_plane.png}
     \caption{Representação das UVs em uma imagem equiretangular.}
+    \label{fig:equirectimage}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=0.6\textwidth]{../images/tone_sphere.png}
     \caption{Mapeamento de UV de uma imagem equiretangular para uma esfera.}
+    \label{fig:equisphere}
   \end{minipage}
 \end{figure}
-
-Para este trabalho, preferiu-se a segunda abordagem devido a possibilidade de usar a longitude/latitude como forma de mapear as coordenadas de UV. Então gerou-se proceduralmente um \textit{mesh} de esfera de raio unitário segundo o pseudocódigo abaixo:
-
 
 % 2 - Mapeamento de UV em uma esfera invertida
 Para calcular as posições dos vértices da esfera, dada uma quantidade de valores de latitude $N_{latitude}$ e uma quantidade de valores de longitude $N_{longitude}$, define-se um valor $R_{longitude}$ como o tamanho angular de longitude de uma secção transversal da esfera, tal como visto na equação \ref{equation1}.
@@ -224,8 +220,23 @@ Assim, enquanto a abordagem discutida na subseção \ref{subsec:equimap} define um
 
 \subsection{Mapeamento Cubemap a partir de Imagens Equiretangulares} \label{subsec:equicubemap}
 
+% Geração de um cubo. 
 
+
+% Calculo de UV
+
+
+% Percebe-se que mapeamento equivale a discritização da abordagem anterior
 Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um \textit{Skybox}.
+
+
+% Necessidade de subdivisão de mesh
+
+
+% Subdivisão de mesh, um trinagule em tres tringulos 
+
+
+% Subdivisão de mesh, um trinagule em quatro tringulos
 
 
 \section{Métricas de Qualidades de Imagens 360}  \label{sec:metrics}
@@ -246,15 +257,23 @@ A arquitetura da nossa implementação envolve uma camada de configuração em C\# n
 \section{Resultados}  \label{sec:results}
 
 % Ferramenta implementada
-Utilizamos a \textit{Unity 2017.3.1f} para realizar a implementação da ferramenta proposta.
+Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a implementação da ferramenta proposta. Abaixo segue o modelo de arquitetura da ferramenta:
 
 \section{Conclusão}  \label{sec:conclusion}
 
 % TODO: Sintetizar o desenvolvimento da proposta
+Neste artigo propomos o desenvolvimento de uma ferramenta para avaliação de qualidade de imagens 360 utilizando métricas objetivas. 
+
+% TODO: Qual o valor de uma ferramenta de qualidade de imagens para o editor da Unity
+Nossa implementação foi destinada para uso de dentro do editor \textit{Unity}, vista essa ser uma ferramenta bastante popularizada para o desenvolvimento de aplicações de realidade virtual. 
+
+Utilizamos nossa ferramenta para comparar a qualidade de imagens 360 geradas por diferentes mapeamento de UV: latitudes e longitudes em uma esfera invertida, exibição em um Skybox e conversão para cubemap.
 
 % TODO: Comentar resultados obtidos com as métricas
 
-% TODO: Qual o valor de uma ferramenta de qualidade de imagens para o editor da Unity
+
+% TODO: Trabalhos futuros
+
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
