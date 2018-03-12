@@ -11,14 +11,20 @@
 
 \sloppy
 
-\title{Ferramenta de Avaliação de Qualidade de Imagens 360 Integrada no Editor Unity}
+\title{Ferramenta de Avaliação de Qualidade de Imagens Equiretangulares Integrada no Editor Unity}
 
-\author{Adriano M. Gil\inst{1}, Eliamara Silva\inst{1}, Thiago S. Figueira\inst{1}}
+% \author{Adriano M. Gil\inst{1}, Eliamara Silva\inst{1}, Thiago S. Figueira\inst{1}}
 
-\address{Samsung Instituto de Desenvolvimento para a Informática da Amazônia
-  (SIDIA)\\
-  Manaus -- AM -- Brazil
-  \email{\{adriano.gil,eliamara.s,t.figueira\}@samsung.com}
+% \address{Samsung Instituto de Desenvolvimento para a Informática da Amazônia
+%   (SIDIA)\\
+%   Manaus -- AM -- Brazil
+%   \email{\{adriano.gil,eliamara.s,t.figueira\}@samsung.com}
+% }
+
+\author{BLIND REVIEW }
+
+\address{BLIND REVIEW
+  (BLIND REVIEW)
 }
 
 \begin{document}
@@ -26,21 +32,11 @@
 \maketitle
 
 \begin{abstract}
-  This meta-paper describes the style to be used in articles and short papers
-  for SBC conferences. For papers in English, you should add just an abstract
-  while for the papers in Portuguese, we also ask for an abstract in
-  Portuguese (``resumo''). In both cases, abstracts should not have more than
-  10 lines and must be in the first page of the paper.
+  Equirectangular images are captures in 360 degrees of user surroundings. Virtual reality applications provide immersive experience when using this type of media. However, in order to develop a 360 viewer it is necessary to choose among diferent media formats, resolution configurations and texture-to-objects mappings. This work proposes to develop a tool integrated into \textit{Unity} editor to automatize the quality assessment of different settings of 360 image visualization. Using objetive metrics, we compare the UV mapping of a procedural sphere, a \textit{Skybox} rendering and a \textit{Cubemap}.
 \end{abstract}
 
 \begin{resumo}
-  Este meta-artigo descreve o estilo a ser usado na confecção de artigos e
-  resumos de artigos para publicação nos anais das conferências organizadas
-  pela SBC. É solicitada a escrita de resumo e abstract apenas para os artigos
-  escritos em português. Artigos em inglês deverão apresentar apenas abstract.
-  Nos dois casos, o autor deve tomar cuidado para que o resumo (e o abstract)
-  não ultrapassem 10 linhas cada, sendo que ambos devem estar na primeira
-  página do artigo.
+  Imagens equiretangulares são uma captura em 360 graus do entorno do usuário. Aplicações de realidade virtual possibilitam uma experiência imersiva na utilização deste tipo de mídia. No entanto para desenvolver um visualizador de mídia 360 é necessário escolher entre diferentes formatos, configurações de resolução, e formas de mapeamentos para objetos 3D. Este artigo tem a proposta de desenvolver uma ferramenta integrada ao editor \textit{Unity} que permita automatizar a avaliação de qualidade de diferentes parâmetros de visualização de imagens 360. Métricas objetivas foram empregadas na comparação entre os mapeamentos de UV com base em uma esfera procedural, uma exibição de \textit{Skybox} e um \textit{Cubemap}.
 \end{resumo}
 
 \section{Introdução}
@@ -51,17 +47,17 @@
 %   - Câmeras 360
 %   - Formatos
 %   - Como essas imagens são consumidas
-Imagens 360 são uma captura completa do entorno, trazendo a ilusão de uma completa visão a partir de um único ponto. Câmeras 360 possuem a funcionalidade de registrar. Atualmente, existem diversos formatos possíveis para imagens 360, sendo um dos mais adotados, o formato equiretangular. Capturas 360 são geralmente compartilhadas em mídias sociais, onde através de movimentos gestuais é possível navegar na imagem. Aplicações de Realidade Virtual trazem a possibilidade de uma visão mais imersiva de imagens 360, permitindo ao usuário a sensação de estar dentro da imagem.
+Imagens 360 são uma fotografia completa do entorno, trazendo a ilusão de uma completa visão a partir de um único ponto. Câmeras 360 possuem a funcionalidade de registrar tomadas panorâmicas completas em 360 graus ao redor do ponto de captura. Atualmente, existem diversos formatos possíveis para imagens 360, sendo um dos mais adotados, o formato equiretangular. Capturas 360 são geralmente compartilhadas em mídias sociais, onde através de movimentos gestuais é possível navegar na imagem. Aplicações de Realidade Virtual trazem a possibilidade de uma visão mais imersiva de imagens 360, permitindo ao usuário a sensação de estar dentro da imagem.
 
 % TOREVIEW: Realidade Virtual e displays
-Recentemente, dispositivos de realidade virtual (VR, sigla inglês para \textit{Virtual Reality}) se tornaram acessíveis para uma grande parte da população. Neste tipo de aparelho, um mundo virtual é renderizado de maneira estéreo, ou seja, com uma visão para cada olho, passando assim a sensação de profundidade e maior presença em um ambiente virtual. A tecnologia por trás dos displays VR tem evoluido muito, porém esbarram na necessidade de oferecer uma grande densidade de pixels por grau de campo de visão. Segundo [?], o olho humano possui uma resolução estimada de 60 pixels por grau, ou seja, um aparelho modesto de 100 graus de campo de visão deveria prover uma resolução de 6K para fornecer uma ilusão espacial mais realista possível.
+Recentemente, dispositivos de realidade virtual (VR, sigla inglês para \textit{Virtual Reality}) se tornaram acessíveis para uma grande parte da população. Neste tipo de aparelho, um mundo virtual é renderizado de maneira estéreo, ou seja, com uma visão para cada olho, passando assim a sensação de profundidade e maior presença em um ambiente virtual. A tecnologia por trás dos displays \textit{VR} tem evoluido muito, porém esbarram na necessidade de oferecer uma grande densidade de pixels por grau de campo de visão. Segundo [?], o olho humano possui uma resolução estimada de 60 pixels por grau, ou seja, um aparelho modesto de 100 graus de campo de visão deveria prover uma resolução de 6K para fornecer uma ilusão espacial mais realista possível.
 
 % TODO: Visualizadores de imagens 360
 % - Aplicações de visualização simulação a visualização do conteúdo envelopado numa esfera
 % - Problemas
 % --- Tamanho do formato
 % --- Diferentes formatos possuem variados graus de distorção e resolução ao longo da direção visual
-Aplicações de visualização simulação a visualização do conteúdo envelopado numa esfera, ou seja, como se o conteúdo visual estivesse disposto ao redor do usuário, preenchendo completamente o seu campo visual, como no caso das aplicações \textit{VR}.
+Aplicações de visualização de imagens 360 renderizam seu conteúdo envelopado numa esfera, ou seja, como se o conteúdo visual estivesse disposto ao redor do usuário, preenchendo completamente o seu campo visual, como no caso das aplicações \textit{VR}. Para tanto, requerem uma grande quantidade de píxels disponíveis de forma a manter a boa qualidade dessas visualizações. A busca pela melhor qualidade visual pode signicar escolher entre diferentes formatos de exibição, com graus variados de distorção e não uniformidade na resolução ao longo dos 360 graus possíveis.
 
 
 Diversos fatores influenciam na qualidade de uma imagem, e a avaliação de pós-processamentos em tais imagens, é um fator primordial para que não reflita na experiência do usuário, principalmente em aplicações que utilizam dispositivos de Realidade Virtual.
@@ -148,7 +144,7 @@ O formato de imagem equiretangular é uma captura ou produção de imagem feita par
 \end{figure}
 
 % 2 - Mapeamento de UV em uma esfera invertida
-Na figura \ref{fig:sphere_transversalsec} é exibida uma secção transversal da divisão de uma esfera em longitudes. Na geração das posições dos vértices da esfera, se faz necessário definir uma quantidade de valores de longitude $N$, assim o tamanho angular $T$ para divisão longitudinal pode ser calculado pela equação \ref{longitudesize}. 
+Na figura \ref{fig:sphere_transversalsec} é exibida uma secção transversal da divisão de uma esfera em longitudes. Na geração das posições dos vértices da esfera, se faz necessário definir uma quantidade de valores de longitude $N$, assim o tamanho angular $T$ para divisão longitudinal pode ser calculado pela equação \ref{longitudesize}.
 
 \begin{figure}[ht]
 \centering
@@ -269,31 +265,48 @@ O objetivo da avaliação objetiva é desenvolver uma medida quantitativa que pode 
 
 % TODO: Subsection para cada métrica. Exemplificar com screenshots.
 
+\subsection{MSE}
+
+MSE é uma sigla para "mínimo erro quadrático" ou "Mean Square Error" em inglês. A equação \ref{eq:mse} descreve como é calculado:
+\begin{equation}
+MSE=\frac{1}{MN}\sum_{m=0}^{M-1}{\sum_{n=0}^{N-1}{e(m,n)^2}}
+\label{eq:mse}
+\end{equation}
+
+Onde, o $e$ indica o erro da diferença nos valores de pixels das duas imagens. $M$ e $N$ indicam a largura e altura das imagens, respectivamente, e $m$ e $n$ indicam a posição horizontal e vertical, respectivamente.
+
+\subsection{SSIM}
+
+Descrita em \cite{wang2004image}, a métrica SSIM pode ser calculada pela equação \ref{eq:ssim}.
+
+\begin{equation}
+SSIM(x,y)=\frac{(2*\mu_x*\mu_y+C_1)*(2*\sigma_{xy}+C_2)}{(\mu^2_x+\mu^2_y+C_1)*(\sigma^2_x+\sigma^2_y+C_2)}
+\label{eq:ssim}
+\end{equation}
+
 \subsection{PSNR}
 
 Peak Signal-to-noise ratio (PSNR) É a medida mais utilizada para avaliação de qualidade é calculada:
 
 \begin{equation}
 PSNR = 10*log_{10}{\frac{(2^n-1)^2}{MSE}}
+\label{eq:psnr}
 \end{equation}
 
-Aqui $n$ representa o \textit{bit depth} de um pixel e o MSE, o mínimo erro quadrático (Mean Square Error), é calculado:
+Aqui $n$ representa o \textit{bit depth} de um pixel.
 
-\begin{equation}
-MSE=\frac{1}{MN}\sum_{m=0}^{M-1}{\sum_{n=0}^{N-1}{e(m,n)^2}}
-\end{equation}
+Segundo \cite{yu2015framework}, uma desvantagem da aplicação do PSNR é que todos os pixels possuem pesos iguais, porém em uma imagem no formato equiretangular existe uma alta redundância espacial nas áreas superiores e inferiores. Como em nossa ferramenta a comparação se dá na visualização final da câmera, essa desvantagem não nos afeta muito, pois o resultado final não é em formato equiretangular, apesar de ter sido derivado de um.
 
-Onde, o $e$ indica o erro da diferença nos valores de pixels das duas imagens. $M$ e $N$ indicam a largura e altura das imagens, respectivamente, e $m$ e $n$ indicam a posição horizontal e vertical, respectivamente.
+% \subsection{WS-PSNR}
 
-\subsection{WS-PSNR}
+% Na métrica PSNR todos os pixels têm pesos iguais, tal como descrito em \cite{yu2015framework}. Entretanto, em uma imagem no formato equiretangular existe uma alta redundância espacial nas áreas superiores e inferiores. Assim, Weighted Spherical PSNR (WS-PSNR), foi proposto para formatos equiretangular, onde pesos diferentes são atribuídos dependendo da latitude:
 
-No PSNR todos os pixels têm pesos iguais. Entretanto, uma imagem no formato equiretangular existe uma alta redundância espacial nas áreas superiores e inferiores. Assim, Weighted Spherical PSNR (WS-PSNR), foi proposto para formatos equiretangular, onde pesos diferentes são atribuídos dependendo da latitude:
+% \begin{equation}
+% Weight=\frac{cos(j - (\frac{height}{2} - 0,5))*3,141592}{height}
+% \label{eq:wspsnr}
+% \end{equation}
 
-\begin{equation}
-Weight=\frac{cos(j - (\frac{height}{2} - 0,5))*3,141592}{height}
-\end{equation}
-
-Onde, j indica a latitude na altura da imagem. Quando j está perto de (height / 2), o peso é próximo de 1. Por outro lado, o peso torna-se pequeno quando j está mais próximo das áreas polares.
+% Onde, j indica a latitude na altura da imagem. Quando j está perto de (height / 2), o peso é próximo de 1. Por outro lado, o peso torna-se pequeno quando j está mais próximo das áreas polares.
 
 \section{Implementação de Ferramenta no Editor Unity}  \label{sec:unitytool}
 
@@ -301,35 +314,68 @@ Onde, j indica a latitude na altura da imagem. Quando j está perto de (height / 
 A ferramenta proposta permite definir configuração de screenshots de uma imagem 360 exibida no espaço 3D e variar configurações de imagem ou de projeto para traçar comparações de qualidade de imagem utilizando métricas objetivas definidas na seção \ref{sec:metrics}.
 
 % Implementação - visual alto nível
-A arquitetura da nossa implementação envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela Unity. Abaixo segue o modelo de arquitetura da ferramenta:
+A arquitetura da nossa implementação envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela \textit{Unity}. A comunicação entre camadas ocorre por meio da criação de novos processos dentro do editor \textit{Unity}. A figura \ref{fig:toolarch} exibe como os componentes estão conectados na arquitetura da ferramenta.
 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{../images/tool_arch.png}
+\caption{Arquitetura da ferramenta proposta.}
+\label{fig:toolarch}
+\end{figure}
+
+% Descrever camada Unity
+Para permitir um uso rápido e mais amigável, foi desenvolvida uma interface de editor, com um \textit{Inspector} customizado, ou seja, uma visão customizada do nosso componente em C\#, conforme vista na figura \ref{fig:unity_tool}. Atráves desse componente é possível definir qual o ângulo do campo de visão, a largura e altura do \textit{screenshot} a ser gerado, as direções de \textit{screenshot}, os objetos de visualização a serem utilizados, definir as métricas de comparação e definir se serão gerados gráficos ou um relatório ao final do processo.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{../images/tool.png}
+\caption{Ferramenta de editor na Unity}
+\label{fig:unity_tool}
+\end{figure}
+
+% Descrever camada Python
+A camada \textit{python} ficou responsável pela avaliação de pares de imagens passadas via processo pela \textit{Unity}. Utilizando as bibliotecas \textit{scikit}, \textit{numpy} e \textit{matplotlib}, as imagens são avaliadas e o resultado de cada métrica é salvo em um relatório ao final, sumarizando todos os resultados. Assim, basta ao usuário da ferramenta abrir o relatório e identificar qual forma de visualização obteve a melhor avaliação.
 
 \section{Resultados}  \label{sec:results}
 
 % Ferramenta implementada
-Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a implementação da ferramenta proposta. 
+Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a implementação da ferramenta proposta. A ferramenta pode ser incorporada em qualquer projeto \textit{Unity} por meio da importação de um \textit{unitypackage}, um formato padrão da \textit{Unity} para componentização de recursos e ferramentas.
 
+% Comparacao de resultados
+\begin{tabular}{l*{3}{c}r}
+Métricas          & MSE & SSIM & PSNR \\
+\hline
+Direção 0 - Cubemap & 176,22 & 0,93 & 25,67 \\
+Direção 1 - Cubemap & 125,63 & 0,93 & 27,14 \\
+Direção 2 - Cubemap & 13,83 & 0,97 & 36,72 \\
+Direção 0 - Esfera  & 88,56 & 0,88 & 28,66 \\
+Direção 1 - Esfera  & 242,47 & 0,76 & 24,28 \\
+Direção 2 - Esfera  & 96,26 & 0,86 & 28,30 \\
+\label{tab:metrics_results}
+\end{tabular}
 
+% TODO: Comentar resultados obtidos com as métricas
+Conforme a tabela \ref{tab:metrics_results}, na direção 0, o mapeamento da esfera se sobressaiu em relação ao \textit{Cubemap} devido a um erro na interpolação dos valores entre 0.9 e 0.1.
 
 \begin{figure}[!tbp]
   \centering
   \begin{minipage}[b]{0.3\textwidth}
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Equi2Cube.jpg}
-    \caption{}
+    \caption{Cubemap na direção 0}
     \label{fig:sphere_direction_0}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Skybox.jpg}
-    \caption{}
+    \caption{Skybox na direção 0}
     \label{fig:equisphere}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Sphere.jpg}
-    \caption{}
+    \caption{Esfera na direção 0}
     \label{fig:equisphere}
   \end{minipage}
 \end{figure}
@@ -338,21 +384,21 @@ Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a impl
   \centering
   \begin{minipage}[b]{0.3\textwidth}
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Equi2Cube.jpg}
-    \caption{}
+    \caption{Cubemap na direção 1}
     \label{fig:sphere_direction_0}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Skybox.jpg}
-    \caption{}
+    \caption{Skybox na direção 1}
     \label{fig:equisphere}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Sphere.jpg}
-    \caption{}
+    \caption{Esfera na direção 1}
     \label{fig:equisphere}
   \end{minipage}
 \end{figure}
@@ -361,21 +407,21 @@ Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a impl
   \centering
   \begin{minipage}[b]{0.3\textwidth}
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Equi2Cube.jpg}
-    \caption{}
+    \caption{Cubemap na direção 2}
     \label{fig:sphere_direction_0}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Skybox.jpg}
-    \caption{}
+    \caption{Skybox na direção 2}
     \label{fig:equisphere}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Sphere.jpg}
-    \caption{}
+    \caption{Esfera na direção 2}
     \label{fig:equisphere}
   \end{minipage}
 \end{figure}
@@ -390,10 +436,8 @@ Nossa implementação foi destinada para uso de dentro do editor \textit{Unity}, v
 
 Utilizamos nossa ferramenta para comparar a qualidade de imagens 360 geradas por diferentes mapeamento de UV: latitudes e longitudes em uma esfera invertida, exibição em um Skybox e conversão para cubemap.
 
-% TODO: Comentar resultados obtidos com as métricas
-
-
 % TODO: Trabalhos futuros
+Uma das desvantagens da nossa ferramenta é a necessidade do usuário conhecer a fundo as métricas utilizadas para ser capaz de tomar a melhor decisão de visualização 360. Em trabalhos futuros, planejamos utilizar o cálculo das métricas para definir um valor de avaliação único, indicando de forma automatizada o melhor resultado. Outro ponto identificado foi que a visualização nos dispositivos móveis é mais precisa quanto a visualização final, por esse motivo planejamos também um componente embarcado na aplicação que permite colher resultados durante a execução da aplicação no dispositivo móvel.
 
 
 \bibliographystyle{sbc}
