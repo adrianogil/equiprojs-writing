@@ -277,7 +277,7 @@ Peak Signal-to-noise ratio (PSNR) É a medida mais utilizada para avaliação de qu
 PSNR = 10*log_{10}{\frac{(2^n-1)^2}{MSE}}
 \end{equation}
 
-Aqui $n$ representa o bit depth de um pixel e o MSE, o mínimo erro quadrático (Mean Square Error), é calculado:
+Aqui $n$ representa o \textit{bit depth} de um pixel e o MSE, o mínimo erro quadrático (Mean Square Error), é calculado:
 
 \begin{equation}
 MSE=\frac{1}{MN}\sum_{m=0}^{M-1}{\sum_{n=0}^{N-1}{e(m,n)^2}}
@@ -301,13 +301,84 @@ Onde, j indica a latitude na altura da imagem. Quando j está perto de (height / 
 A ferramenta proposta permite definir configuração de screenshots de uma imagem 360 exibida no espaço 3D e variar configurações de imagem ou de projeto para traçar comparações de qualidade de imagem utilizando métricas objetivas definidas na seção \ref{sec:metrics}.
 
 % Implementação - visual alto nível
-A arquitetura da nossa implementação envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela Unity.
+A arquitetura da nossa implementação envolve uma camada de configuração em C\# na Unity e uma camada em python para o cálculo das métricas nas imagens geradas pela Unity. Abaixo segue o modelo de arquitetura da ferramenta:
 
 
 \section{Resultados}  \label{sec:results}
 
 % Ferramenta implementada
-Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a implementação da ferramenta proposta. Abaixo segue o modelo de arquitetura da ferramenta:
+Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a implementação da ferramenta proposta. 
+
+
+
+\begin{figure}[!tbp]
+  \centering
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Equi2Cube.jpg}
+    \caption{}
+    \label{fig:sphere_direction_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Skybox.jpg}
+    \caption{}
+    \label{fig:equisphere}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Sphere.jpg}
+    \caption{}
+    \label{fig:equisphere}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \centering
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Equi2Cube.jpg}
+    \caption{}
+    \label{fig:sphere_direction_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Skybox.jpg}
+    \caption{}
+    \label{fig:equisphere}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Sphere.jpg}
+    \caption{}
+    \label{fig:equisphere}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[!tbp]
+  \centering
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Equi2Cube.jpg}
+    \caption{}
+    \label{fig:sphere_direction_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Skybox.jpg}
+    \caption{}
+    \label{fig:equisphere}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Sphere.jpg}
+    \caption{}
+    \label{fig:equisphere}
+  \end{minipage}
+\end{figure}
 
 \section{Conclusão}  \label{sec:conclusion}
 
