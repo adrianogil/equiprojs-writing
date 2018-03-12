@@ -86,13 +86,13 @@ Na seção \ref{sec:relatedworks} analisamos alguns trabalhos que descrevem o comp
 \section{Trabalhos Relacionados} \label{sec:relatedworks}
 
 % TODO: Criar Aplicações em VR é sobre como preencher o espaço em 3D. Exemplos.
-Aplicações VR diferenciam-se de outras aplicações pela preocupação em preencher o espaço tridimensional de forma a fornecer conteúdo para todos os pontos de vista possíveis.
+Aplicações VR diferenciam-se de outras aplicações pela preocupação em preencher o espaço tridimensional de forma a fornecer conteúdo para todos os pontos de vista possíveis. Segundo \cite{fuchs2017virtual} uma importante propriedade dos headsets VR é a habilidade de isolar visualmente e acusticamente o espectador do mundo real. Assim o sujeito pode estar completamente imerso em 360 graus de ambiente virtual
 
 % TODO: Ferramentas Unity
 
 
 % TODO: Imagens 360
-Segundo o trabalho \cite{sacht2010face}, identificar rostos e linhas retas em uma imagem equirectangular requer utilizar as projeções de perspectiva e de Mercator. Ao projetar a imagem através de Mercator, as formas são preservadas e a identificação de rosto através de um detector de  faces básico é possível
+Segundo o trabalho \cite{sacht2010face}, identificar rostos e linhas retas em uma imagem equirectangular requer utilizar as projeções de perspectiva e de Mercator. Ao projetar a imagem através de Mercator, as formas são preservadas e a identificação de rosto através de um detector de faces básico é possível
 
 
 O trabalho de \cite{dunn2017resolution} ressalta bem o quanto o formato de uma imagem 360 impactam em sua resolução e a uniformidade. Em imagens equiretangulares ocorre uma alta resolução nos pólos e uma alta uniformidade no meio horizontal. Enquanto em um \textit{cubemap} ocorre uma alta resolução nos cantos e bordas além de uma alta uniformidade nas diagonais de cada face.
@@ -103,7 +103,7 @@ O trabalho de \cite{dunn2017resolution} ressalta bem o quanto o formato de uma i
 % --- Métricas objetivas
 A melhor metodologia para avaliar a qualidade de imagens é por meio de Avaliações Subjetivas. Em tais testes, observadores humanos são convidados a visualizar uma série de imagens e avalia-las. Uma referência comum utilizada para tais avaliações é o MOS (Mean Opinion Score), onde cada avaliador dar uma nota em uma escala de 1(péssimo) a 5 (excelente), que representa a percepção da qualidade de imagem esperada pelo usuário. O MOS é gerado pelo resultado da média do conjunto das avaliações subjetiva para cada amostra.
 
- Existem diversas metodologias para avaliação subjetivas tai como: Single Stimulus Continuous Quality Scale (SSCQS), em que uma imagem referência é apresentada seguida de uma longa sequência de amostras a serem avaliadas ao longo do tempo. Outra metologia é Subjective Assessment of Multimedia Video Quality (SAMVIQ), que consiste em comparar uma imagem referência e uma imagem processada, para cada amostra de uma sequência. Afim de aumentar a eficiente deste último, foi proposto em \cite{zhang2017subjective} o Subjective Assessment of Multimedia Panoramic Video Quality (SAMPVIQ), que é uma melhoria com base em vídeos panorâmicos. Segundo \cite{zhang2017subjective}, SAMPVIQ apresentou uma eficiência superior aos anteriores por apresentar resultados mais compatíveis com métricas objetivas presentes na literatura.
+ Existem diversas metodologias para avaliação subjetivas tai como: Single Stimulus Continuous Quality Scale (SSCQS), em que uma imagem referência é apresentada seguida de uma longa sequência de amostras a serem avaliadas ao longo do tempo. Outra metologia é Subjective Assessment of Multimedia Video Quality (SAMVIQ), que consiste em comparar uma imagem referência e uma imagem processada, para cada amostra de uma sequência. Afim de aumentar a eficiente deste último, foi proposto em \cite{zhang2017subjective} a avaliação subjetiva de qualidade de vídeo de mídia panorâmica (SAMPVIQ - Subjective Assessment of Multimedia Panoramic Video Quality), que é uma melhoria com base em vídeos panorâmicos. Segundo \cite{zhang2017subjective}, SAMPVIQ apresentou uma eficiência superior aos anteriores por apresentar resultados mais compatíveis com métricas objetivas presentes na literatura.
 
 Embora os testes subjetivos sejam geralmente precisos se realizados corretamente, eles são inconvenientes, caros e demorados. Principalmente, quando aplicados em avaliação de imagens e vídeos para Realidade Virtual onde a experiência do usuário é mais imersiva. Assim, uma medida de desempenho objetiva que pudesse prever com precisão a percepção humana seria um valioso método complementar.
 
@@ -129,88 +129,100 @@ Nas subseções seguintes serão detalhados os cálculos necessários para a implemen
 
 \subsection{Mapeamento de Imagens Equiretangulares em uma Esfera} \label{subsec:equimap}
 
-O formata de imagem equiretangular é uma captura ou produção de imagem feita para ser exibida no interior de uma esfera.
-
-Uma esfera com suas normais invertidas é uma esfera que tenha apenas seu lado interno renderizado, possibilita preencher completamente todo o campo de visão possível, além de ser a solução padrão adotada na exibição de imagens equiretangulares em 360 graus. O mapeamento de UV da esfera é o padrão adotado para Softwares de modelagem na geração de uma esfera: geração de vertíces baseada em coordenadas de longitude/latitude.
+O formato de imagem equiretangular é uma captura ou produção de imagem feita para ser exibida no interior de uma esfera possibilitando preencher completamente o campo de visão do usuário, além de ser a solução muito utilizada na exibição de imagens equiretangulares em 360 graus. O mapeamento de UV da esfera é o padrão adotado para \textit{softwares} de modelagem na geração de uma esfera: geração de vertíces baseada em coordenadas de longitude/latitude.
 
 \begin{figure}[!tbp]
   \centering
-  \begin{minipage}[b]{0.39\textwidth}
-    \includegraphics[width=\textwidth]{../images/tone_plane.png}
-    \caption{Representação das UVs em uma imagem equiretangular.}
+  \begin{minipage}[b]{0.40\textwidth}
+    \includegraphics[width=1.4\textwidth]{../images/equirect_projection.jpg}
+    \caption{Imagem 360 em formato equiretangular.}
     \label{fig:equirectimage}
   \end{minipage}
   \hfill
-  \begin{minipage}[b]{0.45\textwidth}
+  \begin{minipage}[b]{0.44\textwidth}
     \centering
-    \includegraphics[width=0.6\textwidth]{../images/tone_sphere.png}
+    \includegraphics[width=0.7\textwidth]{../images/sphere.png}
     \caption{Mapeamento de UV de uma imagem equiretangular para uma esfera.}
     \label{fig:equisphere}
   \end{minipage}
 \end{figure}
 
 % 2 - Mapeamento de UV em uma esfera invertida
-Para calcular as posições dos vértices da esfera, dada uma quantidade de valores de latitude $N_{latitude}$ e uma quantidade de valores de longitude $N_{longitude}$, define-se um valor $R_{longitude}$ como o tamanho angular de longitude de uma secção transversal da esfera, tal como visto na equação \ref{equation1}.
+Na figura \ref{fig:sphere_transversalsec} é exibida uma secção transversal da divisão de uma esfera em longitudes. Na geração das posições dos vértices da esfera, se faz necessário definir uma quantidade de valores de longitude $N$, assim o tamanho angular $T$ para divisão longitudinal pode ser calculado pela equação \ref{longitudesize}. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.25\textwidth]{../images/longitudes.png}
+\caption{Uma secção transversal da esfera dividida em 8 longitudes.}
+\label{fig:sphere_transversalsec}
+\end{figure}
 
 \begin{equation}
-R_{longitude} = \frac{2 \pi}{N_{longitude}}
-\label{equation1}
+T = \frac{2 \pi}{N}
+\label{longitudesize}
 \end{equation}
 
-O tamanho angular total de uma quantidade de $i$ de valores de longitude pode ser dada pela equação \ref{equation2}.
+O tamanho angular total de uma quantidade de $i$ de valores de longitude pode ser dada pela equação \ref{longitudealpha}.
 
 \begin{equation}
-\alpha_{i} = i * R_{longitude}
-\label{equation2}
+\alpha_{i} = i * T
+\label{longitudealpha}
 \end{equation}
 
-Nas equações \ref{equation3} e \ref{equation4} definem-se as posições X e Z de pontos da esfera pertencentes a uma secção transversal da esfera que possui raio $D$.
+Considerando a figura \ref{fig:sphere_transversalsec}, percebe-se que o seno e cosseno do ângulo T definem-se as posições X e Z dos pontos da esfera pertencentes a essa secção transversal da esfera. Dessa forma, supondo uma esfera de raio $R$, podemos escrever as equações \ref{x_d} e \ref{z_d}.
 
 \begin{equation}
-x_{i} = D * \sin(\alpha_{i})
-\label{equation3}
+x_{i} = R * \sin(\alpha_{i})
+\label{x_d}
 \end{equation}
 
 \begin{equation}
-z_{i} = D * \cos(\alpha_{i})
-\label{equation4}
+z_{i} = R * \cos(\alpha_{i})
+\label{z_d}
 \end{equation}
 
-Em um corte longitudinal, é possível perceber que o raio $D$ da secção transversal é variável ao longo da altura da esfera. Determina-se então um valor $R$ como o tamanho angular de um valor de latitude da esfera, tal como visto na equação \ref{equation5}.
+Em um corte longitudinal, é possível perceber que o raio $R$ de uma secção transversal varia ao longo da altura da esfera. A figura \ref{fig:sphere_longitudisec} mostra a secção longitudinal de uma esfera dividida em algumas latitudes. Determina-se então um valor $K$ como o tamanho angular de um valor de latitude da esfera, dado um valor $M$ de latitudes, tal como visto na equação \ref{equation5}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.25\textwidth]{../images/latitudes.png}
+\caption{Uma secção longitudinal da esfera dividida em 8 latitudes.}
+\label{fig:sphere_longitudisec}
+\end{figure}
 
 \begin{equation}
-R_{latitude} = \frac{\pi}{ N_{latitude}}
+K = \frac{\pi}{M}
 \label{equation5}
 \end{equation}
 
 O tamanho angular total de uma quantidade de $i$ de valores de latitude pode ser dado pela equação \ref{equation6}.
 
 \begin{equation}
-\alpha_{latitude} = i * R_{latitude}
+\alpha_{yi} = i * K
 \label{equation6}
 \end{equation}
 
 A posição Y dos pontos da esfera, considerando raio unitário, pode ser dada pela equação \ref{equation7}.
 \begin{equation}
-y_{i} = \cos(\alpha_{latitude})
+y_{i} = \cos(\alpha_{yi})
 \label{equation7}
 \end{equation}
 
 O raio $D_{yi}$ obtido em uma secção transversal na latitude $i$ é definido na equação \ref{equation8} como:
 \begin{equation}
-D_{yi} = 2 * \sin(\alpha_{yi})
+R_{yi} = \sin(\alpha_{yi})
 \label{equation8}
 \end{equation}
 
-Aplicando-se a equação \ref{equation8} nas equações \ref{equation3} e \ref{equation4} obtém-se as posições X e Z dos vértices da esfera em função de suas coordenadas de longitude e latitude.
+Aplicando-se a equação \ref{equation8} nas equações \ref{x_d} e \ref{z_d} obtém-se as posições X e Z dos vértices da esfera em função de suas coordenadas de longitude e latitude.
 
 \begin{equation}
-x_{i} = 2 * \sin(\alpha_{latitude}) * \sin(\alpha_{longitude})
+x_{i} = \sin(\alpha_{yi}) * \sin(\alpha_i)
 \label{equation9}
 \end{equation}
 
 \begin{equation}
-z_{i} = 2 * \sin(\alpha_{latitude}) * \cos(\alpha_{longitude})
+z_{i} = \sin(\alpha_{yi}) * \cos(\alpha_i)
 \label{equation10}
 \end{equation}
 
