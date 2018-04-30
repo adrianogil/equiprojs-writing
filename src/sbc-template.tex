@@ -225,19 +225,26 @@ Um \textit{Skybox} define o conteúdo a ser renderizado no fundo de uma visualiza
 % TODO: Explicar o uso do termo fragmento
 No processo de rasterização do conteúdo de fundo, é necessário obter uma coordenada de UV para cada pixel (ou fragmento) exibido na tela. Normalmente implementações de \textit{shaders} de \textit{Skybox} utilizam texturas 3D para armazenar as 6 faces de um cubo e as acessa por meio de uma chamada da função gráfica \textit{tex3D}.
 
+O mapeamento de uma imagem equiretangular para um Skybox envolve encontrar qual a relação do valor vetorial de UV dada uma direção normalizada. A equação \ref{eq:uv_mapping_skybox} permite implementar via shader esse mapeamento, considerando o vetor $(x,y,z)$ como a direção normalizada obtida pela normalização da posição local do vértice na função de \textit{vertex shader}.
+
+\begin{equation}
+uv = (\arctan(\frac{x}{y})), \arccos(y))
+\label{eq:uv_mapping_skybox}
+\end{equation}
+
 % Mapeamento de uma esfera contínua
 Assim, enquanto a abordagem discutida na subseção \ref{subsec:equimap} define uma projeção de coordenadas de UVs para posições no espaço 3D, a abordagem utilizando \textit{Skybox} segue um método inverso: a partir de posições normalizadas no espaço 3D busca encontrar coordenadas de UV equivalentes de maneira contínua em termos de possibilidade de direção de visualização.
 
 \subsection{Mapeamento Cubemap a partir de Imagens Equiretangulares} \label{subsec:equicubemap}
 
 % Geração de um cubo.
-
+O primeiro passo do uso de um \textit{Cubemap} é a geração de um cubo. Porém o cubo padrão gerado pela Unity não possui vértices suficientes para um mapeamento de UV preciso. Para obter melhores resultados, utilizamos uma subdivisão de \textit{Mesh} em que cada triângulo é dividido em quatro. Iniciando de um cubo de $10$ vértices e $12$ triângulos, repetimos a operação de subdivisão quatro vezes e obtivemos um cubo de $4090$ vértices e $4096$ triângulos.
 
 % Calculo de UV
-
+No momento da geração de cada vértice, pode-se calcular a sua respectiva coordenada de UV, utilizando o cálculo da equação \ref{eq:uv_mapping_skybox}. Percebe-se que assim, a visão cubemap equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um \textit{Skybox}
 
 % Percebe-se que mapeamento equivale a discritização da abordagem anterior
-Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um \textit{Skybox}.
+% Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um \textit{Skybox}.
 
 
 % Necessidade de subdivisão de mesh
@@ -252,8 +259,7 @@ Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de 
 \section{Métricas de Qualidades de Imagens 360}  \label{sec:metrics}
 
 %  Métricas objetivas
-O objetivo da avaliação objetiva é desenvolver uma medida quantitativa que pode prever a qualidade da imagem percebida. É difícil encontrar uma única medida de avaliação objetiva, fácil de calcular, que corresponda bem com a inspeção visual e seja adequado para uma variedade de exigências da aplicação. É necessário a avaliação da qualidade por meio de várias medidas objetivas.
-
+O objetivo da avaliação objetiva é desenvolver uma medida quantitativa que possa prever a qualidade da imagem percebida. É difícil encontrar uma única medida de avaliação objetiva, fácil de calcular, que corresponda bem com a inspeção visual e seja adequado para uma variedade de exigências da aplicação. Nas subseções seguintes detalhamos as métricas empregadas da nossa proposta.
 
 % TODO: Listar métricas utilizadas no artigo
 
