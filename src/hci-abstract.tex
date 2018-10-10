@@ -31,18 +31,16 @@
 %   - Câmeras 360
 %   - Formatos
 %   - Como essas imagens são consumidas
+% Imagens 360 são uma fotografia completa do entorno, trazendo a ilusão de uma completa visão a partir de um único ponto. Câmeras 360 possuem a funcionalidade de registrar tomadas panorâmicas completas em 360 graus ao redor do ponto de captura. Atualmente, existem diversos formatos possíveis para imagens 360, sendo um dos mais adotados, o formato equiretangular. Capturas 360 são geralmente compartilhadas em mídias sociais, onde através de movimentos gestuais é possível navegar na imagem. Aplicações de Realidade Virtual trazem a possibilidade de uma visão mais imersiva de imagens 360, permitindo ao usuário a sensação de estar dentro da imagem.
 Equirectangular images are captures in 360 degrees of user surroundings. Virtual reality applications provide immersive experience when using this type of media.
 
 However, in order to develop a 360 viewer it is necessary to choose among diferent media formats, resolution configurations and texture-to-objects mappings.
 
-This work proposes to develop a tool integrated into \textit{Unity} editor to automatize the quality assessment of different settings of 360 image visualization.
+% TODO: Proposta
+% Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity} utilizando métricas objetivas. Para avaliações em condições próximas a de cenários reais, nossa ferramenta deve ser capaz de simular a visualização sob pré-determinados valores de ângulos de campo de visão e resolução.
+This work proposes to develop a tool integrated into \textit{Unity} editor to automatize the quality assessment of different settings of equirectangular image visualization. Our tool will adopt objective metrics to compare 2D screenshots of a 360 viewer. Therefore, each screenshot should simulate the target device display, i.e, its resolution and aspect ratio, for each viewpoint of a 360 image, in the same way a user would be able to do in a VR application.
 
 Using objetive metrics, we compare the UV mapping of a procedural sphere, a \textit{Skybox} rendering and a \textit{Cubemap}.
-
-
-
-
-Imagens 360 são uma fotografia completa do entorno, trazendo a ilusão de uma completa visão a partir de um único ponto. Câmeras 360 possuem a funcionalidade de registrar tomadas panorâmicas completas em 360 graus ao redor do ponto de captura. Atualmente, existem diversos formatos possíveis para imagens 360, sendo um dos mais adotados, o formato equiretangular. Capturas 360 são geralmente compartilhadas em mídias sociais, onde através de movimentos gestuais é possível navegar na imagem. Aplicações de Realidade Virtual trazem a possibilidade de uma visão mais imersiva de imagens 360, permitindo ao usuário a sensação de estar dentro da imagem.
 
 % TOREVIEW: Realidade Virtual e displays
 Recentemente, dispositivos de realidade virtual (VR, sigla inglês para \textit{Virtual Reality}) se tornaram acessíveis para uma grande parte da população. Neste tipo de aparelho, um mundo virtual é renderizado de maneira estéreo, ou seja, com uma visão para cada olho, passando assim a sensação de profundidade e maior presença em um ambiente virtual. A tecnologia por trás dos displays \textit{VR} tem evoluido muito, porém esbarram na necessidade de oferecer uma grande densidade de pixels por grau de campo de visão. Segundo \cite{va1965visual}, o olho humano possui uma resolução estimada de 60 pixels por grau, ou seja, um aparelho modesto de 100 graus de campo de visão deveria prover uma resolução de 6K para fornecer uma ilusão espacial mais realista possível.
@@ -67,9 +65,6 @@ Existem duas maneiras de avaliação da qualidade de imagem: Métricas Subjetivas e
 
 % TODO: Unity como ferramenta default para desenvolver VR apps
 A \textit{Unity} é uma \textit{engine} de desenvolvimento de jogos para plataformas móveis, consoles, computadores, além de dispositivos de realidade virtual e aumentada. Atualmente, a \textit{Unity} é muito utilizada por grupos de desenvolvedores independentes e grandes corporações, tais como Microsoft e Disney, e é a ferramenta mais adotada no desenvolvimento de aplicações \textit{VR}.
-
-% TODO: Proposta
-Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity} utilizando métricas objetivas. Para avaliações em condições próximas a de cenários reais, nossa ferramenta deve ser capaz de simular a visualização sob pré-determinados valores de ângulos de campo de visão e resolução.
 
 
 \end{document}
