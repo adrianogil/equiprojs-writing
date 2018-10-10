@@ -36,6 +36,13 @@ Equirectangular images are captures in 360 degrees of user surroundings. Virtual
 
 However, in order to develop a 360 viewer it is necessary to choose among diferent media formats, resolution configurations and texture-to-objects mappings.
 
+% TODO: Visualizadores de imagens 360
+% - Aplicações de visualização simulação a visualização do conteúdo envelopado numa esfera
+% - Problemas
+% --- Tamanho do formato
+% --- Diferentes formatos possuem variados graus de distorção e resolução ao longo da direção visual
+Aplicações de visualização de imagens 360 renderizam seu conteúdo envelopado numa esfera, ou seja, como se o conteúdo visual estivesse disposto ao redor do usuário, preenchendo completamente o seu campo visual, como no caso das aplicações \textit{VR}. Para tanto, requerem uma grande quantidade de píxels disponíveis de forma a manter a boa qualidade dessas visualizações. A busca pela melhor qualidade visual pode signicar escolher entre diferentes formatos de exibição, com graus variados de distorção e não uniformidade na resolução ao longo dos 360 graus possíveis.
+
 % TODO: Proposta
 % Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity} utilizando métricas objetivas. Para avaliações em condições próximas a de cenários reais, nossa ferramenta deve ser capaz de simular a visualização sob pré-determinados valores de ângulos de campo de visão e resolução.
 This work proposes to develop a tool integrated into \textit{Unity} editor to automatize the quality assessment of different settings of equirectangular image visualization. Our tool will adopt objective metrics to compare 2D screenshots of a 360 viewer. Therefore, each screenshot should simulate the target device display, i.e, its resolution and aspect ratio, for each viewpoint of a 360 image, in the same way a user would be able to do in a VR application.
@@ -44,13 +51,6 @@ Using objetive metrics, we compare the UV mapping of a procedural sphere, a \tex
 
 % TOREVIEW: Realidade Virtual e displays
 Recentemente, dispositivos de realidade virtual (VR, sigla inglês para \textit{Virtual Reality}) se tornaram acessíveis para uma grande parte da população. Neste tipo de aparelho, um mundo virtual é renderizado de maneira estéreo, ou seja, com uma visão para cada olho, passando assim a sensação de profundidade e maior presença em um ambiente virtual. A tecnologia por trás dos displays \textit{VR} tem evoluido muito, porém esbarram na necessidade de oferecer uma grande densidade de pixels por grau de campo de visão. Segundo \cite{va1965visual}, o olho humano possui uma resolução estimada de 60 pixels por grau, ou seja, um aparelho modesto de 100 graus de campo de visão deveria prover uma resolução de 6K para fornecer uma ilusão espacial mais realista possível.
-
-% TODO: Visualizadores de imagens 360
-% - Aplicações de visualização simulação a visualização do conteúdo envelopado numa esfera
-% - Problemas
-% --- Tamanho do formato
-% --- Diferentes formatos possuem variados graus de distorção e resolução ao longo da direção visual
-Aplicações de visualização de imagens 360 renderizam seu conteúdo envelopado numa esfera, ou seja, como se o conteúdo visual estivesse disposto ao redor do usuário, preenchendo completamente o seu campo visual, como no caso das aplicações \textit{VR}. Para tanto, requerem uma grande quantidade de píxels disponíveis de forma a manter a boa qualidade dessas visualizações. A busca pela melhor qualidade visual pode signicar escolher entre diferentes formatos de exibição, com graus variados de distorção e não uniformidade na resolução ao longo dos 360 graus possíveis.
 
 
 % Diversos fatores influenciam na qualidade de uma imagem, e a avaliação de pós-processamentos em tais imagens, é um fator primordial para que não reflita na experiência do usuário, principalmente em aplicações que utilizam dispositivos de Realidade Virtual.
