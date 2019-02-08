@@ -11,11 +11,11 @@
 
 \sloppy
 
-\title{Ferramenta de Avaliação de Qualidade de Imagens Equiretangulares Integrada no Editor Unity}
+\title{Ferramenta de Avaliaï¿½ï¿½o de Qualidade de Imagens Equiretangulares Integrada no Editor Unity}
 
 \author{Adriano M. Gil\inst{1}, Eliamara Silva\inst{1}, Thiago S. Figueira\inst{1}}
 
-\address{Samsung Instituto de Desenvolvimento para a Informática da Amazônia
+\address{Samsung Instituto de Desenvolvimento para a Informï¿½tica da Amazï¿½nia
   (SIDIA)\\
   Manaus -- AM -- Brazil
   \email{\{adriano.gil,eliamara.s,t.figueira\}@samsung.com}
@@ -30,98 +30,98 @@
 \end{abstract}
 
 \begin{resumo}
-  Imagens equiretangulares são uma captura em 360 graus do entorno do usuário. Aplicações de realidade virtual possibilitam uma experiência imersiva na utilização deste tipo de mídia. No entanto para desenvolver um visualizador de mídia 360 é necessário escolher entre diferentes formatos, configurações de resolução, e formas de mapeamentos para objetos 3D. Este artigo tem a proposta de desenvolver uma ferramenta integrada ao editor \textit{Unity} que permita automatizar a avaliação de qualidade de diferentes parâmetros de visualização de imagens 360. Métricas objetivas foram empregadas na comparação entre os mapeamentos de UV com base em uma esfera procedural, uma exibição de \textit{Skybox} e um \textit{Cubemap}.
+  Imagens equiretangulares sï¿½o uma captura em 360 graus do entorno do usuï¿½rio. Aplicaï¿½ï¿½es de realidade virtual possibilitam uma experiï¿½ncia imersiva na utilizaï¿½ï¿½o deste tipo de mï¿½dia. No entanto para desenvolver um visualizador de mï¿½dia 360 ï¿½ necessï¿½rio escolher entre diferentes formatos, configuraï¿½ï¿½es de resoluï¿½ï¿½o, e formas de mapeamentos para objetos 3D. Este artigo tem a proposta de desenvolver uma ferramenta integrada ao editor \textit{Unity} que permita automatizar a avaliaï¿½ï¿½o de qualidade de diferentes parï¿½metros de visualizaï¿½ï¿½o de imagens 360. Mï¿½tricas objetivas foram empregadas na comparaï¿½ï¿½o entre os mapeamentos de UV com base em uma esfera procedural, uma exibiï¿½ï¿½o de \textit{Skybox} e um \textit{Cubemap}.
 \end{resumo}
 
-\section{Introdução}
+\section{Introduï¿½ï¿½o}
 
-% TOREVIEW: Contextualização - Imagens 360
-%   - O que são imagens 360
-%   --- Possibilidade de revisitar um momento do espaço tempo
-%   - Câmeras 360
+% TOREVIEW: Contextualizaï¿½ï¿½o - Imagens 360
+%   - O que sï¿½o imagens 360
+%   --- Possibilidade de revisitar um momento do espaï¿½o tempo
+%   - Cï¿½meras 360
 %   - Formatos
-%   - Como essas imagens são consumidas
-Imagens 360 são uma fotografia completa do entorno, trazendo a ilusão de uma completa visão a partir de um único ponto. Câmeras 360 possuem a funcionalidade de registrar tomadas panorâmicas completas em 360 graus ao redor do ponto de captura. Atualmente, existem diversos formatos possíveis para imagens 360, sendo um dos mais adotados, o formato equiretangular. Capturas 360 são geralmente compartilhadas em mídias sociais, onde através de movimentos gestuais é possível navegar na imagem. Aplicações de Realidade Virtual trazem a possibilidade de uma visão mais imersiva de imagens 360, permitindo ao usuário a sensação de estar dentro da imagem.
+%   - Como essas imagens sï¿½o consumidas
+Imagens 360 sï¿½o uma fotografia completa do entorno, trazendo a ilusï¿½o de uma completa visï¿½o a partir de um ï¿½nico ponto. Cï¿½meras 360 possuem a funcionalidade de registrar tomadas panorï¿½micas completas em 360 graus ao redor do ponto de captura. Atualmente, existem diversos formatos possï¿½veis para imagens 360, sendo um dos mais adotados, o formato equiretangular. Capturas 360 sï¿½o geralmente compartilhadas em mï¿½dias sociais, onde atravï¿½s de movimentos gestuais ï¿½ possï¿½vel navegar na imagem. Aplicaï¿½ï¿½es de Realidade Virtual trazem a possibilidade de uma visï¿½o mais imersiva de imagens 360, permitindo ao usuï¿½rio a sensaï¿½ï¿½o de estar dentro da imagem.
 
 % TOREVIEW: Realidade Virtual e displays
-Recentemente, dispositivos de realidade virtual (VR, sigla inglês para \textit{Virtual Reality}) se tornaram acessíveis para uma grande parte da população. Neste tipo de aparelho, um mundo virtual é renderizado de maneira estéreo, ou seja, com uma visão para cada olho, passando assim a sensação de profundidade e maior presença em um ambiente virtual. A tecnologia por trás dos displays \textit{VR} tem evoluido muito, porém esbarram na necessidade de oferecer uma grande densidade de pixels por grau de campo de visão. Segundo \cite{va1965visual}, o olho humano possui uma resolução estimada de 60 pixels por grau, ou seja, um aparelho modesto de 100 graus de campo de visão deveria prover uma resolução de 6K para fornecer uma ilusão espacial mais realista possível.
+Recentemente, dispositivos de realidade virtual (VR, sigla inglï¿½s para \textit{Virtual Reality}) se tornaram acessï¿½veis para uma grande parte da populaï¿½ï¿½o. Neste tipo de aparelho, um mundo virtual ï¿½ renderizado de maneira estï¿½reo, ou seja, com uma visï¿½o para cada olho, passando assim a sensaï¿½ï¿½o de profundidade e maior presenï¿½a em um ambiente virtual. A tecnologia por trï¿½s dos displays \textit{VR} tem evoluido muito, porï¿½m esbarram na necessidade de oferecer uma grande densidade de pixels por grau de campo de visï¿½o. Segundo \cite{va1965visual}, o olho humano possui uma resoluï¿½ï¿½o estimada de 60 pixels por grau, ou seja, um aparelho modesto de 100 graus de campo de visï¿½o deveria prover uma resoluï¿½ï¿½o de 6K para fornecer uma ilusï¿½o espacial mais realista possï¿½vel.
 
 % TODO: Visualizadores de imagens 360
-% - Aplicações de visualização simulação a visualização do conteúdo envelopado numa esfera
+% - Aplicaï¿½ï¿½es de visualizaï¿½ï¿½o simulaï¿½ï¿½o a visualizaï¿½ï¿½o do conteï¿½do envelopado numa esfera
 % - Problemas
 % --- Tamanho do formato
-% --- Diferentes formatos possuem variados graus de distorção e resolução ao longo da direção visual
-Aplicações de visualização de imagens 360 renderizam seu conteúdo envelopado numa esfera, ou seja, como se o conteúdo visual estivesse disposto ao redor do usuário, preenchendo completamente o seu campo visual, como no caso das aplicações \textit{VR}. Para tanto, requerem uma grande quantidade de píxels disponíveis de forma a manter a boa qualidade dessas visualizações. A busca pela melhor qualidade visual pode signicar escolher entre diferentes formatos de exibição, com graus variados de distorção e não uniformidade na resolução ao longo dos 360 graus possíveis.
+% --- Diferentes formatos possuem variados graus de distorï¿½ï¿½o e resoluï¿½ï¿½o ao longo da direï¿½ï¿½o visual
+Aplicaï¿½ï¿½es de visualizaï¿½ï¿½o de imagens 360 renderizam seu conteï¿½do envelopado numa esfera, ou seja, como se o conteï¿½do visual estivesse disposto ao redor do usuï¿½rio, preenchendo completamente o seu campo visual, como no caso das aplicaï¿½ï¿½es \textit{VR}. Para tanto, requerem uma grande quantidade de pï¿½xels disponï¿½veis de forma a manter a boa qualidade dessas visualizaï¿½ï¿½es. A busca pela melhor qualidade visual pode signicar escolher entre diferentes formatos de exibiï¿½ï¿½o, com graus variados de distorï¿½ï¿½o e nï¿½o uniformidade na resoluï¿½ï¿½o ao longo dos 360 graus possï¿½veis.
 
 
-% Diversos fatores influenciam na qualidade de uma imagem, e a avaliação de pós-processamentos em tais imagens, é um fator primordial para que não reflita na experiência do usuário, principalmente em aplicações que utilizam dispositivos de Realidade Virtual.
+% Diversos fatores influenciam na qualidade de uma imagem, e a avaliaï¿½ï¿½o de pï¿½s-processamentos em tais imagens, ï¿½ um fator primordial para que nï¿½o reflita na experiï¿½ncia do usuï¿½rio, principalmente em aplicaï¿½ï¿½es que utilizam dispositivos de Realidade Virtual.
 
 
 % Qualidade de imagem 360
-% - Parâmetros de configuração
-% - Necessidade de uma ferramenta para comparar diferentes sets de configuração
-Ao escolher um formato e resolução para uma imagem 360 é necessário levar em conta qual dispositivo essa será exibida. Assim acaba sendo mandatório, um contínuo ciclo de ajuste e teste no dispositivo até que seja possível encontrar as configurações ideais. O que gera assim a necessidade de uma ferramenta que possa simular e comparar diferentes configurações de imagem e de dispositivo afim de permitir uma escolha mais bem informada.
+% - Parï¿½metros de configuraï¿½ï¿½o
+% - Necessidade de uma ferramenta para comparar diferentes sets de configuraï¿½ï¿½o
+Ao escolher um formato e resoluï¿½ï¿½o para uma imagem 360 ï¿½ necessï¿½rio levar em conta qual dispositivo essa serï¿½ exibida. Assim acaba sendo mandatï¿½rio, um contï¿½nuo ciclo de ajuste e teste no dispositivo atï¿½ que seja possï¿½vel encontrar as configuraï¿½ï¿½es ideais. O que gera assim a necessidade de uma ferramenta que possa simular e comparar diferentes configuraï¿½ï¿½es de imagem e de dispositivo afim de permitir uma escolha mais bem informada.
 
-Existem duas maneiras de avaliação da qualidade de imagem: Métricas Subjetivas e Métricas Objetivas. A primeira, é a realização de testes em que observadores avaliam uma sequência de imagens e a segunda, é uma avaliação automática por meio de algoritmos implementados com base em modelos matemáticos
+Existem duas maneiras de avaliaï¿½ï¿½o da qualidade de imagem: Mï¿½tricas Subjetivas e Mï¿½tricas Objetivas. A primeira, ï¿½ a realizaï¿½ï¿½o de testes em que observadores avaliam uma sequï¿½ncia de imagens e a segunda, ï¿½ uma avaliaï¿½ï¿½o automï¿½tica por meio de algoritmos implementados com base em modelos matemï¿½ticos
 
 % TODO: Unity como ferramenta default para desenvolver VR apps
-A \textit{Unity} é uma \textit{engine} de desenvolvimento de jogos para plataformas móveis, consoles, computadores, além de dispositivos de realidade virtual e aumentada. Atualmente, a \textit{Unity} é muito utilizada por grupos de desenvolvedores independentes e grandes corporações, tais como Microsoft e Disney, e é a ferramenta mais adotada no desenvolvimento de aplicações \textit{VR}.
+A \textit{Unity} ï¿½ uma \textit{engine} de desenvolvimento de jogos para plataformas mï¿½veis, consoles, computadores, alï¿½m de dispositivos de realidade virtual e aumentada. Atualmente, a \textit{Unity} ï¿½ muito utilizada por grupos de desenvolvedores independentes e grandes corporaï¿½ï¿½es, tais como Microsoft e Disney, e ï¿½ a ferramenta mais adotada no desenvolvimento de aplicaï¿½ï¿½es \textit{VR}.
 
 % TODO: Proposta
-Neste artigo propomos uma ferramenta de avaliação de qualidade de imagem 360 para o editor da \textit{Unity} utilizando métricas objetivas. Para avaliações em condições próximas a de cenários reais, nossa ferramenta deve ser capaz de simular a visualização sob pré-determinados valores de ângulos de campo de visão e resolução.
+Neste artigo propomos uma ferramenta de avaliaï¿½ï¿½o de qualidade de imagem 360 para o editor da \textit{Unity} utilizando mï¿½tricas objetivas. Para avaliaï¿½ï¿½es em condiï¿½ï¿½es prï¿½ximas a de cenï¿½rios reais, nossa ferramenta deve ser capaz de simular a visualizaï¿½ï¿½o sob prï¿½-determinados valores de ï¿½ngulos de campo de visï¿½o e resoluï¿½ï¿½o.
 
 % TOREPHRASE: Estrutura do artigo
-Na seção \ref{sec:relatedworks} analisamos alguns trabalhos que descrevem a relação de compromisso entre formato e a qualidade de imagens 360 e que avaliam imagens 360 utilizando métricas objetivas. Os diferentes formatos e projeções utilizadas foram descritas na seção \ref{sec:imageprojection}. As métricas objetivas adotadas por este trabalho foram compiladas na seção \ref{sec:metrics}. Na seção \ref{sec:unitytool} é feita uma descrição detalhada da nossa implementação. Resultados são discutidos na seção \ref{sec:results}. Por fim, as conclusões e perspectivas de trabalhos futuros são mencionadas na seção \ref{sec:conclusion}.
+Na seï¿½ï¿½o \ref{sec:relatedworks} analisamos alguns trabalhos que descrevem a relaï¿½ï¿½o de compromisso entre formato e a qualidade de imagens 360 e que avaliam imagens 360 utilizando mï¿½tricas objetivas. Os diferentes formatos e projeï¿½ï¿½es utilizadas foram descritas na seï¿½ï¿½o \ref{sec:imageprojection}. As mï¿½tricas objetivas adotadas por este trabalho foram compiladas na seï¿½ï¿½o \ref{sec:metrics}. Na seï¿½ï¿½o \ref{sec:unitytool} ï¿½ feita uma descriï¿½ï¿½o detalhada da nossa implementaï¿½ï¿½o. Resultados sï¿½o discutidos na seï¿½ï¿½o \ref{sec:results}. Por fim, as conclusï¿½es e perspectivas de trabalhos futuros sï¿½o mencionadas na seï¿½ï¿½o \ref{sec:conclusion}.
 
 \section{Trabalhos Relacionados} \label{sec:relatedworks}
 
-% TODO: Criar Aplicações em VR é sobre como preencher o espaço em 3D. Exemplos.
-Aplicações VR diferenciam-se de outras aplicações pela preocupação em preencher o espaço tridimensional de forma a fornecer conteúdo para todos os pontos de vista possíveis. Segundo \cite{fuchs2017virtual} uma importante propriedade dos headsets VR é a habilidade de isolar visualmente e acusticamente o espectador do mundo real. Assim o sujeito pode estar completamente imerso em 360 graus de ambiente virtual
+% TODO: Criar Aplicaï¿½ï¿½es em VR ï¿½ sobre como preencher o espaï¿½o em 3D. Exemplos.
+Aplicaï¿½ï¿½es VR diferenciam-se de outras aplicaï¿½ï¿½es pela preocupaï¿½ï¿½o em preencher o espaï¿½o tridimensional de forma a fornecer conteï¿½do para todos os pontos de vista possï¿½veis. Segundo \cite{fuchs2017virtual} uma importante propriedade dos headsets VR ï¿½ a habilidade de isolar visualmente e acusticamente o espectador do mundo real. Assim o sujeito pode estar completamente imerso em 360 graus de ambiente virtual
 
 % TODO: Ferramentas Unity
 
 % TODO: Imagens 360
 % TODO: How to adapt this section 
-% Segundo o trabalho \cite{sacht2010face}, identificar rostos e linhas retas em uma imagem equirectangular requer utilizar as projeções de perspectiva e de Mercator. Ao projetar a imagem através de Mercator, as formas são preservadas e a identificação de rosto através de um detector de faces básico é possível
+% Segundo o trabalho \cite{sacht2010face}, identificar rostos e linhas retas em uma imagem equirectangular requer utilizar as projeï¿½ï¿½es de perspectiva e de Mercator. Ao projetar a imagem atravï¿½s de Mercator, as formas sï¿½o preservadas e a identificaï¿½ï¿½o de rosto atravï¿½s de um detector de faces bï¿½sico ï¿½ possï¿½vel
 
 
-O trabalho de \cite{dunn2017resolution} ressalta bem o quanto o formato de uma imagem 360 impacta em sua resolução e a uniformidade. Em imagens equiretangulares ocorre uma alta resolução nos pólos e uma alta uniformidade no meio horizontal. Enquanto em um \textit{cubemap} ocorre uma alta resolução nos cantos e bordas além de uma alta uniformidade nas diagonais de cada face.
+O trabalho de \cite{dunn2017resolution} ressalta bem o quanto o formato de uma imagem 360 impacta em sua resoluï¿½ï¿½o e a uniformidade. Em imagens equiretangulares ocorre uma alta resoluï¿½ï¿½o nos pï¿½los e uma alta uniformidade no meio horizontal. Enquanto em um \textit{cubemap} ocorre uma alta resoluï¿½ï¿½o nos cantos e bordas alï¿½m de uma alta uniformidade nas diagonais de cada face.
 
-% Métricas que avaliam qualidade de imagem
-% - Tipos de métricas
-% --- Métricas subjetivas
-% --- Métricas objetivas
-A melhor metodologia para avaliar a qualidade de imagens é por meio de Avaliações Subjetivas. Em tais testes, observadores humanos são convidados a visualizar uma série de imagens e avalia-las. Uma referência comum utilizada para tais avaliações é o MOS (\textit{Mean Opinion Score}), onde cada avaliador dar uma nota em uma escala de 1 (péssimo) a 5 (excelente), que representa a percepção da qualidade de imagem esperada pelo usuário. O MOS é gerado pelo resultado da média do conjunto das avaliações subjetivas para cada amostra.
+% Mï¿½tricas que avaliam qualidade de imagem
+% - Tipos de mï¿½tricas
+% --- Mï¿½tricas subjetivas
+% --- Mï¿½tricas objetivas
+A melhor metodologia para avaliar a qualidade de imagens ï¿½ por meio de Avaliaï¿½ï¿½es Subjetivas. Em tais testes, observadores humanos sï¿½o convidados a visualizar uma sï¿½rie de imagens e avalia-las. Uma referï¿½ncia comum utilizada para tais avaliaï¿½ï¿½es ï¿½ o MOS (\textit{Mean Opinion Score}), onde cada avaliador dar uma nota em uma escala de 1 (pï¿½ssimo) a 5 (excelente), que representa a percepï¿½ï¿½o da qualidade de imagem esperada pelo usuï¿½rio. O MOS ï¿½ gerado pelo resultado da mï¿½dia do conjunto das avaliaï¿½ï¿½es subjetivas para cada amostra.
 
-Existem diversas metodologias para avaliação subjetivas tai como: Single Stimulus Continuous Quality Scale (SSCQS), em que uma imagem referência é apresentada seguida de uma longa sequência de amostras a serem avaliadas ao longo do tempo. Outra metologia é Subjective Assessment of Multimedia Video Quality (SAMVIQ), que consiste em comparar uma imagem referência e uma imagem processada, para cada amostra de uma sequência. Afim de aumentar a eficiência deste último, foi proposto em \cite{zhang2017subjective} a avaliação subjetiva de qualidade de vídeo de mídia panorâmica (SAMPVIQ - Subjective Assessment of Multimedia Panoramic Video Quality), que é uma melhoria com base em vídeos panorâmicos. Segundo \cite{zhang2017subjective}, SAMPVIQ apresentou uma eficiência superior aos anteriores por apresentar resultados mais compatíveis com métricas objetivas presentes na literatura.
+Existem diversas metodologias para avaliaï¿½ï¿½o subjetivas tai como: Single Stimulus Continuous Quality Scale (SSCQS), em que uma imagem referï¿½ncia ï¿½ apresentada seguida de uma longa sequï¿½ncia de amostras a serem avaliadas ao longo do tempo. Outra metologia ï¿½ Subjective Assessment of Multimedia Video Quality (SAMVIQ), que consiste em comparar uma imagem referï¿½ncia e uma imagem processada, para cada amostra de uma sequï¿½ncia. Afim de aumentar a eficiï¿½ncia deste ï¿½ltimo, foi proposto em \cite{zhang2017subjective} a avaliaï¿½ï¿½o subjetiva de qualidade de vï¿½deo de mï¿½dia panorï¿½mica (SAMPVIQ - Subjective Assessment of Multimedia Panoramic Video Quality), que ï¿½ uma melhoria com base em vï¿½deos panorï¿½micos. Segundo \cite{zhang2017subjective}, SAMPVIQ apresentou uma eficiï¿½ncia superior aos anteriores por apresentar resultados mais compatï¿½veis com mï¿½tricas objetivas presentes na literatura.
 
-Embora os testes subjetivos sejam geralmente precisos se realizados corretamente, eles são inconvenientes, caros e demorados. Principalmente, quando aplicados em avaliação de imagens e vídeos para Realidade Virtual onde a experiência do usuário é mais imersiva. Assim, uma medida de desempenho objetiva que pudesse prever com precisão a percepção humana seria um valioso método complementar.
-
-
-% TODO: Trabalhos que avaliam métricas em videos/imagens 360
-
-% TODO: Ferramentas de avaliação integradas na Unity/outras engines
+Embora os testes subjetivos sejam geralmente precisos se realizados corretamente, eles sï¿½o inconvenientes, caros e demorados. Principalmente, quando aplicados em avaliaï¿½ï¿½o de imagens e vï¿½deos para Realidade Virtual onde a experiï¿½ncia do usuï¿½rio ï¿½ mais imersiva. Assim, uma medida de desempenho objetiva que pudesse prever com precisï¿½o a percepï¿½ï¿½o humana seria um valioso mï¿½todo complementar.
 
 
-\section{Projeção de Imagens 360 como Mapeamento de UV}  \label{sec:imageprojection}
+% TODO: Trabalhos que avaliam mï¿½tricas em videos/imagens 360
 
-Exibir imagens 360 significa preencher completamente o campo de visão do usuário, ou seja, prover conteúdo visual em 360 graus. Considerando o formato de imagem equiretangular, algumas possibilidades são listadas abaixo:
+% TODO: Ferramentas de avaliaï¿½ï¿½o integradas na Unity/outras engines
+
+
+\section{Projeï¿½ï¿½o de Imagens 360 como Mapeamento de UV}  \label{sec:imageprojection}
+
+Exibir imagens 360 significa preencher completamente o campo de visï¿½o do usuï¿½rio, ou seja, prover conteï¿½do visual em 360 graus. Considerando o formato de imagem equiretangular, algumas possibilidades sï¿½o listadas abaixo:
 
 \begin{enumerate}
   \begin{item}Utilizar um \textit{Mesh} em formato de esfera para exibir a imagem equiretangular em seu interior\end{item}
   \begin{item}Utilizar o \textit{Skybox} para renderizar a imagem 360 como pano de fundo.\end{item}
-  \begin{item}Mapear a imagem 360 em posições de UV de um \textit{Mesh} em formato cúbico.\end{item}
+  \begin{item}Mapear a imagem 360 em posiï¿½ï¿½es de UV de um \textit{Mesh} em formato cï¿½bico.\end{item}
 \end{enumerate}
 
-Cada formato, possui suas vantagens e desvantagens em termos de resolução oferecida por direção angular e geração de distorção ao longo da visualização.
+Cada formato, possui suas vantagens e desvantagens em termos de resoluï¿½ï¿½o oferecida por direï¿½ï¿½o angular e geraï¿½ï¿½o de distorï¿½ï¿½o ao longo da visualizaï¿½ï¿½o.
 
-% Estrutura das subseções
-Nas subseções seguintes serão detalhados os cálculos necessários para a implementação do mapeamento equiretangular na esfera (subseção \ref{subsec:equimap}), visualização da imagem 360 em um skybox (subseção \ref{subsec:skyboxviz}) e mapeamento \textit{Cubemap} de uma image equiretangular (subseção \ref{subsec:equicubemap}).
+% Estrutura das subseï¿½ï¿½es
+Nas subseï¿½ï¿½es seguintes serï¿½o detalhados os cï¿½lculos necessï¿½rios para a implementaï¿½ï¿½o do mapeamento equiretangular na esfera (subseï¿½ï¿½o \ref{subsec:equimap}), visualizaï¿½ï¿½o da imagem 360 em um skybox (subseï¿½ï¿½o \ref{subsec:skyboxviz}) e mapeamento \textit{Cubemap} de uma image equiretangular (subseï¿½ï¿½o \ref{subsec:equicubemap}).
 
 
 \subsection{Mapeamento de Imagens Equiretangulares em uma Esfera} \label{subsec:equimap}
 
-O formato de imagem equiretangular é uma captura ou produção de imagem feita para ser exibida no interior de uma esfera possibilitando preencher completamente o campo de visão do usuário, além de ser a solução muito utilizada na exibição de imagens equiretangulares em 360 graus. O mapeamento de UV da esfera é o padrão adotado para \textit{softwares} de modelagem na geração de uma esfera: geração de vertíces baseada em coordenadas de longitude/latitude.
+O formato de imagem equiretangular ï¿½ uma captura ou produï¿½ï¿½o de imagem feita para ser exibida no interior de uma esfera possibilitando preencher completamente o campo de visï¿½o do usuï¿½rio, alï¿½m de ser a soluï¿½ï¿½o muito utilizada na exibiï¿½ï¿½o de imagens equiretangulares em 360 graus. O mapeamento de UV da esfera ï¿½ o padrï¿½o adotado para \textit{softwares} de modelagem na geraï¿½ï¿½o de uma esfera: geraï¿½ï¿½o de vertï¿½ces baseada em coordenadas de longitude/latitude.
 
 \begin{figure}[!tbp]
   \centering
@@ -140,12 +140,12 @@ O formato de imagem equiretangular é uma captura ou produção de imagem feita par
 \end{figure}
 
 % 2 - Mapeamento de UV em uma esfera invertida
-Na geração das posições dos vértices da esfera, se faz necessário definir uma quantidade de valores de longitude $N$, assim o tamanho angular $T$ para divisão longitudinal pode ser calculado pela equação \ref{longitudesize}.
+Na geraï¿½ï¿½o das posiï¿½ï¿½es dos vï¿½rtices da esfera, se faz necessï¿½rio definir uma quantidade de valores de longitude $N$, assim o tamanho angular $T$ para divisï¿½o longitudinal pode ser calculado pela equaï¿½ï¿½o \ref{longitudesize}.
 
 % \begin{figure}[ht]
 % \centering
 % \includegraphics[width=.25\textwidth]{../images/longitudes.png}
-% \caption{Uma secção transversal da esfera dividida em 8 longitudes.}
+% \caption{Uma secï¿½ï¿½o transversal da esfera dividida em 8 longitudes.}
 % \label{fig:sphere_transversalsec}
 % \end{figure}
 
@@ -154,14 +154,14 @@ T = \frac{2 \pi}{N}
 \label{longitudesize}
 \end{equation}
 
-O tamanho angular total de uma quantidade de $i$ de valores de longitude pode ser dada pela equação \ref{longitudealpha}.
+O tamanho angular total de uma quantidade de $i$ de valores de longitude pode ser dada pela equaï¿½ï¿½o \ref{longitudealpha}.
 
 \begin{equation}
 \alpha_{i} = i * T
 \label{longitudealpha}
 \end{equation}
 
-O seno e cosseno do ângulo T definem as posições X e Z dos pontos da esfera pertencentes a essa secção transversal da esfera. Dessa forma, supondo uma esfera de raio $R$, podemos escrever as equações \ref{x_d} e \ref{z_d}.
+O seno e cosseno do ï¿½ngulo T definem as posiï¿½ï¿½es X e Z dos pontos da esfera pertencentes a essa secï¿½ï¿½o transversal da esfera. Dessa forma, supondo uma esfera de raio $R$, podemos escrever as equaï¿½ï¿½es \ref{x_d} e \ref{z_d}.
 
 \begin{equation}
 x_{i} = R * \sin(\alpha_{i})
@@ -173,12 +173,12 @@ z_{i} = R * \cos(\alpha_{i})
 \label{z_d}
 \end{equation}
 
-Em um corte longitudinal, é possível perceber que o raio $R$ de uma secção transversal varia ao longo da altura da esfera. A figura \ref{fig:sphere_longitudisec} mostra a secção longitudinal de uma esfera dividida em algumas latitudes. Determina-se então um valor $K$ como o tamanho angular de um valor de latitude da esfera, dado um valor $M$ de latitudes, tal como visto na equação \ref{equation5}.
+Em um corte longitudinal, ï¿½ possï¿½vel perceber que o raio $R$ de uma secï¿½ï¿½o transversal varia ao longo da altura da esfera. A figura \ref{fig:sphere_longitudisec} mostra a secï¿½ï¿½o longitudinal de uma esfera dividida em algumas latitudes. Determina-se entï¿½o um valor $K$ como o tamanho angular de um valor de latitude da esfera, dado um valor $M$ de latitudes, tal como visto na equaï¿½ï¿½o \ref{equation5}.
 
 % \begin{figure}[ht]
 % \centering
 % \includegraphics[width=.25\textwidth]{../images/latitudes.png}
-% \caption{Uma secção longitudinal da esfera dividida em 8 latitudes.}
+% \caption{Uma secï¿½ï¿½o longitudinal da esfera dividida em 8 latitudes.}
 % \label{fig:sphere_longitudisec}
 % \end{figure}
 
@@ -187,26 +187,26 @@ K = \frac{\pi}{M}
 \label{equation5}
 \end{equation}
 
-O tamanho angular total de uma quantidade de $i$ de valores de latitude pode ser dado pela equação \ref{equation6}.
+O tamanho angular total de uma quantidade de $i$ de valores de latitude pode ser dado pela equaï¿½ï¿½o \ref{equation6}.
 
 \begin{equation}
 \alpha_{yi} = i * K
 \label{equation6}
 \end{equation}
 
-A posição Y dos pontos da esfera, considerando raio unitário, pode ser dada pela equação \ref{equation7}.
+A posiï¿½ï¿½o Y dos pontos da esfera, considerando raio unitï¿½rio, pode ser dada pela equaï¿½ï¿½o \ref{equation7}.
 \begin{equation}
 y_{i} = \cos(\alpha_{yi})
 \label{equation7}
 \end{equation}
 
-O raio $D_{yi}$ obtido em uma secção transversal na latitude $i$ é definido na equação \ref{equation8} como:
+O raio $D_{yi}$ obtido em uma secï¿½ï¿½o transversal na latitude $i$ ï¿½ definido na equaï¿½ï¿½o \ref{equation8} como:
 \begin{equation}
 R_{yi} = \sin(\alpha_{yi})
 \label{equation8}
 \end{equation}
 
-Aplicando-se a equação \ref{equation8} nas equações \ref{x_d} e \ref{z_d} obtém-se as posições X e Z dos vértices da esfera em função de suas coordenadas de longitude e latitude.
+Aplicando-se a equaï¿½ï¿½o \ref{equation8} nas equaï¿½ï¿½es \ref{x_d} e \ref{z_d} obtï¿½m-se as posiï¿½ï¿½es X e Z dos vï¿½rtices da esfera em funï¿½ï¿½o de suas coordenadas de longitude e latitude.
 
 \begin{equation}
 x_{i} = \sin(\alpha_{yi}) * \sin(\alpha_i)
@@ -218,70 +218,70 @@ z_{i} = \sin(\alpha_{yi}) * \cos(\alpha_i)
 \label{equation10}
 \end{equation}
 
-\subsection{Visualização em um Skybox} \label{subsec:skyboxviz}
+\subsection{Visualizaï¿½ï¿½o em um Skybox} \label{subsec:skyboxviz}
 
 % Definir Skybox
-Um \textit{Skybox} define o conteúdo a ser renderizado no fundo de uma visualização gráfica de um ambiente virtual em 3D. Ou seja, quando nenhum outro elemento 3D é rasterizado pela câmera virtual, o \textit{Skybox} é rasterizado na direção atual de visualização.
+Um \textit{Skybox} define o conteï¿½do a ser renderizado no fundo de uma visualizaï¿½ï¿½o grï¿½fica de um ambiente virtual em 3D. Ou seja, quando nenhum outro elemento 3D ï¿½ rasterizado pela cï¿½mera virtual, o \textit{Skybox} ï¿½ rasterizado na direï¿½ï¿½o atual de visualizaï¿½ï¿½o.
 
-% Como mapear a direção de visualização para posições de UV
+% Como mapear a direï¿½ï¿½o de visualizaï¿½ï¿½o para posiï¿½ï¿½es de UV
 % TODO: Explicar o uso do termo fragmento
-No processo de rasterização do conteúdo de fundo, é necessário obter uma coordenada de UV para cada pixel (ou fragmento) exibido na tela. Normalmente implementações de \textit{shaders} de \textit{Skybox} utilizam texturas 3D para armazenar as 6 faces de um cubo e as acessa por meio de uma chamada da função gráfica \textit{tex3D}.
+No processo de rasterizaï¿½ï¿½o do conteï¿½do de fundo, ï¿½ necessï¿½rio obter uma coordenada de UV para cada pixel (ou fragmento) exibido na tela. Normalmente implementaï¿½ï¿½es de \textit{shaders} de \textit{Skybox} utilizam texturas 3D para armazenar as 6 faces de um cubo e as acessa por meio de uma chamada da funï¿½ï¿½o grï¿½fica \textit{tex3D}.
 
-O mapeamento de uma imagem equiretangular para um Skybox envolve encontrar qual a relação do valor vetorial de UV dada uma direção normalizada. A equação \ref{eq:uv_mapping_skybox} permite implementar via shader esse mapeamento, considerando o vetor $(x,y,z)$ como a direção normalizada obtida pela normalização da posição local do vértice na função de \textit{vertex shader}.
+O mapeamento de uma imagem equiretangular para um Skybox envolve encontrar qual a relaï¿½ï¿½o do valor vetorial de UV dada uma direï¿½ï¿½o normalizada. A equaï¿½ï¿½o \ref{eq:uv_mapping_skybox} permite implementar via shader esse mapeamento, considerando o vetor $(x,y,z)$ como a direï¿½ï¿½o normalizada obtida pela normalizaï¿½ï¿½o da posiï¿½ï¿½o local do vï¿½rtice na funï¿½ï¿½o de \textit{vertex shader}.
 
 \begin{equation}
 uv = (\arctan(\frac{x}{y})), \arccos(y))
 \label{eq:uv_mapping_skybox}
 \end{equation}
 
-% Mapeamento de uma esfera contínua
-Assim, enquanto a abordagem discutida na subseção \ref{subsec:equimap} define uma projeção de coordenadas de UVs para posições no espaço 3D, a abordagem utilizando \textit{Skybox} segue um método inverso: a partir de posições normalizadas no espaço 3D busca encontrar coordenadas de UV equivalentes de maneira contínua em termos de possibilidade de direção de visualização.
+% Mapeamento de uma esfera contï¿½nua
+Assim, enquanto a abordagem discutida na subseï¿½ï¿½o \ref{subsec:equimap} define uma projeï¿½ï¿½o de coordenadas de UVs para posiï¿½ï¿½es no espaï¿½o 3D, a abordagem utilizando \textit{Skybox} segue um mï¿½todo inverso: a partir de posiï¿½ï¿½es normalizadas no espaï¿½o 3D busca encontrar coordenadas de UV equivalentes de maneira contï¿½nua em termos de possibilidade de direï¿½ï¿½o de visualizaï¿½ï¿½o.
 
 \subsection{Mapeamento Cubemap a partir de Imagens Equiretangulares} \label{subsec:equicubemap}
 
-% Geração de um cubo.
-O primeiro passo do uso de um \textit{Cubemap} é a geração de um cubo. Porém o cubo padrão gerado pela \textit{Unity} não possui vértices suficientes para um mapeamento de UV preciso. Isso se explica pela necessidade do mapeamento de UV ser uma função de senos e cossenos, enquanto a rasteriação no interior de um triângulo obtém valores de UV por meio de uma interpolação linear de seus valores de vértice, logo gerando distorções. 
+% Geraï¿½ï¿½o de um cubo.
+O primeiro passo do uso de um \textit{Cubemap} ï¿½ a geraï¿½ï¿½o de um cubo. Porï¿½m o cubo padrï¿½o gerado pela \textit{Unity} nï¿½o possui vï¿½rtices suficientes para um mapeamento de UV preciso. Isso se explica pela necessidade do mapeamento de UV ser uma funï¿½ï¿½o de senos e cossenos, enquanto a rasteriaï¿½ï¿½o no interior de um triï¿½ngulo obtï¿½m valores de UV por meio de uma interpolaï¿½ï¿½o linear de seus valores de vï¿½rtice, logo gerando distorï¿½ï¿½es. 
 
-Para obter melhores resultados, utilizamos uma subdivisão de \textit{Mesh} em que cada triângulo é dividido em quatro. Iniciando de um cubo de $10$ vértices e $12$ triângulos, repetimos a operação de subdivisão quatro vezes e obtivemos um cubo de $4090$ vértices e $4096$ triângulos.
+Para obter melhores resultados, utilizamos uma subdivisï¿½o de \textit{Mesh} em que cada triï¿½ngulo ï¿½ dividido em quatro. Iniciando de um cubo de $10$ vï¿½rtices e $12$ triï¿½ngulos, repetimos a operaï¿½ï¿½o de subdivisï¿½o quatro vezes e obtivemos um cubo de $4090$ vï¿½rtices e $4096$ triï¿½ngulos.
 
 % Calculo de UV
-No momento da geração de cada vértice, pode-se calcular a sua respectiva coordenada de UV, utilizando o cálculo da equação \ref{eq:uv_mapping_skybox}. Percebe-se que assim, a visão \textit{Cubemap} equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um \textit{Skybox}
+No momento da geraï¿½ï¿½o de cada vï¿½rtice, pode-se calcular a sua respectiva coordenada de UV, utilizando o cï¿½lculo da equaï¿½ï¿½o \ref{eq:uv_mapping_skybox}. Percebe-se que assim, a visï¿½o \textit{Cubemap} equivale a discretizaï¿½ï¿½o da abordagem de mapeamento contï¿½nuo das coordenadas de UV em um \textit{Skybox}
 
-% Percebe-se que mapeamento equivale a discritização da abordagem anterior
-% Equivale a discretização da abordagem de mapeamento contínuo das coordenadas de UV em um \textit{Skybox}.
-
-
-% Necessidade de subdivisão de mesh
+% Percebe-se que mapeamento equivale a discritizaï¿½ï¿½o da abordagem anterior
+% Equivale a discretizaï¿½ï¿½o da abordagem de mapeamento contï¿½nuo das coordenadas de UV em um \textit{Skybox}.
 
 
-% Subdivisão de mesh, um trinagule em tres tringulos
+% Necessidade de subdivisï¿½o de mesh
 
 
-% Subdivisão de mesh, um trinagule em quatro tringulos
+% Subdivisï¿½o de mesh, um trinagule em tres tringulos
 
 
-\section{Métricas de Qualidades de Imagens 360}  \label{sec:metrics}
+% Subdivisï¿½o de mesh, um trinagule em quatro tringulos
 
-%  Métricas objetivas
-O objetivo da avaliação objetiva é desenvolver uma medida quantitativa que possa prever a qualidade da imagem percebida. É difícil encontrar uma única medida de avaliação objetiva, fácil de calcular, que corresponda bem com a inspeção visual e seja adequado para uma variedade de exigências da aplicação. Nas subseções seguintes detalhamos as métricas empregadas da nossa proposta.
 
-% TODO: Listar métricas utilizadas no artigo
+\section{Mï¿½tricas de Qualidades de Imagens 360}  \label{sec:metrics}
 
-% TODO: Subsection para cada métrica. Exemplificar com screenshots.
+%  Mï¿½tricas objetivas
+O objetivo da avaliaï¿½ï¿½o objetiva ï¿½ desenvolver uma medida quantitativa que possa prever a qualidade da imagem percebida. ï¿½ difï¿½cil encontrar uma ï¿½nica medida de avaliaï¿½ï¿½o objetiva, fï¿½cil de calcular, que corresponda bem com a inspeï¿½ï¿½o visual e seja adequado para uma variedade de exigï¿½ncias da aplicaï¿½ï¿½o. Nas subseï¿½ï¿½es seguintes detalhamos as mï¿½tricas empregadas da nossa proposta.
+
+% TODO: Listar mï¿½tricas utilizadas no artigo
+
+% TODO: Subsection para cada mï¿½trica. Exemplificar com screenshots.
 
 \subsection{MSE}
 
-MSE é uma sigla para "mínimo erro quadrático" ou "Mean Square Error" em inglês. A equação \ref{eq:mse} descreve como é calculado:
+MSE ï¿½ uma sigla para "mï¿½nimo erro quadrï¿½tico" ou "Mean Square Error" em inglï¿½s. A equaï¿½ï¿½o \ref{eq:mse} descreve como ï¿½ calculado:
 \begin{equation}
 MSE=\frac{1}{MN}\sum_{m=0}^{M-1}{\sum_{n=0}^{N-1}{e(m,n)^2}}
 \label{eq:mse}
 \end{equation}
 
-Onde, o $e$ indica o erro da diferença nos valores de pixels das duas imagens. $M$ e $N$ indicam a largura e altura das imagens, respectivamente, e $m$ e $n$ indicam a posição horizontal e vertical, respectivamente.
+Onde, o $e$ indica o erro da diferenï¿½a nos valores de pixels das duas imagens. $M$ e $N$ indicam a largura e altura das imagens, respectivamente, e $m$ e $n$ indicam a posiï¿½ï¿½o horizontal e vertical, respectivamente.
 
 \subsection{SSIM}
 
-Descrita em \cite{wang2004image}, a métrica SSIM pode ser calculada pela equação \ref{eq:ssim}.
+Descrita em \cite{wang2004image}, a mï¿½trica SSIM pode ser calculada pela equaï¿½ï¿½o \ref{eq:ssim}.
 
 \begin{equation}
 SSIM(x,y)=\frac{(2*\mu_x*\mu_y+C_1)*(2*\sigma_{xy}+C_2)}{(\mu^2_x+\mu^2_y+C_1)*(\sigma^2_x+\sigma^2_y+C_2)}
@@ -290,7 +290,7 @@ SSIM(x,y)=\frac{(2*\mu_x*\mu_y+C_1)*(2*\sigma_{xy}+C_2)}{(\mu^2_x+\mu^2_y+C_1)*(
 
 \subsection{PSNR}
 
-Peak Signal-to-noise ratio (PSNR) é a medida mais utilizada para avaliação de qualidade, pode ser calculada pela equação \ref{eq:psnr}:
+Peak Signal-to-noise ratio (PSNR) ï¿½ a medida mais utilizada para avaliaï¿½ï¿½o de qualidade, pode ser calculada pela equaï¿½ï¿½o \ref{eq:psnr}:
 
 \begin{equation}
 PSNR = 10*log_{10}{\frac{(2^n-1)^2}{MSE}}
@@ -299,26 +299,26 @@ PSNR = 10*log_{10}{\frac{(2^n-1)^2}{MSE}}
 
 Aqui $n$ representa o \textit{bit depth} de um pixel.
 
-Segundo \cite{yu2015framework}, uma desvantagem da aplicação do PSNR é que todos os pixels possuem pesos iguais, porém em uma imagem no formato equiretangular existe uma alta redundância espacial nas áreas superiores e inferiores. Como em nossa ferramenta a comparação se dá na visualização final da câmera, essa desvantagem não nos afeta muito, pois o resultado final não é em formato equiretangular, apesar de ter sido derivado de um.
+Segundo \cite{yu2015framework}, uma desvantagem da aplicaï¿½ï¿½o do PSNR ï¿½ que todos os pixels possuem pesos iguais, porï¿½m em uma imagem no formato equiretangular existe uma alta redundï¿½ncia espacial nas ï¿½reas superiores e inferiores. Como em nossa ferramenta a comparaï¿½ï¿½o se dï¿½ na visualizaï¿½ï¿½o final da cï¿½mera, essa desvantagem nï¿½o nos afeta muito, pois o resultado final nï¿½o ï¿½ em formato equiretangular, apesar de ter sido derivado de um.
 
 % \subsection{WS-PSNR}
 
-% Na métrica PSNR todos os pixels têm pesos iguais, tal como descrito em \cite{yu2015framework}. Entretanto, em uma imagem no formato equiretangular existe uma alta redundância espacial nas áreas superiores e inferiores. Assim, Weighted Spherical PSNR (WS-PSNR), foi proposto para formatos equiretangular, onde pesos diferentes são atribuídos dependendo da latitude:
+% Na mï¿½trica PSNR todos os pixels tï¿½m pesos iguais, tal como descrito em \cite{yu2015framework}. Entretanto, em uma imagem no formato equiretangular existe uma alta redundï¿½ncia espacial nas ï¿½reas superiores e inferiores. Assim, Weighted Spherical PSNR (WS-PSNR), foi proposto para formatos equiretangular, onde pesos diferentes sï¿½o atribuï¿½dos dependendo da latitude:
 
 % \begin{equation}
 % Weight=\frac{cos(j - (\frac{height}{2} - 0,5))*3,141592}{height}
 % \label{eq:wspsnr}
 % \end{equation}
 
-% Onde, j indica a latitude na altura da imagem. Quando j está perto de (height / 2), o peso é próximo de 1. Por outro lado, o peso torna-se pequeno quando j está mais próximo das áreas polares.
+% Onde, j indica a latitude na altura da imagem. Quando j estï¿½ perto de (height / 2), o peso ï¿½ prï¿½ximo de 1. Por outro lado, o peso torna-se pequeno quando j estï¿½ mais prï¿½ximo das ï¿½reas polares.
 
-\section{Implementação da Ferramenta no Editor Unity}  \label{sec:unitytool}
+\section{Implementaï¿½ï¿½o da Ferramenta no Editor Unity}  \label{sec:unitytool}
 
-% implementação - Uso
-A ferramenta proposta permite definir uma configuração de screenshots de uma imagem 360 exibida no espaço 3D e variar configurações de imagem ou de projeto para traçar comparações de qualidade de imagem utilizando métricas objetivas definidas na seção \ref{sec:metrics}.
+% implementaï¿½ï¿½o - Uso
+A ferramenta proposta permite definir uma configuraï¿½ï¿½o de screenshots de uma imagem 360 exibida no espaï¿½o 3D e variar configuraï¿½ï¿½es de imagem ou de projeto para traï¿½ar comparaï¿½ï¿½es de qualidade de imagem utilizando mï¿½tricas objetivas definidas na seï¿½ï¿½o \ref{sec:metrics}.
 
-% Implementação - visual alto nível
-A arquitetura da nossa implementação envolve uma camada de configuração em C\# na Unity e uma camada em \textit{python} para o cálculo das métricas nas imagens geradas pela \textit{Unity}. A comunicação entre camadas ocorre por meio da criação de novos processos dentro do editor \textit{Unity}. A figura \ref{fig:toolarch} exibe como os componentes estão conectados na arquitetura da ferramenta.
+% Implementaï¿½ï¿½o - visual alto nï¿½vel
+A arquitetura da nossa implementaï¿½ï¿½o envolve uma camada de configuraï¿½ï¿½o em C\# na Unity e uma camada em \textit{python} para o cï¿½lculo das mï¿½tricas nas imagens geradas pela \textit{Unity}. A comunicaï¿½ï¿½o entre camadas ocorre por meio da criaï¿½ï¿½o de novos processos dentro do editor \textit{Unity}. A figura \ref{fig:toolarch} exibe como os componentes estï¿½o conectados na arquitetura da ferramenta.
 
 \begin{figure}[ht]
 \centering
@@ -328,7 +328,7 @@ A arquitetura da nossa implementação envolve uma camada de configuração em C\# n
 \end{figure}
 
 % Descrever camada Unity
-Para permitir um uso rápido e mais amigável, foi desenvolvida uma interface de editor, com um \textit{Inspector} customizado, ou seja, uma visão customizada do nosso componente em C\#, conforme vista na figura \ref{fig:unity_tool}. Atráves desse componente é possível definir qual o ângulo do campo de visão, a largura e altura do \textit{screenshot} a ser gerado, as direções de \textit{screenshot}, os objetos de visualização a serem utilizados, definir as métricas de comparação e definir se serão gerados gráficos ou um relatório ao final do processo.
+Para permitir um uso rï¿½pido e mais amigï¿½vel, foi desenvolvida uma interface de editor, com um \textit{Inspector} customizado, ou seja, uma visï¿½o customizada do nosso componente em C\#, conforme vista na figura \ref{fig:unity_tool}. Atrï¿½ves desse componente ï¿½ possï¿½vel definir qual o ï¿½ngulo do campo de visï¿½o, a largura e altura do \textit{screenshot} a ser gerado, as direï¿½ï¿½es de \textit{screenshot}, os objetos de visualizaï¿½ï¿½o a serem utilizados, definir as mï¿½tricas de comparaï¿½ï¿½o e definir se serï¿½o gerados grï¿½ficos ou um relatï¿½rio ao final do processo.
 
 \begin{figure}[ht]
 \centering
@@ -338,53 +338,53 @@ Para permitir um uso rápido e mais amigável, foi desenvolvida uma interface de e
 \end{figure}
 
 % Descrever camada Python
-A camada \textit{python} ficou responsável pela avaliação de pares de imagens passadas via processo pela \textit{Unity}. Utilizando as bibliotecas \textit{scikit}, \textit{numpy} e \textit{matplotlib}, as imagens são avaliadas e o resultado de cada métrica é salvo em um relatório ao final, sumarizando todos os resultados. Assim, basta ao usuário da ferramenta abrir o relatório e identificar qual forma de visualização obteve a melhor avaliação.
+A camada \textit{python} ficou responsï¿½vel pela avaliaï¿½ï¿½o de pares de imagens passadas via processo pela \textit{Unity}. Utilizando as bibliotecas \textit{scikit}, \textit{numpy} e \textit{matplotlib}, as imagens sï¿½o avaliadas e o resultado de cada mï¿½trica ï¿½ salvo em um relatï¿½rio ao final, sumarizando todos os resultados. Assim, basta ao usuï¿½rio da ferramenta abrir o relatï¿½rio e identificar qual forma de visualizaï¿½ï¿½o obteve a melhor avaliaï¿½ï¿½o.
 
 \section{Resultados}  \label{sec:results}
 
 % Ferramenta implementada
-Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a implementação da ferramenta proposta. A ferramenta pode ser incorporada em qualquer projeto \textit{Unity} por meio da importação de um \textit{unitypackage}, um formato padrão da \textit{Unity} para componentização de recursos e ferramentas. Para realizar a avaliação de qualidade, pressiona-se o botão "Generate screenshots", que calcula o valor de cada métrica, utilizando o primeiro formato de imagem como padrão pra avaliar os demais. Na imagem \ref{fig:unity_tool}, a imagem de referência são os screenshots de \textit{Skybox}, que são comparados com os obtidos com o \textit{Cubemap} e o mapeamento esférico, e os resultados são sumarizados no relatório gerado, tal como demonstrado na tabela \ref{tab:metrics_results}.
+Utilizamos a \textit{Unity 2017.3.1f} e \textit{python 2.7} para realizar a implementaï¿½ï¿½o da ferramenta proposta. A ferramenta pode ser incorporada em qualquer projeto \textit{Unity} por meio da importaï¿½ï¿½o de um \textit{unitypackage}, um formato padrï¿½o da \textit{Unity} para componentizaï¿½ï¿½o de recursos e ferramentas. Para realizar a avaliaï¿½ï¿½o de qualidade, pressiona-se o botï¿½o "Generate screenshots", que calcula o valor de cada mï¿½trica, utilizando o primeiro formato de imagem como padrï¿½o pra avaliar os demais. Na imagem \ref{fig:unity_tool}, a imagem de referï¿½ncia sï¿½o os screenshots de \textit{Skybox}, que sï¿½o comparados com os obtidos com o \textit{Cubemap} e o mapeamento esfï¿½rico, e os resultados sï¿½o sumarizados no relatï¿½rio gerado, tal como demonstrado na tabela \ref{tab:metrics_results}.
 
 % Comparacao de resultados
 \begin{tabular}{l*{3}{c}r}
-Métricas          & MSE & SSIM & PSNR \\
+Mï¿½tricas          & MSE & SSIM & PSNR \\
 \hline
-Direção 0 - Cubemap & 176,22 & 0,93 & 25,67 \\
-Direção 1 - Cubemap & 125,63 & 0,93 & 27,14 \\
-Direção 2 - Cubemap & 13,83 & 0,97 & 36,72 \\
-Direção 0 - Esfera  & 88,56 & 0,88 & 28,66 \\
-Direção 1 - Esfera  & 242,47 & 0,76 & 24,28 \\
-Direção 2 - Esfera  & 96,26 & 0,86 & 28,30 \\
+Direï¿½ï¿½o 0 - Cubemap & 176,22 & 0,93 & 25,67 \\
+Direï¿½ï¿½o 1 - Cubemap & 125,63 & 0,93 & 27,14 \\
+Direï¿½ï¿½o 2 - Cubemap & 13,83 & 0,97 & 36,72 \\
+Direï¿½ï¿½o 0 - Esfera  & 88,56 & 0,88 & 28,66 \\
+Direï¿½ï¿½o 1 - Esfera  & 242,47 & 0,76 & 24,28 \\
+Direï¿½ï¿½o 2 - Esfera  & 96,26 & 0,86 & 28,30 \\
 \label{tab:metrics_results}
 \end{tabular}
 
-% TODO: Comentar resultados obtidos com as métricas
-Conforme a tabela \ref{tab:metrics_results}, na direção 0, o mapeamento da esfera se sobressaiu em relação ao \textit{Cubemap} devido a um erro na interpolação dos valores entre 0.9 e 0.1. Tal distorção do \textit{Cubemap} é perceptível tanto da figura \ref{fig:cubemap_direction_0} quanto na figura \ref{fig:cubemap_direction_1}.
+% TODO: Comentar resultados obtidos com as mï¿½tricas
+Conforme a tabela \ref{tab:metrics_results}, na direï¿½ï¿½o 0, o mapeamento da esfera se sobressaiu em relaï¿½ï¿½o ao \textit{Cubemap} devido a um erro na interpolaï¿½ï¿½o dos valores entre 0.9 e 0.1. Tal distorï¿½ï¿½o do \textit{Cubemap} ï¿½ perceptï¿½vel tanto da figura \ref{fig:cubemap_direction_0} quanto na figura \ref{fig:cubemap_direction_1}.
 
-A métrica SSIM analisa as distorções estruturais, diferenças de luminância e contraste, entre uma imagem de referência e a imagem processada. Com base no SSIM, as três direções apresentaram melhores resultados para o mapeamento com \textit{Cubemap}
-. Na direção $0$, mesmo com a degradação sofrida pela imagem \textit{Cubemap}, podemos avaliar o desempenho de tal métrica em uma avaliação subjetiva analisando as pilastras da versão obtida pela esfera que apresentam uma curvatura bastante perceptível.
+A mï¿½trica SSIM analisa as distorï¿½ï¿½es estruturais, diferenï¿½as de luminï¿½ncia e contraste, entre uma imagem de referï¿½ncia e a imagem processada. Com base no SSIM, as trï¿½s direï¿½ï¿½es apresentaram melhores resultados para o mapeamento com \textit{Cubemap}
+. Na direï¿½ï¿½o $0$, mesmo com a degradaï¿½ï¿½o sofrida pela imagem \textit{Cubemap}, podemos avaliar o desempenho de tal mï¿½trica em uma avaliaï¿½ï¿½o subjetiva analisando as pilastras da versï¿½o obtida pela esfera que apresentam uma curvatura bastante perceptï¿½vel.
 
-As direções 2 e 5 apresentaram melhores resultados com base no PSNR e MSE. O fato da direção 0 não apresentar um bom resultado para as métricas MSE e PSNR pode ser interpretado como degradação sofrida pelo mapeamento, claramente perceptível subjetivamente. Em uma análise subjetiva rápida, poderíamos concluir que as imagens na direção 2 para a esfera possuem um índice de qualidade melhor se comparadas com as imagens \textit{Cubemap}, mas em uma análise mais aprofundada concluimos que as imagens sofre distorções em toda a sua superfície comparadas as de \textit{Cubemap}, este que por sua vez sofre distorções apenas na área degradada pelo mapeamento.
+As direï¿½ï¿½es 2 e 5 apresentaram melhores resultados com base no PSNR e MSE. O fato da direï¿½ï¿½o 0 nï¿½o apresentar um bom resultado para as mï¿½tricas MSE e PSNR pode ser interpretado como degradaï¿½ï¿½o sofrida pelo mapeamento, claramente perceptï¿½vel subjetivamente. Em uma anï¿½lise subjetiva rï¿½pida, poderï¿½amos concluir que as imagens na direï¿½ï¿½o 2 para a esfera possuem um ï¿½ndice de qualidade melhor se comparadas com as imagens \textit{Cubemap}, mas em uma anï¿½lise mais aprofundada concluimos que as imagens sofre distorï¿½ï¿½es em toda a sua superfï¿½cie comparadas as de \textit{Cubemap}, este que por sua vez sofre distorï¿½ï¿½es apenas na ï¿½rea degradada pelo mapeamento.
 
 \begin{figure}[!tbp]
   \centering
   \begin{minipage}[b]{0.3\textwidth}
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Equi2Cube.jpg}
-    \caption{Cubemap na direção 0}
+    \caption{Cubemap na direï¿½ï¿½o 0}
     \label{fig:cubemap_direction_0}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Skybox.jpg}
-    \caption{Skybox na direção 0}
+    \caption{Skybox na direï¿½ï¿½o 0}
     \label{fig:skybox_direction_0}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_0_Sphere.jpg}
-    \caption{Esfera na direção 0}
+    \caption{Esfera na direï¿½ï¿½o 0}
     \label{fig:sphere_direction_0}
   \end{minipage}
 \end{figure}
@@ -393,21 +393,21 @@ As direções 2 e 5 apresentaram melhores resultados com base no PSNR e MSE. O fat
   \centering
   \begin{minipage}[b]{0.3\textwidth}
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Equi2Cube.jpg}
-    \caption{Cubemap na direção 1}
+    \caption{Cubemap na direï¿½ï¿½o 1}
     \label{fig:cubemap_direction_1}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Skybox.jpg}
-    \caption{Skybox na direção 1}
+    \caption{Skybox na direï¿½ï¿½o 1}
     \label{fig:skybox_direction_1}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_2_Sphere.jpg}
-    \caption{Esfera na direção 1}
+    \caption{Esfera na direï¿½ï¿½o 1}
     \label{fig:sphere_direction_1}
   \end{minipage}
 \end{figure}
@@ -416,43 +416,43 @@ As direções 2 e 5 apresentaram melhores resultados com base no PSNR e MSE. O fat
   \centering
   \begin{minipage}[b]{0.3\textwidth}
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Equi2Cube.jpg}
-    \caption{Cubemap na direção 2}
+    \caption{Cubemap na direï¿½ï¿½o 2}
     \label{fig:cubemap_direction_2}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Skybox.jpg}
-    \caption{Skybox na direção 2}
+    \caption{Skybox na direï¿½ï¿½o 2}
     \label{fig:skybox_direction_2}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.3\textwidth}
     \centering
     \includegraphics[width=1.1\textwidth]{../images/screenshots/Screenshot_5_Sphere.jpg}
-    \caption{Esfera na direção 2}
+    \caption{Esfera na direï¿½ï¿½o 2}
     \label{fig:sphere_direction_2}
   \end{minipage}
 \end{figure}
 
-\section{Conclusão}  \label{sec:conclusion}
+\section{Conclusï¿½o}  \label{sec:conclusion}
 
 % TODO: Sintetizar o desenvolvimento da proposta
-Neste artigo propomos o desenvolvimento de uma ferramenta para avaliação de qualidade de imagens 360 utilizando métricas objetivas MSE, SSIM, PSNR de forma a facilitar o processo de escolha de diferentes mapeamentos e resoluções da imagem.
+Neste artigo propomos o desenvolvimento de uma ferramenta para avaliaï¿½ï¿½o de qualidade de imagens 360 utilizando mï¿½tricas objetivas MSE, SSIM, PSNR de forma a facilitar o processo de escolha de diferentes mapeamentos e resoluï¿½ï¿½es da imagem.
 
 % TODO: Qual o valor de uma ferramenta de qualidade de imagens para o editor da Unity
-Nossa implementação foi destinada para uso de dentro do editor \textit{Unity}, vista essa ser uma ferramenta bastante popularizada para o desenvolvimento de aplicações de realidade virtual. Utilizamos nossa ferramenta para comparar a qualidade de imagens 360 geradas por diferentes mapeamentos de UV: latitudes e longitudes em uma esfera invertida, exibição em um \textit{Skybox} e conversão para \textit{Cubemap}.
+Nossa implementaï¿½ï¿½o foi destinada para uso de dentro do editor \textit{Unity}, vista essa ser uma ferramenta bastante popularizada para o desenvolvimento de aplicaï¿½ï¿½es de realidade virtual. Utilizamos nossa ferramenta para comparar a qualidade de imagens 360 geradas por diferentes mapeamentos de UV: latitudes e longitudes em uma esfera invertida, exibiï¿½ï¿½o em um \textit{Skybox} e conversï¿½o para \textit{Cubemap}.
 
-% Utilizamos nossa ferramenta para comparar a qualidade de imagens 360 geradas por diferentes mapeamento de UV: latitudes e longitudes em uma esfera invertida, exibição em um Skybox e conversão para cubemap.
+% Utilizamos nossa ferramenta para comparar a qualidade de imagens 360 geradas por diferentes mapeamento de UV: latitudes e longitudes em uma esfera invertida, exibiï¿½ï¿½o em um Skybox e conversï¿½o para cubemap.
 
-Com base nos resultados obtidos, verificamos que o mapeamento \textit{Cubemap} obteve melhor avaliação apesar de conter um erro de interpolação nas extremidades de sua textura. Tal erro de mapeamento pode ser corrigido utilizando um \textit{fragment shader}.
+Com base nos resultados obtidos, verificamos que o mapeamento \textit{Cubemap} obteve melhor avaliaï¿½ï¿½o apesar de conter um erro de interpolaï¿½ï¿½o nas extremidades de sua textura. Tal erro de mapeamento pode ser corrigido utilizando um \textit{fragment shader}.
 
 % TODO: Trabalhos futuros
-Uma das desvantagens da nossa ferramenta é a necessidade do usuário conhecer a fundo as métricas utilizadas para ser capaz de tomar a melhor escolha dentre os parâmetros de visualização 360. Em trabalhos futuros, planejamos utilizar o cálculo das métricas para definir um valor de avaliação único, indicando de forma automatizada o melhor resultado. Outro ponto identificado é que a precisão do resultado final é maior se a visualização for obtida direto da renderização nos dispositivos móveis, onde aplicações \textit{VR} podem ser executadas. Assim, planejamos também um componente embarcado na aplicação que permita colher resultados durante a execução da aplicação no dispositivo móvel \textit{VR}.
+Uma das desvantagens da nossa ferramenta ï¿½ a necessidade do usuï¿½rio conhecer a fundo as mï¿½tricas utilizadas para ser capaz de tomar a melhor escolha dentre os parï¿½metros de visualizaï¿½ï¿½o 360. Em trabalhos futuros, planejamos utilizar o cï¿½lculo das mï¿½tricas para definir um valor de avaliaï¿½ï¿½o ï¿½nico, indicando de forma automatizada o melhor resultado. Outro ponto identificado ï¿½ que a precisï¿½o do resultado final ï¿½ maior se a visualizaï¿½ï¿½o for obtida direto da renderizaï¿½ï¿½o nos dispositivos mï¿½veis, onde aplicaï¿½ï¿½es \textit{VR} podem ser executadas. Assim, planejamos tambï¿½m um componente embarcado na aplicaï¿½ï¿½o que permita colher resultados durante a execuï¿½ï¿½o da aplicaï¿½ï¿½o no dispositivo mï¿½vel \textit{VR}.
 
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
 
 \end{document}
-–
+ï¿½
