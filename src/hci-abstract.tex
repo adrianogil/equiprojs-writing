@@ -25,13 +25,120 @@
 
 360 degrees pictures capture the surroundings of the user thus simulating the entire information available from a single point. 360 cameras such as the Samsung Gear 360 capture panoramic photos and store it in a suitable format for 360 visualization. Amongst the several possible formats for 360 degrees pictures, the equirectangular one is the most widely adopted. Virtual reality applications provide an immersive experience when using 360 media and give users the feeling of being inside the 360 picture as the virtual world simulates the one captured in the picture.
 
-Virtual reality (VR) devices render the virtual world with a different image for each eye in order to emulate depth and as a result increase the feeling of presence within the context of the application. The technology behind VR headsets' displays have evolved, but they still face the challenge of offering a high density of pixels per field of view (FoV) degree. According to \cite{va1965visual}, the human eye has an estimated resolution of 60 pixels per degree which means that an average 100-degrees device should render its content at 6k resolution to provide the most realistic spacial emulation.
+Virtual reality (VR) devices render the virtual world with a different image for each eye in order to emulate depth and as a result increase the feeling of presence within the context of the application. The technology behind VR headsets' displays has evolved, but it still faces the challenge of offering a high density of pixels per field of view (FoV) degree. According to \cite{va1965visual}, the human eye has an estimated resolution of 60 pixels per degree which means that an average 100-degrees device should render its content at 6k resolution to provide the most realistic spacial emulation.
 
 A 360 image viewer usually renders its contents in a sphere to mimic the natural placement of visual elements as they would be perceived by the user in the real world. A large amount of pixels is required to keep the quality of the pictures though. The research for the best possible visual quality means picking one in a given set of different exhibition formats each one with different distortion degrees along the existing 360 degrees. In order to decide the appropriate format and resolution for a 360 image it is necessary to take into consideration the device in which this picture will be displayed hence the necessity of a tool that is able to simulate devices and compare image settings so it provides the most suitable choice.
 
-There are two approaches for image quality assessment: Subjective  and Objective metrics. The first one uses observers to evaluate and score a sequence of pictures and the second one makes automatic evaluations through mathematical models. In the context of tools, \textit{Unity Editor} is a game development engine for computers, mobile, console, virtual and augmented reality. It is both used by small development groups as well as big corporations such as Microsoft and Dinsey, it is also the most used development tool for virtual reality.
+There are two approaches for image quality assessment: Subjective  and Objective metrics. The first one uses observers to evaluate and score a sequence of pictures and the second one makes automatic evaluations through mathematical models. In the context of tools, \textit{Unity Editor} is a game development engine for computers, mobile, console, virtual and augmented reality. It is both used by small development groups as well as big corporations such as Microsoft and Disney, it is also the most used development tool for virtual reality.
 
 In this paper, we developed an equirectangular image quality assessment tool with objective metrics integrated into the Unity Editor. To make evaluations close to real case scenarios, our tool is capable of simulating visualization under predetermined field of view and resolution values. The image \ref{fig:tool} below presents the Unity Editor interface we built. 
+
+\section{Related Work}
+VR applications differ from other applications due to their innate concern to provide content to all possible VR viewpoints. According to \cite{fuchs2017virtual}, VR headsets have the ability to isolate the spectator both visually and acoustically from the real world.
+~As seen on \cite{dunn2017resolution}, the format of the 360 image has high impact on resolution and uniformity. Equirectangular images, for instance, have high resolution on the poles and high uniformity on the horizontal line whilst on a cubemap, there is high density on the edges and high uniformity in each face`s diagonal.
+
+The best strategy to evaluate image quality is through Subjective metrics. In this case, human observers assess a set of pictures and score it in a scale of 1 (worst) to 5 (best), this technique is called MOS (Mean Opion Score) and it calculates the average score given a set of scores for each sample.
+
+Even though Subjective tests are precise, they are inconvenient and expensive. Especially if a Virtual Reality environment is being evaluated because it is, by definition, more immersive. Thus, a complimentary objective metric would be useful and less expensive.
+
+\section{Projecting 360 Images to UV Mapping}
+360 images comprehend the entire field-of-view of the user. Considering the equirectangular format, some mapping possibilities are listed below:
+
+\begin{enumerate}
+  \begin{item}Utilize a sphere \textit{Mesh} to render the 360 image inside it\end{item}
+  \begin{item} Utilize a \textit{Skybox} to render the 360 image on the background\end{item}
+  \begin{item} Map the 360 image to UV positions of a cubic \textit{Mesh} \end{item}
+\end{enumerate}
+
+Each mapping possibility has its own advantages and disadvantages in terms of resolution offered by angular direction and general distortion of the 360 image.
+
+\section{Mapping Equirectangular Images to a Sphere}
+We adopted the standard UV mapping technique for spheres which is based on the latitude/longitude approach.  
+
+Given N longitude values, the angular size $T$ can be obtained by the equation \ref{longitudesize}:
+
+\begin{equation}
+T = \frac{2 \pi}{N}
+\label{longitudesize}
+\end{equation}
+
+The overall angular size of an $I$ quantity of longitude values can be obtained by the equation \ref{longitudealpha}:
+
+\begin{equation}
+\alpha_{i} = i * T
+\label{longitudealpha}
+\end{equation}
+
+The sine and cosine of the angle T define the X and Z positions of the sphere points which belong to the cross section of the sphere. In such manner, assuming a sphere of radius $R$, we can write equations \ref{x_d} and \ref{z_d}. 
+
+\begin{equation}
+x_{i} = R * \sin(\alpha_{i})
+\label{x_d}
+\end{equation}
+
+\begin{equation}
+z_{i} = R * \cos(\alpha_{i})
+\label{z_d}
+\end{equation}
+
+In a longitudinal cut, it is possible to perceive that the R-ray of a cross-section varies along the height of the sphere. $K$ is the angular size of a sphere latitude given $M$ latitude values as seen on equation \ref{equation5}:
+
+\begin{equation}
+K = \frac{\pi}{M}
+\label{equation5}
+\end{equation}
+
+The total amount of an $i$ quantity of latitude values can be obtained by equation \ref{equation6}:
+
+\begin{equation}
+\alpha_{yi} = i * K
+\label{equation6}
+\end{equation}
+
+The Y position for each sphere point, considering unit radius, can be obtained by equation \ref{equation7}:
+
+\begin{equation}
+y_{i} = \cos(\alpha_{yi})
+\label{equation7}
+\end{equation}
+
+The radius $D_{yi}$ obtained in a cross section at latitude $i$ is defined in equation \ref{equation8} as:
+
+\begin{equation}
+R_{yi} = \sin(\alpha_{yi})
+\label{equation8}
+\end{equation}
+
+Applying equation \ref{equation8} in equations \ref{x_d} and \ref{z_d} we get  positions X and Z of the vertices of the sphere according to their longitude and latitude coordinates.
+
+\begin{equation}
+x_{i} = \sin(\alpha_{yi}) * \sin(\alpha_i)
+\label{equation9}
+\end{equation}
+
+\begin{equation}
+z_{i} = \sin(\alpha_{yi}) * \cos(\alpha_i)
+\label{equation10}
+\end{equation}
+
+\section{Mapping Equirectangular Images to a Skybox}
+A skybox is rendered when no 3D element is rasterized by the virtual camera. In the rasterization process, it is necessary to identify a UV coordinate for each pixel (or fragment) rendered on screen. Skybox shaders usually utilize 3D textures to store the six faces of a cube through a graphical function called $tex3D$.
+
+Mapping an equirectangular image to a skybox involves finding the UV vector value given a normalized direction. Considering the vector $(x, y, z)$ as the normalized direction, equation \ref{eq:uv_mapping_skybox} can be used on a vertex shader.
+
+\begin{equation}
+uv = (\arctan(\frac{x}{y})), \arccos(y))
+\label{eq:uv_mapping_skybox}
+\end{equation}
+
+Thus, when mapping to a sphere UV coordinates are projected into 3D space and when mapping to a skybox the opposite happens: normalized 3d space positions continuously seek equivalent UV coordinates.
+
+\section{Mapping Equirectangular Images to a Cubemap}
+The first step to use a Cubemap is to generate a cube. The standard cube generated by Unity, however, does not have enough vertices for precise UV mapping. It happens as UV mapping is a sine/cosine function whereas rasterization inside of a triangle obtains UV values through linear interpolation of its vertices, thus causing distortions.
+
+For better results, we divided each triangle into four parts. From a cube of 10 vertices and 12 triangles, we obtained a 4090 vertices/4096 triangles cube.
+
+As we generate each new vertex, it is possible to calculate its respective UV coordinate using equation \ref{eq:uv_mapping_skybox}. Noticeably, the cubemap view is equivalent to the discretization of the continuous UV mapping approach in a skybox.
 
 \begin{figure}
     \centering
