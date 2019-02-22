@@ -146,7 +146,7 @@ As we generate each new vertex, it is possible to calculate its respective UV co
 
 \begin{figure}
     \centering
-    \includegraphics{images/tool.png}
+    \includegraphics[width=0.4\textwidth]{images/tool.png}
     \caption{Our tool as seen directly on the Unity Editor}
     \label{fig:tool}
 \end{figure}
@@ -158,7 +158,7 @@ The architecture of our implementation involves a C\# configuration layer in \te
 \includegraphics[width=\textwidth]{images/tool_arch_en.jpg}
 \caption{The architecture of our implementation.}
 \label{fig:toolarch}
-\end{figure}
+\end{figure}-
 
 For a friendlier use, an editor interface has been developed in the form of a custom \textit{unity inspector}, that is, a custom view of our component in C\#. In this component you can define the angle of the field of view, define width and height as well as directions of the screenshots to be generated, define the comparison metrics to be used, and define whether graphs or a report will be generated at the end of the process.
 
@@ -201,7 +201,85 @@ Direction 2 - Sphere  & 96,26 & 0,86 & 28,30 \\
 \label{tab:metrics_results}
 \end{tabular}
 
-Based on the obtained results, we found that the \textit{cubemap} pictures had better evaluation despite having an interpolation error. Such a mapping error can be corrected by using a \textit{fragment shader}. 
+Based on the obtained results, we found that the \textit{cubemap} pictures had better evaluation despite having an interpolation error. Such mapping error can be corrected by using a \textit{fragment shader} and it is visible in pictures \ref{fig:cubemap_direction_0} and \ref{fig:cubemap_direction_1}.
+
+The SSIM metric analyzes structural distortions as well as luminance and contrast differences between a reference image and the processed image. According to this metric, the cubemap had the best results in all three directions.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_0_Equi2Cube.jpg}
+    \caption{Cubemap - direction 0}
+    \label{fig:cubemap_direction_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_0_Skybox.jpg}
+    \caption{Skybox - direction 0}
+    \label{fig:skybox_direction_0}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_0_Sphere.jpg}
+    \caption{Sphere - direction 0}
+    \label{fig:sphere_direction_0}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_2_Equi2Cube.jpg}
+    \caption{Cubemap - direction 1}
+    \label{fig:cubemap_direction_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_2_Skybox.jpg}
+    \caption{Skybox - direction 1}
+    \label{fig:skybox_direction_1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_2_Sphere.jpg}
+    \caption{Sphere - direction 1}
+    \label{fig:sphere_direction_1}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.3\textwidth}
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_5_Equi2Cube.jpg}
+    \caption{Cubemap - direction 2}
+    \label{fig:cubemap_direction_2}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_5_Skybox.jpg}
+    \caption{Skybox - direction 2}
+    \label{fig:skybox_direction_2}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.3\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{../images/screenshots/Screenshot_5_Sphere.jpg}
+    \caption{Sphere - direction 2}
+    \label{fig:sphere_direction_2}
+  \end{minipage}
+\end{figure}
+
+Directions 2 and 5 had the best results according to PSNR and MSE. Direction 0 did not present good results and that is due to the mapping degradation which can be easily perceived subjectively. After quick subjective analysis, it would be understandable to conclude that sphere - direction 2 has better image quality when compared to the cubemap, but after a deeper investigation it is observable how the sphere has distortions all over its image while the cubemap has distortions in specific areas affected by the mapping degradation.
+
+\section{Conclusions}
+We proposed the development of an equirectangular image quality assessment tool which uses objective metrics such as MSE, SSIM and PSNR in order to facilitate choosing among different image resolutions and mapping solutions.
+
+Our tool is integrated into the Unity Editor as Unity is the most used development engine for virtual reality applications. Different parameters were used to compare the quality of 360 images generated by three UV mapping techniques:  latitude/longitude in a inverted sphere; skybox; and cubemap.
 
 One of the disadvantages of our tool is that the user needs to know the metrics to be able to make the best parameters choice. For future work, we plan to use the current metrics to achieve a single and final evaluation value that should indicate the best result in an automated manner. Another improvement point identified is that the accuracy of the end result should be greater if the visualization is obtained directly from rendering on the mobile devices where VR applications can be executed. Thus, we also plan an embedded component in the application that allows you to reap results while running the application on the mobile device.
 
