@@ -35,15 +35,20 @@ A 360 image viewer usually renders its contents in a sphere to mimic the natural
 
 There are two approaches for image quality assessment: Subjective  and Objective metrics. The first one employs human observers to evaluate and score a sequence of pictures and the second one makes automatic evaluations using mathematical models. In the context of tools, \textit{Unity Editor} is a game development engine for computers, mobile, console, virtual and augmented reality. It is both used by small development groups as well as big corporations such as Microsoft and Disney, it is also the most used development tool for virtual reality.
 
-In this paper, we developed an equirectangular image quality assessment tool which employs objective metrics integrated into the Unity Editor. To make assessments as close to real case scenarios, our tool is capable of simulating visualization with field of view and resolution values provided by the user. The image \ref{fig:tool} below presents the Unity Editor interface we built. 
+In this paper, we developed an equirectangular image quality assessment tool which employs objective metrics integrated into the Unity Editor. To make assessments as close to real case scenarios, our tool is capable of simulating visualization with field of view and resolution values provided by the user. The image \ref{fig:tool} below presents the Unity Editor interface we built.
 
 \section{Related Work}
 VR applications differ from other applications due to their innate concern to provide content to all possible VR viewpoints. According to \cite{fuchs2017virtual}, VR headsets have the ability to isolate the spectator both visually and acoustically from the real world.
-According to \cite{dunn2017resolution}, the format of the 360 image has high impact on resolution and uniformity. Equirectangular images, for instance, have high resolution on the poles and high uniformity on the equator line whilst on a cubemap, there is high density on the edges and high uniformity in each face`s diagonal.
 
-The best strategy to evaluate image quality is through Subjective metrics. In this case, human observers assess a set of pictures and score it in a scale from 1 (worst) to 5 (best), this technique is called MOS (Mean Opinion Score) and it calculates the average score given a set of scores for each sample.
+In \cite{zakharchenko2016quality}, it specifies that a spherical panoramic content may be presented in different projection types: equirectangular (ERP), rectilinear, doughnut, cube map, multiview. According to \cite{dunn2017resolution}, the format of the 360 image has high impact on resolution and uniformity. Equirectangular images, for instance, have high resolution on the poles and high uniformity on the equator line whilst on a cubemap, there is high density on the edges and high uniformity in each face`s diagonal.
 
-Even though Subjective tests are precise, they are inconvenient and expensive. Especially when a virtual reality environment is being evaluated because it is, by definition, more immersive. Thus, a complimentary objective metric would be useful and less expensive.
+The book \cite{wang2006modern} categorizes image quality assessment as subjective or objective. In turn, objective metrics are defined as full-Reference (FN), No-Reference (NR) and Reduced-Reference (RR).
+
+The most reliable strategy to evaluate image quality is through subjective metrics. In this case, human observers assess a set of pictures and score it in a scale from 1 (worst) to 5 (best), this technique is called MOS (Mean Opinion Score) and it calculates the average score given a set of scores for each sample.
+
+Even though subjective tests are precise, they are inconvenient and expensive. Especially when a virtual reality environment is being evaluated because it is, by definition, more immersive. Thus, a complimentary objective metric would be useful and less expensive.
+
+Prior work on 360 image quality assessment can be found on literature \cite{md2015full} \cite{zakharchenko2016quality}. Despite our focus are on image quality assessment of 360 spherical panoramic images, our proposal assess only screenshots obtained from texture projections inside Unity3D. Therefore, our final target are 2D images as the result of such projections.
 
 \section{Projecting 360 Images to UV Mapping}
 360 images comprehend the entire field-of-view of the user. Considering the equirectangular format, some mapping implementations are listed below:
@@ -57,7 +62,7 @@ Even though Subjective tests are precise, they are inconvenient and expensive. E
 Each mapping possibility has its own advantages and disadvantages in terms of resolution offered by angular direction and general distortion of the 360 image.
 
 \section{Mapping Equirectangular Images to a Sphere}
-We adopted the standard UV mapping technique for spheres which is based on the latitude/longitude approach.  
+We adopted the standard UV mapping technique for spheres which is based on the latitude/longitude approach.
 
 Given N longitude values, the angular size $T$ can be obtained by the equation \ref{longitudesize}:
 
@@ -73,7 +78,7 @@ The overall angular size of an $I$ quantity of longitude values can be obtained 
 \label{longitudealpha}
 \end{equation}
 
-The sine and cosine of the angle T define the X and Z positions of the sphere points which belong to the cross section of the sphere. In such manner, assuming a sphere of radius $R$, we can write equations \ref{x_d} and \ref{z_d}. 
+The sine and cosine of the angle T define the X and Z positions of the sphere points which belong to the cross section of the sphere. In such manner, assuming a sphere of radius $R$, we can write equations \ref{x_d} and \ref{z_d}.
 
 \begin{equation}
 x_{i} = R * \sin(\alpha_{i})
@@ -164,7 +169,7 @@ The architecture of our implementation involves a C\# configuration layer in \te
 
 For a friendlier use, an editor interface has been developed in the form of a custom \textit{unity inspector}, that is, a custom view of our component in C\#. In this component you can define the angle of the field of view, define width and height as well as directions of the screenshots to be generated, define the comparison metrics to be used, and define whether graphs or a report will be generated at the end of the process.
 
-The \textit{python} layer is responsible for evaluating the pairs of images generated by \textit{unity}. Using the \textit{scikit}, \textit{numpy}, and \textit{matplotlib} libraries, the images are evaluated and the result of each metric is saved in a report at the end, summarizing all results. 
+The \textit{python} layer is responsible for evaluating the pairs of images generated by \textit{unity}. Using the \textit{scikit}, \textit{numpy}, and \textit{matplotlib} libraries, the images are evaluated and the result of each metric is saved in a report at the end, summarizing all results.
 
 With regards to the metrics, the goal of the objective assessment is to develop a quantitative measure that can determine the quality of any given image. It is difficult, though, to find a single, objective, easy-to-calculate measurement that matches the visual inspection and is suitable for a variety of application requirements. As to address this problem, we are using three different metrics described below.
 
@@ -270,7 +275,7 @@ Direction 1 - Cubemap & 125,63 & 0,93 & 27,14 \\
 Direction 2 - Cubemap & 13,83 & 0,97 & 36,72 \\
 Direction 0 - Sphere  & 88,56 & 0,88 & 28,66 \\
 Direction 1 - Sphere  & 242,47 & 0,76 & 24,28 \\
-Direction 2 - Sphere  & 96,26 & 0,86 & 28,30 
+Direction 2 - Sphere  & 96,26 & 0,86 & 28,30
 \label{tab:metrics_results}
 \end{tabular}
 
@@ -286,6 +291,6 @@ Our tool is integrated into the Unity Editor as Unity is the most used developme
 One of the disadvantages of our tool is that the user needs to know the metrics to be able to make the best parameters choice. For future work, we plan to use the current metrics to achieve a single and final evaluation value that should indicate the best result in an automated manner. Another improvement point identified is that the accuracy of the end result should be greater if the visualization is obtained directly from rendering on the mobile devices where VR applications can be executed. Thus, we also plan an embedded component in the application that allows you to reap results while running the application on the mobile device.
 
 \bibliographystyle{sbc}
-\bibliography{sbc-template}
+\bibliography{hci-abstract}
 
 \end{document}
