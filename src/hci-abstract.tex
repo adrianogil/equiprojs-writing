@@ -40,15 +40,15 @@ In this paper, we developed an equirectangular image quality assessment tool whi
 \section{Related Work}
 VR applications differ from other applications due to their innate concern to provide content to all possible VR viewpoints. According to \cite{fuchs2017virtual}, VR headsets have the ability to isolate the spectator both visually and acoustically from the real world.
 
-In \cite{zakharchenko2016quality}, it specifies that a spherical panoramic content may be presented in different projection types: equirectangular (ERP), rectilinear, doughnut, cube map, multiview. According to \cite{dunn2017resolution}, the format of the 360 image has high impact on resolution and uniformity. Equirectangular images, for instance, have high resolution on the poles and high uniformity on the equator line whilst on a cubemap, there is high density on the edges and high uniformity in each face`s diagonal.
+\cite{zakharchenko2016quality} specifies that spherical panoramic content may be presented in different projection types: equirectangular (ERP), rectilinear, doughnut, cube map and multiview. According to \cite{dunn2017resolution}, the format of the 360 image has high impact on resolution and uniformity. Equirectangular images, for instance, have high resolution on the poles and high uniformity on the equator line whilst on a cubemap, there is high density on the edges and high uniformity in each face`s diagonal.
 
-The book \cite{wang2006modern} categorizes image quality assessment as subjective or objective. In turn, objective metrics are defined as full-Reference (FN), No-Reference (NR) and Reduced-Reference (RR).
+\cite{wang2006modern} categorize image quality assessment as subjective or objective. Objective metrics are defined as full-Reference (FN), No-Reference (NR) and Reduced-Reference (RR).
 
 The most reliable strategy to evaluate image quality is through subjective metrics. In this case, human observers assess a set of pictures and score it in a scale from 1 (worst) to 5 (best), this technique is called MOS (Mean Opinion Score) and it calculates the average score given a set of scores for each sample.
 
 Even though subjective tests are precise, they are inconvenient and expensive. Especially when a virtual reality environment is being evaluated because it is, by definition, more immersive. Thus, a complimentary objective metric would be useful and less expensive.
 
-Prior work on 360 image quality assessment can be found on literature \cite{md2015full} \cite{zakharchenko2016quality}. Despite our focus are on image quality assessment of 360 spherical panoramic images, our proposal assess only screenshots obtained from texture projections inside Unity3D. Therefore, our final target are 2D images as the result of such projections.
+Prior work on 360 image quality assessment can be found on literature: \cite{md2015full} and \cite{zakharchenko2016quality}. Despite our focus on image quality assessment of 360 spherical panoramic images, our proposal only assesses screenshots obtained from texture projections inside Unity3D. Therefore, our final target are 2D images as the result of such projections.
 
 \section{Projecting 360 Images to UV Mapping}
 360 images comprehend the entire field-of-view of the user. Considering the equirectangular format, some mapping implementations are listed below:
