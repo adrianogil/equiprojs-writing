@@ -89,7 +89,7 @@
 % graphicx was written by David Carlisle and Sebastian Rahtz. It is
 % required if you want graphics, photos, etc. graphicx.sty is already
 % installed on most LaTeX systems. The latest version and documentation
-% can be obtained at: 
+% can be obtained at:
 % http://www.ctan.org/pkg/graphicx
 % Another good source of documentation is "Using Imported Graphics in
 % LaTeX2e" by Keith Reckdahl which can be found at:
@@ -127,7 +127,6 @@
 \newtheorem{definition}{Definition}
 
 \usepackage{gensymb}
-
 
 % *** SPECIALIZED LIST PACKAGES ***
 %
@@ -186,13 +185,13 @@
 % Do not put math or special symbols in the title.
 \title{Equirectangular Image Quality Assessment Tool Integrated into the Unity Editor}
 
-%------------------------------------------------------------------------- 
-% change the % on next lines to produce the final camera-ready version 
+%-------------------------------------------------------------------------
+% change the % on next lines to produce the final camera-ready version
 \newif\iffinal
 \finalfalse
 %\finaltrue
 \newcommand{\cmtid}{99999}
-%------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------
 
 % author names and affiliations
 % use a multiple column layout for up to two different
@@ -231,10 +230,10 @@ Email: thiago.figueira@sidia.com}
 
 % for over three affiliations, or if they all won't fit within the width
 % of the page, use this alternative format:
-% 
+%
 %\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
 %Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
+%James Kirk\IEEEauthorrefmark{3},
 %Montgomery Scott\IEEEauthorrefmark{3} and
 %Eldon Tyrell\IEEEauthorrefmark{4}}
 %\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
@@ -258,7 +257,7 @@ Email: thiago.figueira@sidia.com}
 % in the abstract
 \begin{abstract}\label{sec:abstract}
 
- Virtual Reality (VR) applications provide immersive experience when using panoramic images; that contain 360$^{\circ}$ view of the scene. Equirectangular image is the widely used format to represent panoramic images. However, in order to develop a 360$^{\circ}$ view in equirectangular image format, various parameters influence the quality of the captured image. These parameters include resolution configurations, texture-to-objects mappings and choosing among different media formats. To select the optimal value of these parameters, a viusal quality analysis is required. In this work, we propose a tool integrated with Unity editor to automate the quality assessment of different settings of 360$^{\circ}$ image visualization. We compare the texture mapping of a Skybox rendering with a procedural sphere and a Cubemap using the objective metrics for Image Quality Analysis (IQA). Based on the assessment, the tool decides how the final image will be rendered at the target device \textcolor{red}{to produce high quality and visually pleasing image.} 
+ Virtual Reality (VR) applications provide immersive experience when using panoramic images; that contain 360\degree view of the scene. Equirectangular image is the widely used format to represent panoramic images. However, in order to develop a 360\degree view in equirectangular image format, various parameters influence the quality of the captured image. These parameters include resolution configurations, texture-to-objects mappings and choosing among different media formats. To select the optimal value of these parameters, a viusal quality analysis is required. In this work, we propose a tool integrated with Unity editor to automate the quality assessment of different settings of 360\degree image visualization. We compare the texture mapping of a Skybox rendering with a procedural sphere and a Cubemap using the objective metrics for Image Quality Analysis (IQA). Based on the assessment, the tool decides how the final image will be rendered at the target device to produce high quality and visually pleasing image.
 \end{abstract}
 
 % no keywords
@@ -268,14 +267,14 @@ Email: thiago.figueira@sidia.com}
 \IEEEpeerreviewmaketitle
 
 \section{Introduction} \label{sec:introduction}
- Images captured in 360$^{\circ}$ surroundings of a single point are capable of simulating the entire visual information available from that point. Also, specific cameras are designed to capture such images, such as Samsung Gear 360$^{\circ}$ that capture panoramic images and store these images in a suitable format for 360$^{\circ}$ visualizations. These images are stored in a specific format to facilitate image processing. The equirectangular image format is the one widely adopted. Furthermore, equirectangular images can be used in Virtual reality applications to provide an immersive user experience and allows user to experience being inside the scene. \par
+ Images captured in 360\degree surroundings of a single point are capable of simulating the entire visual information available from that point. Also, specific cameras are designed to capture such images, such as Samsung Gear 360\degree that capture panoramic images and store these images in a suitable format for 360\degree visualizations. These images are stored in a specific format to facilitate image processing. The equirectangular image format is the one widely adopted. Furthermore, equirectangular images can be used in Virtual reality applications to provide an immersive user experience and allows user to experience being inside the scene. \par
 Virtual Reality (VR) devices render the virtual world with a different image for each eye in order to emulate depth and as a result, increase the sense of presence within the context of the application. Although the technology behind the VR headset display has evolved, it still faces the challenge of offering a high density of pixels per Field of View (FoV) degree. Furthermore, the human eye has an estimated resolution of 60 pixels per degree, which means that an average 100-degrees device should render its content at the 6k resolution to provide a realistic spatial emulation~\cite{va1965visual}. \par
-A 360$^{\circ}$ image viewer usually renders its contents in a sphere to mimic the natural placement of visual elements as they would be perceived by the user in the real world. A large number of pixels are required to keep the quality of the pictures. The research for the best possible visual quality means picking an exhibition format in a given set of different exhibition formats, each one with different distortion degrees along the existing 360 degrees. In order to decide the appropriate format and resolution for a 360$^{\circ}$ image, it is necessary to take into consideration the device in which this picture will be displayed. Therefore, an image quality assessment tool is necessary that can simulate devices and compare image settings for quality so that it may provide the most suitable image choice. \par
+A 360\degree image viewer usually renders its contents in a sphere to mimic the natural placement of visual elements as they would be perceived by the user in the real world. A large number of pixels are required to keep the quality of the pictures. The research for the best possible visual quality means picking an exhibition format in a given set of different exhibition formats, each one with different distortion degrees along the existing 360 degrees. In order to decide the appropriate format and resolution for a 360\degree image, it is necessary to take into consideration the device in which this picture will be displayed. Therefore, an image quality assessment tool is necessary that can simulate devices and compare image settings for quality so that it may provide the most suitable image choice. \par
 There are two approaches for image quality assessment: subjective and objective metrics. Subjective Image Quality Analysis (IQA) employs human observers to evaluate and score a sequence of pictures, and objective IQA build mathematical models for automatic image quality assessment. Subjective IQA is accurate, however it is expensive and time-consuming. On the other hand, objective IQA may provide a cost effective solution for image analysis and can be embedded in VR application. To build VR applications, various tools have been proposed such as Unity Editor, Source, Panda3D to name a few.  \par
 
- Unity Editor is a game development engine for computers, mobile, console, virtual, and augmented reality. It is both used by small development groups as well as big corporations such as Microsoft and Disney; it is also the most used development tool for virtual reality. \par
+Unity Editor is a game development engine for computers, mobile, console, virtual, and augmented reality. It is both used by small development groups as well as big corporations such as Microsoft and Disney; it is also the most used development tool for virtual reality. \textcolor{blue}{From its github account\footnote{https://github.com/Unity-Technologies/SkyboxPanoramicShader}, Unity provides built-in solutions for rendering panoramic images. The developer is also able to create its own solutions by customizing shaders, e.g, code that is meant to be executed at GPU and influences how 3D elements are shown on the device screen.}
 
-In this paper, we propose an equirectangular image quality assessment tool which employs objective metrics integrated into the Unity Editor. To make assessments as close to real case scenarios, our tool is capable of simulating visualization with the field of view and resolution values provided by the user. Figure~\ref{fig:tool} below presents the Unity Editor interface we built. By configuring specific values to field of view, screenshot resolution, it's possible to simulate the viewport of a given device, e.g, the user view inside a VR application running in a Samsung S9 with a 101-degree field of view and 1440 x 1480 resolution. The screenshots directions field let user insert three-dimensional vectors indicating the direction each screenshot should be pointing to. Finally report and graphs are generated according to the chosen metrics.
+In this paper, we propose an equirectangular image quality assessment tool which employs objective metrics integrated into the Unity Editor. To make assessments as close to real case scenarios, our tool is capable of simulating visualization with the field of view and resolution values provided by the user. Figure~\ref{fig:tool} below presents the Unity Editor interface we built. \textcolor{blue}{By configuring specific values to field of view, screenshot resolution, it's possible to simulate the viewport of a given device. For instance, a 101-degree field of view and 1440 x 1480 resolution it's close to the user view inside a VR application running in a Samsung S9.} The screenshots directions field let user insert three-dimensional vectors indicating the direction each screenshot should be pointing to. Finally report and graphs are generated according to the chosen metrics.
 
 \begin{figure}[h!]
     \centering
@@ -285,20 +284,22 @@ In this paper, we propose an equirectangular image quality assessment tool which
 \end{figure}
 
 
-Rest of the paper is organized as follows: Section~\ref{sec:related_work} review the most relevant work in equirectangular images and IQA. Next, the proposed method is detailed in Section~\ref{sec:proposedMethod}. Furthermore, the preliminary experimental results are presented and discussed in Section~\ref{sec:experiments}. Finally, the most important conclusions and future work in the direction are given in Section~\ref{sec:conclusion}.  
+Rest of the paper is organized as follows: Section~\ref{sec:related_work} review the most relevant work in equirectangular images and IQA. Next, the proposed method is detailed in Section~\ref{sec:proposedMethod}. Furthermore, the preliminary experimental results are presented and discussed in Section~\ref{sec:experiments}. Finally, the most important conclusions and future work in the direction are given in Section~\ref{sec:conclusion}.
 
 \section{Related Work}\label{sec:related_work}
 
 VR applications differ from other vision applications due to their innate concern to provide content to all possible VR viewpoints. Furthermore, VR headsets can isolate the spectator both visually and acoustically from the real world~\cite{fuchs2017virtual}.
-Spherical panoramic content may be presented in different projection types: equirectangular (ERP), rectilinear, doughnut, cube-map, and multiview~\cite{zakharchenko2016quality}. Moreover, the format of the 360$^{\circ}$ image plays a vital role in the resolution and uniformity of such images~\cite{dunn2017resolution}. For instance, equirectangular images have a high resolution on the poles and high uniformity on the equator line; On the other hand, cube-map images have a high density on the edges and high uniformity in each face of the diagonal~\cite{duanmu:2018}. For all these projection types, the quality of the images selected to create a panoramic view is crucial to present the panoramic content.  \par
-Image Quality Analysis (IQA) assess the quality of the images to be used in the creation of panoramic view. IQA can be categorized into two types, i.e., subjective analysis and objective analysis~\cite{wang2006modern}. The most reliable strategy to evaluate image quality is through subjective analysis. In this case, human observers assess a set of pictures and score it in a scale from 1 (worst) to 5 (best), this technique is called MOS (Mean Opinion Score) and it calculates the average score given a set of scores for each sample. Pinson et al. compared and analysed various methodologies for subjective video quality assessment~\cite{pinson:2003}. These test methods include single or double stimulus quality assessment methods. In single stimulus methods only one impaired video stream is used for assessment. However, in double stimulus a reference videos is also provided to the user for comparative analysis~\cite{pinson:2003}.  \par 
-Although subjective IQA  methods are precise, they are inconvenient and expensive. Especially when a VR environment is being evaluated because it is, by definition, more immersive, thus, a complementary objective metric would be useful and less expensive. Objective metrics are defined as Full-Reference (FR), No-Reference (NR), and Reduced-Reference (RR)~\cite{li:2019}. In FR-IQA methods, a non-distorted reference image is available to evaluate the test image. In RR-IQA methods, a reference image with only selective information is available to compare and measure the quality of the distorted image.  
-Whereas in NR-IQA methods, no reference image is available to compare, and the only available image is the one whose quality is measured.\par 
+Spherical panoramic content may be presented in different projection types: equirectangular (ERP), rectilinear, doughnut, cube-map, and multiview~\cite{zakharchenko2016quality}. Moreover, the format of the 360\degree image plays a vital role in the resolution and uniformity of such images~\cite{dunn2017resolution}. For instance, equirectangular images have a high resolution on the poles and high uniformity on the equator line; On the other hand, cube-map images have a high density on the edges and high uniformity in each face of the diagonal~\cite{duanmu:2018}. For all these projection types, the quality of the images selected to create a panoramic view is crucial to present the panoramic content.  \par
 
-Prior work on 360$^{\circ}$ IQA is discussed in Quality metric for spherical panoramic video~\cite{zakharchenko2016quality}. In this work, we focus on Full-reference IQA. Recent advancements in FR-IQA methods are comprehensively discussed FR stereo image quality assessment using natural stereo scene statistics~\cite{md2015full}.  We propose an FR quality assessment tool for the selection of images before using them to render on the target device. Despite our focus on image quality assessment of 360$^{\circ}$ spherical panoramic images, our proposal only assesses screenshots obtained from texture projections inside Unity3D. Therefore, our final target is 2D images as a result of such projections; which is intuitive because still 360$^{\circ}$° images or video sequences are encoded and transmitted in the 2D format under sphere-to-plane projection. 
+Image Quality Analysis (IQA) assess the quality of the images to be used in the creation of panoramic view. IQA can be categorized into two types, i.e., subjective analysis and objective analysis~\cite{wang2006modern}. The most reliable strategy to evaluate image quality is through subjective analysis. In this case, human observers assess a set of pictures and score it in a scale from 1 (worst) to 5 (best), this technique is called MOS (Mean Opinion Score) and it calculates the average score given a set of scores for each sample. Pinson et al. compared and analysed various methodologies for subjective video quality assessment~\cite{pinson:2003}. These test methods include single or double stimulus quality assessment methods. In single stimulus methods only one impaired video stream is used for assessment. However, in double stimulus a reference videos is also provided to the user for comparative analysis~\cite{pinson:2003}.  \par
+
+Although subjective IQA  methods are precise, they are inconvenient and expensive. Especially when a VR environment is being evaluated because it is, by definition, more immersive, thus, a complementary objective metric would be useful and less expensive. Objective metrics are defined as Full-Reference (FR), No-Reference (NR), and Reduced-Reference (RR)~\cite{li:2019}. In FR-IQA methods, a non-distorted reference image is available to evaluate the test image. In RR-IQA methods, a reference image with only selective information is available to compare and measure the quality of the distorted image.
+Whereas in NR-IQA methods, no reference image is available to compare, and the only available image is the one whose quality is measured.\par
+
+Prior work on 360\degree IQA is discussed in Quality metric for spherical panoramic video~\cite{zakharchenko2016quality}. In this work, we focus on Full-reference IQA. Recent advancements in FR-IQA methods are comprehensively discussed FR stereo image quality assessment using natural stereo scene statistics~\cite{md2015full}.  We propose an FR quality assessment tool for the selection of images before using them to render on the target device. Despite our focus on image quality assessment of 360\degree spherical panoramic images, our proposal only assesses screenshots obtained from texture projections inside Unity3D. Therefore, our final target is 2D images as a result of such projections; which is intuitive because still 360\degree images or video sequences are encoded and transmitted in the 2D format under sphere-to-plane projection.
 % \par \textcolor{red}{REVIEWED} \par
-% \todo{The proposed method starts from here???} 
-% \textcolor{red}{THERE SHOULD BE A SECTION SAYING "THE PROPOSED METHOD" and all the details about the method should go there.. it is principal at this point. For now, it seems like there is something going on, but its not possible to understand what is going on...   
+% \todo{The proposed method starts from here???}
+% \textcolor{red}{THERE SHOULD BE A SECTION SAYING "THE PROPOSED METHOD" and all the details about the method should go there.. it is principal at this point. For now, it seems like there is something going on, but its not possible to understand what is going on...
 % \\ \\ Also, I labeled the sections above this, I am not sure from where the proposed methodology starts and stuff, If you create sections, please label them as well. Same for figures, tables etc. So if we need to cross reference anything it would be correct. Hard quoted references can create problems in the future if we change the order of the image or section or whatever. The conventions I use for labeling sections is "sec:sectionName", Figures "fig:figurelabel" and for tables "tab:tableName".. We can use this or if you have some other convention, but we should follow a pattern, that would be nice. \\ \\
 % Also, instead of naming the figures, screenshot-xxxx---xxx. We can name better that explains atleast a bit of context of the figure. }
 
@@ -315,18 +316,18 @@ The standard implementation of a spherical image viewer makes use of a sphere wi
 
 % Paper structure
 
-\subsection{Projecting 360$^{\circ}$ Images to UV Mapping} \label{sec:uvmapping}
+\subsection{Projecting 360\degree Images to UV Mapping} \label{sec:uvmapping}
 
 Panoramic images comprehend the entire field-of-view of the user. Considering the
 equirectangular format, some mapping implementations are listed below:
 
 \begin{enumerate}
-    \item Utilize a sphere mesh to render the 360$^{\circ}$ image inside it;
-    \item Utilize a Skybox to render the 360$^{\circ}$ image on the background;
-    \item Map the 360$^{\circ}$ image to UV positions of a cubic mesh.
+    \item Utilize a sphere mesh to render the 360\degree image inside it;
+    \item Utilize a Skybox to render the 360\degree image on the background;
+    \item Map the 360\degree image to UV positions of a cubic mesh.
 \end{enumerate}
 
-Each mapping possibility has its own advantages and disadvantages in terms of resolution offered by angular direction and general distortion of the 360$^{\circ}$ image.
+Each mapping possibility has its own advantages and disadvantages in terms of resolution offered by angular direction and general distortion of the 360\degree image.
 
 \subsection{Mapping Equirectangular Images to a Sphere}
 
@@ -339,14 +340,14 @@ T = \frac{2 \pi}{N}.
 \label{longitudesize}
 \end{equation}
 
-Considering a sphere, an angular position $\alpha_{i}$ represents the ith longitude value: 
+Considering a sphere, an angular position $\alpha_{i}$ represents the ith longitude value:
 
 \begin{equation}
 \alpha_{i} = i * T,
 \label{longitudealpha}
 \end{equation}
 
-The sine and cosine of the angle T define the X and Z axes positions of the sphere points which belong to the cross section of the sphere. In such manner, assuming a sphere of radius R, the X and Z axes positions can be computed as: 
+The sine and cosine of the angle T define the X and Z axes positions of the sphere points which belong to the cross section of the sphere. In such manner, assuming a sphere of radius R, the X and Z axes positions can be computed as:
 \begin{equation}
 x_{i} = R * \sin(\alpha_{i}),
 \label{x_d}
@@ -371,7 +372,7 @@ The mth latitude value $\alpha_{ym}$ can be obtained by equation:
 \label{equation6}
 \end{equation}
 
-The $Y$ axis position $y_{m}$ for each sphere point can be obtained by considering unit radius using: 
+The $Y$ axis position $y_{m}$ for each sphere point can be obtained by considering unit radius using:
 
 \begin{equation}
 y_{m} = \cos(\alpha_{ym}),
@@ -417,13 +418,13 @@ Thus, when mapping to a sphere UV coordinates are projected into 3D space and wh
 
 
 
-\subsection{ Mapping Equirectangular Images to a Cubemap}
+\subsection{ Mapping Equirectangular Images to a Cubemap} \label{subsec:equiconvtocubemap}
 
 The first step to use a Cubemap is to generate a cube. The standard cube generated by Unity, however, does not have enough vertices for precise UV mapping. It happens as UV mapping is a sine/cosine function whereas rasterization inside of a triangle obtains UV values through linear interpolation of its vertices, thus causing distortions.
 
 For better results, we divided each triangle into four parts. From a cube of 10 vertices and 12 triangles, we obtained a 4090 vertices/triangles cube.
 
-As we generate each new vertex, it is possible to calculate its respective UV coordinate using equation 11. Noticeably, the cubemap view is equivalent to the discretization of the continuous UV mapping approach in a skybox, i.e., it is calculated per vertex instead of being applied on pixel basis. 
+As we generate each new vertex, it is possible to calculate its respective UV coordinate using equation 11. Noticeably, the cubemap view is equivalent to the discretization of the continuous UV mapping approach in a skybox, i.e., it is calculated per vertex instead of being applied on pixel basis.
 
 \subsection{Image Quality Analysis Metrics} \label{metrics}
 With regards to the metrics, the goal of the objective image quality assessment is to develop a quantitative measure that can determine the quality of any given image. It is difficult, though, to find a single objective and easy-to-calculate measurement that matches the visual inspection and is suitable for a variety of application requirements. To address this problem, we use three different metrics which are:
@@ -440,7 +441,7 @@ Similarly, SSIM assumes that neighboring pixels in an image have strong inter-de
 SSIM(x,y)=\frac{(2*\mu_x*\mu_y+C_1)*(2*\sigma_{xy}+C_2)}{(\mu^2_x+\mu^2_y+C_1)*(\sigma^2_x+\sigma^2_y+C_2)},
 \label{eq:ssim}
 \end{equation}
-where $\mu_X$ and $\mu_y$ are the mean intensity value, $\sigma^2_x$ and $\sigma^2_y$ are the variance of the corresponding images, whereas $\sigma_{xy}$ is the covariance of image $X$ and $Y$. Also, $C_1=(k_1L)^2$ and $C_1=(k_2L)^2$ are stability parameters, where $K_1=0.01$ and $k_2=0.03$. \par 
+where $\mu_X$ and $\mu_y$ are the mean intensity value, $\sigma^2_x$ and $\sigma^2_y$ are the variance of the corresponding images, whereas $\sigma_{xy}$ is the covariance of image $X$ and $Y$. Also, $C_1=(k_1L)^2$ and $C_1=(k_2L)^2$ are stability parameters, where $K_1=0.01$ and $k_2=0.03$. \par
 Peak Signal-to-noise ratio (PSNR) is the most frequently used metric for image quality assessment, and can be computed using MSE as:
 \begin{equation}
 PSNR = 10*log_{10}{\frac{(2^n-1)^2}{MSE}}.
@@ -452,7 +453,7 @@ This section presents the implementation details of the proposed method, and qua
 
 \subsection{System Architecture}
 
-Figure~\ref{fig:fig_architecture} shows the connected components in the architecture of the proposed method. The proposed architecture contain two layers: Unity layer and Python layer. Unity layer implementation involves a C$\#$ configuration layer in unity editor to generate images. Moreover, the python layer is used for calculating the objective metrics for each of the Unity-generated images. To make efficient communication, Cross-tiered communication among layers take place through the creation of new processes within the Unity editor.  
+Figure~\ref{fig:fig_architecture} shows the connected components in the architecture of the proposed method. The proposed architecture contain two layers: Unity layer and Python layer. Unity layer implementation involves a C$\#$ configuration layer in unity editor to generate images. Moreover, the python layer is used for calculating the objective metrics for each of the Unity-generated images. To make efficient communication, Cross-tiered communication among layers take place through the creation of new processes within the Unity editor.
 
 \begin{figure}[h!]
     \centering
@@ -463,7 +464,7 @@ Figure~\ref{fig:fig_architecture} shows the connected components in the architec
 
 To make pleasant user experience, an editor interface has been developed in the form of a custom unity inspector, that is, a custom view of our component in C$\#$. In this component user can define multiple preferences for the output image. These preferences include field of view angle, width and height of the image, directions of the generated image, comparison metrics to be used, and define whether graphs or a report will be generated at the end of the process. \par
 
-Furthermore, the python layer is responsible for evaluating the pairs of images generated by unity layer. These images are evaluated using the scikit, numpy, and matplotlib 
+Furthermore, the python layer is responsible for evaluating the pairs of images generated by unity layer. These images are evaluated using the scikit, numpy, and matplotlib
 libraries and the result of each metric is saved in a report at the end, which summarize all the results.
 \textcolor{red}{Reviewed}
 
@@ -479,7 +480,7 @@ libraries and the result of each metric is saved in a report at the end, which s
         \subfloat[Sphere 0; ]{\includegraphics[width=0.24\linewidth]{Screenshot_0_Sphere.jpg}%
             \label{fig:Sphere0}} \hfill
             \subfloat[Cubemap (Error Corrected); ]{\includegraphics[width=0.24\linewidth]{figs/Screenshot_0_fixedEqui2Cube.jpg}%
-            \label{fig:cubemap01}} 
+            \label{fig:cubemap01}}
           \captionsetup{justification=centering}
     \caption{a) Skybox image is used as reference; b) result image rendered using cubemap; c) rendered using sphere.}
     \label{fig_examples1}
@@ -497,7 +498,7 @@ libraries and the result of each metric is saved in a report at the end, which s
         \subfloat[Sphere 1; ]{\includegraphics[width=0.24\linewidth]{Screenshot_2_Sphere.jpg}%
             \label{fig:Sphere2}} \hfill
             \subfloat[Cubemap (Error Corrected); ]{\includegraphics[width=0.24\linewidth]{figs/Screenshot_2_fixedEqui2Cube.jpg}%
-            \label{fig:cubemap11}} 
+            \label{fig:cubemap11}}
           \captionsetup{justification=centering}
     \caption{a) Skybox image is used as reference; b) result image rendered using cubemap; c) rendered using sphere.}
     \label{fig_examples3}
@@ -505,9 +506,11 @@ libraries and the result of each metric is saved in a report at the end, which s
 
 %% Figures 2 %%
 
-The proposed tool was developed using Unity 2017.3.1F and python 2.7. This custom editor tool can be imported into any Unity project through a unitypackage, a standard format from Unity to distribute resources and tools. \textcolor{blue}{When adding VR360QualityTool script to a GameObject, the interface depicted at figure ~\ref{fig:tool} is presented. The field 'Screenshot Directions' allows to define one or more target directions, as explained in section ~\ref{sec:proposedMethod}. For this work, we used directions $D_0 = (1.0, 0.0, 0.0)$, $D_1 = (0.0, 1.0, 0.0)$ and $D_2 = (1.0, 0.0, -1.0)$. Each direction can be visualized in figures~\ref{fig_examples1},~\ref{fig_examples3} and~\ref{fig_examples6}.} 
+The proposed tool was developed using Unity 2017.3.1F and python 2.7. This custom editor tool can be imported into any Unity project through a unitypackage, a standard format from Unity to distribute resources and tools. When adding VR360QualityTool script to a GameObject, the interface depicted at figure ~\ref{fig:tool} is presented. The field 'Screenshot Directions' allows to define one or more target directions, as explained in section ~\ref{sec:proposedMethod}. For \textcolor{blue}{our experiments, we used directions $D_0 = (1.0, 0.0, 0.0)$, $D_1 = (0.0, 1.0, 0.0)$ and $D_2 = (1.0, 0.0, -1.0)$, respectively right, upside and foward. Each direction can be visualized in figures~\ref{fig_examples1},~\ref{fig_examples3} and~\ref{fig_examples6}. Different rendering approach were used in our experiments: Skybox, a sphere-based shader $S$, a cubemap shader $C_e$ with an interpolation error, and a normal cubemap shader $C_f$. Both cubemap implementations are employing equirectangular conversion as explained at subsection \ref{subsec:equiconvtocubemap} }
 
-To perform the quality assessment the value for each metric is calculated using the first image format as the default to evaluate the others. In figure~\ref{fig:skybox0} the screenshot image of the skybox is shown which is used as the reference image. The skybox rendered image is compared with those obtained with the cubemap in figure~\ref{fig:Cubemap0} and the spherical mapping in figure~\ref{fig:Sphere0}. Figures~\ref{fig_examples1},~\ref{fig_examples3} and ~\ref{fig_examples6} shows some example images of the results produced using the proposed approach. It can be inferred from the presented figures that mapping equirectangular images to sphere creates pleasant scene. Also, the structure in the result image obtained by using spherical mapping is smooth compared to cubemap. \par
+
+\textcolor{blue}{To perform the quality assessment each image is compared to its respective direction in the reference image. In figure~\ref{fig:skybox0} the screenshot image of the skybox is shown which is used as the gold standard. The skybox rendered image is compared with those obtained with the spherical rendering $S$ in figure~\ref{fig:Sphere0}, with cubemap rendering $C_e$ in figure~\ref{fig:Cubemap0} and with cubemap rendering $C_f$ in figure~\ref{fig:Cubemap1}. Figures~\ref{fig_examples1},~\ref{fig_examples3} and ~\ref{fig_examples6} shows some example images of the results produced using the proposed approach. It can be inferred from the presented figures that mapping equirectangular images to sphere are more similar to our gold standard, because Skybox rendering is a continuous sphere-based implementation. This similarity creates a pleasant scene to the user, because it's more close to widespread rendering of 360 images. Also, the structure in the result image obtained by using spherical mapping is smoother than cubemap.} \par
+
 
 Based on the obtained results, we found that the sphere images perform better than the cubemap images, possibly due to an interpolation error in fragment shader and it is visible in figures ~\ref{fig:Cubemap0} and ~\ref{fig:Cubemap1}.
 
@@ -538,30 +541,31 @@ Based on the obtained results, we found that the sphere images perform better th
 %     }
 % \end{table}
 
-\begin{table}[h!]
+\begin{table*}[t]
+ \centering
 \caption{Metrics Results Example}
        \label{table_metrics}
-\resizebox{0.5\textwidth}{!}{
-        \begin{tabular}{c|l l| l l| l l}
+\resizebox{0.8\textwidth}{!}{
+        \begin{tabular}{c|lll| lll| lll}
         \hline
-        & \multicolumn{2}{c|}{Direction 0}
-            & \multicolumn{2}{c|}{Direction 1} 
-                & \multicolumn{2}{c}{Direction 2}
+        & \multicolumn{3}{c|}{Direction 0}
+            & \multicolumn{3}{c|}{Direction 1}
+                & \multicolumn{3}{c}{Direction 2}
                  &
         \hline
             % & \begin{tabular}{c|c c|c c|c c}
             % & \multicolumn{2}{c|c|c}{Cubemap Sphere} \\
-                    & Cubemap & Sphere & Cubemap & Sphere & Cubemap & Sphere \\
-            MSE     & $551.27$ & $0.00$ & $0.93$ & $0.00$ & $20.72$ & $0.00$ \\
+                    & $S$ & $C_e$ & $C_f$& $S$ & $C_e$ & $C_f$& $S$ & $C_e$ & $C_f$ \\
+            MSE     & $50.27$ & $551.27$ & $1.29$& $39.99$ & $41.89$ & $0.70$& $27.88$ & $18.60$ & $2.40$ \\
             % \hline
-            SSIM    & $0.97$ & $1.00$ & $0.97$ & $1.00$ & $0.96$ & $1.00$ \\
+            SSIM    & $0.93$ & $0.93$ & $0.99$& $0.93$ & $0.97$ & $1.00$& $0.87$ & $0.96$ & $0.99$ \\
             % \hline
-            PSNR    & $0.97$ & $100.00$ & $0.97$ & $100.00$ & $0.96$ & $100.00$ \\
+            PSNR    & $31.12$ & $20.72$ & $47.01$& $32.11$ & $31.91$ & $49.66$& $27.88$ & $35.43$ & $44.33$ \\
             \hline
             % \end{tabular}
         \end{tabular}
     }
-\end{table}
+\end{table*}
 
 The results are summarized in the generated report, as demonstrated by the table~\ref{table_metrics}. The SSIM metric analyzes structural distortions as well as luminance and contrast differences between a reference image and the processed image. According to this metric, the sphere had the best results in all given directions.
 
@@ -578,7 +582,7 @@ The results are summarized in the generated report, as demonstrated by the table
         \subfloat[Sphere 2; ]{\includegraphics[width=0.24\linewidth]{Screenshot_5_Sphere.jpg}%
             \label{fig:Sphere2}} \hfill
              \subfloat[Cubemap (Error Corrected); ]{\includegraphics[width=0.24\linewidth]{figs/Screenshot_5_fixedEqui2Cube.jpg}%
-            \label{fig:cubemap21}} 
+            \label{fig:cubemap21}}
           \captionsetup{justification=centering}
     \caption{\textcolor{red}{Example of rendered images in direction 2 of: }a) Cubmap image is used as reference; b) result image rendered using cubemap with error; c) rendered using sphere.}
     \label{fig_examples6}
@@ -589,7 +593,7 @@ The results are summarized in the generated report, as demonstrated by the table
 
 We proposed the development of an equirectangular image quality assessment tool which uses objective metrics such as MSE, SSIM and PSNR in order to facilitate choosing among different image resolutions and mapping solutions.
 
-Our tool is integrated into the Unity Editor as Unity is the most used development engine for virtual reality applications. Different parameters were used to compare the quality of 360$^{\circ}$ images generated by three UV mapping techniques: latitude/longitude in a inverted sphere; skybox; and cubemap.
+Our tool is integrated into the Unity Editor as Unity is the most used development engine for virtual reality applications. Different parameters were used to compare the quality of 360\degree images generated by three UV mapping techniques: latitude/longitude in a inverted sphere; skybox; and cubemap.
 
 One of the disadvantages of our tool is that the user needs to know the metrics to be able to make the best parameters choice. For future work, we plan to use the current metrics to achieve a single and final evaluation value that should indicate the best result in an automated manner. Another improvement point identified is that the accuracy of the end result should be greater if the visualization is obtained directly from rendering on the mobile devices where VR applications can be executed. Thus, we also plan an embedded component in the application that allows you to reap results while running the application on the mobile device.
 
@@ -629,7 +633,7 @@ The authors would like to thank the support provided by SIDIA Instituto de Ciên
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
 \bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
-\bibliography{bibliography}
+\bibliography{equitool_sibgrapi19}
 %
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
