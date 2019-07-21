@@ -595,9 +595,9 @@ We proposed the development of an equirectangular image quality assessment tool 
 
 Our tool is integrated into the Unity Editor as Unity is the most used development engine for virtual reality applications. Different UV mapping techniques were used to visualize 360\degree images: latitude/longitude in a inverted sphere; skybox; and cubemap. We also demonstrated how to convert a equirectangular image into a cubemap texturing using a custom shader.
 
-This Unity implemention assess image quality of already implemented rendering approaches for equirectangular image visualization. Full-reference objective metrics are applied.
+This Unity implemention assess image quality of already implemented rendering approaches for equirectangular image visualization by generating viewport-based image patches. A python layer applies full-reference objective metrics in each image patch using a correspondent patch from Skybox renderization.
 
-One of the limitation of our tool is that the user needs to simulate the target device, by emulating a specific resolution and field view. For future work, we plan to obtain directly from rendering on the mobile devices where VR applications can be executed. Thus, we also plan an embedded component in the application that allows you to reap results while running the application on the mobile device. We also envisage to conduct subject evaluations in order to pick better metrics for quality assessment of image patches.
+One of the limitation of our tool is that the user needs to simulate the target device by emulating a specific resolution and field view. For future work, we plan to obtain viewport patches directly from mobile devices where VR applications can be executed. Thus, we also plan an embedded component in the application that allows to reap results while running the application on the mobile device. We also envisage to conduct subject evaluations in order to pick better metrics for quality assessment of image patches.
 
 % conference papers do not normally have an appendix
 
