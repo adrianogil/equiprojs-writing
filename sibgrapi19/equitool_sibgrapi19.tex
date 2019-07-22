@@ -591,19 +591,26 @@ After every iteration, our tool presents the metrics, for example, the table ~\r
 
 \section{Conclusion}\label{sec:conclusion}
 
-We proposed the development of an equirectangular image quality assessment tool which uses objective metrics such as MSE, SSIM and PSNR in order to facilitate choosing among different image resolutions and mapping solutions.
+We proposed the development of an equirectangular image quality assessment tool that uses objective metrics such as MSE, SSIM, and PSNR to facilitate choosing from different image resolutions and mapping solutions.
 
-Our tool is integrated into the Unity Editor as Unity is the most used development engine for virtual reality applications. Different UV mapping techniques were used to visualize 360\degree images: latitude/longitude in a inverted sphere; skybox; and cubemap. We also demonstrated how to convert a equirectangular image into a cubemap texturing using a custom shader.
+Our tool is integrated into the Unity Editor as Unity is the most used development engine for virtual reality applications. Different UV mapping techniques were used to visualize 360-degree images: latitude/longitude in an inverted sphere; skybox; and cubemap. We also demonstrated how to use an equirectangular image in a cubemap texture using a custom shader.
 
-This Unity implemention assess image quality of already implemented rendering approaches for equirectangular image visualization by generating viewport-based image patches. A python layer applies full-reference objective metrics in each image patch using a correspondent patch from Skybox renderization.
+The Unity implementation assesses the image quality through rendering techniques for equirectangular images by generating viewport-based image patches. A python layer applies the full-reference objective metrics in each image patch using a correspondent patch from the skybox renderization.
 
-One of the limitation of our tool is that the user needs to simulate the target device by emulating a specific resolution and field view. For future work, we plan to obtain viewport patches directly from mobile devices where VR applications can be executed. Thus, we also plan an embedded component in the application that allows to reap results while running the application on the mobile device. We also envisage to conduct subject evaluations in order to pick better metrics for quality assessment of image patches.
+One of the limitations of our tool is that the user needs to simulate the target device by manually setting a specific resolution and field view. For future work, we plan to obtain viewport patches directly from mobile devices where VR applications can be executed. We also plan an embedded component that allows reaping results while running the application on the mobile device. Additionally, we envision conducting subject evaluations to pick better metrics for quality assessment of image patches.
 
 % conference papers do not normally have an appendix
 
+\iffinal
 % use section* for acknowledgment
 \section*{Acknowledgment}
 The authors would like to thank the support provided by SIDIA Instituto de Ciência e Tecnologia and teams.
+\else
+
+\fi
+
+
+
 
 \bibliographystyle{IEEEtran}
 \bibliography{equitool_sibgrapi19}
